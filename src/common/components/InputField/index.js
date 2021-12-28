@@ -2,16 +2,17 @@ import React from 'react';
 import {View, Text, TextInput} from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import styles from './styles';
+import Constants from '../../constants';
 
 export const Input = ({set, titletext}) => {
   return (
     <View>
       <Text style={styles.titleText}>{titletext}</Text>
-      {titletext == 'Password' ? (
+      {titletext == Constants.PASSWORDFIELDIDENTIFICATIONSTRING ? (
         <View style={styles.inputFieldView}>
           <TextInput
             onChangeText={set}
-            placeholder={`Enter ${titletext}`}
+            placeholder={`Enter ${titletext.toUpperCase()}`}
             style={styles.inputPassField}
             secureTextEntry={true}
           />
