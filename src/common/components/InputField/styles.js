@@ -31,6 +31,7 @@ export default StyleSheet.create({
     fontSize: 16,
     color: '#232222',
     marginVertical: 15,
+    fontFamily: 'ProximaNova-Regular',
   },
   inputFieldView: {
     flexDirection: 'row',

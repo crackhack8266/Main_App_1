@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StatusBar} from 'react-native';
-import styles from './styles';
+import styles from './style';
 
 const SplashScreen = ({navigation}) => {
   setTimeout(() => {

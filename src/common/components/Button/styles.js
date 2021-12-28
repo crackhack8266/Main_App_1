@@ -29,7 +29,10 @@ export default StyleSheet.create({
     width: 20.2,
     marginRight: 10,
   },
-  buttonTextForLogin: {color: 'white', fontWeight: 'bold'},
+  buttonTextForLogin: {
+    color: 'white',
+    fontFamily: 'ProximaNova-Bold',
+  },
   loginButtonView: {
     borderRadius: 50,
     alignItems: 'center',
@@ -43,7 +46,7 @@ export default StyleSheet.create({
   },
   buttonTextForFacebookLogin: {
     color: 'black',
-    fontWeight: '700',
+    fontFamily: 'ProximaNova-Semibold',
   },
   facebookLoginButtonView: {
     borderRadius: 50,

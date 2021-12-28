@@ -14,11 +14,12 @@ export default StyleSheet.create({
   },
   registerTextBold: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'ProximaNova-Bold',
     marginLeft: 5,
   },
   registerTextNormal: {
     fontSize: 16,
+    fontFamily: 'ProximaNova-Regular',
   },
   forgotPassText: {
     fontSize: 16,
@@ -26,6 +27,7 @@ export default StyleSheet.create({
     marginRight: 25.3,
     marginVertical: 15,
     textAlign: 'left',
+    fontFamily: 'ProximaNova-Regular',
   },
   loginLogo: {
     width: 85,
@@ -37,6 +39,7 @@ export default StyleSheet.create({
   loginHeader: {
     fontSize: 22,
     fontWeight: 'bold',
+    fontFamily: 'ProximaNova-Bold',
     marginVertical: 30,
     marginHorizontal: 30,
     alignSelf: 'center',
