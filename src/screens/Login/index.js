@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {StatusBar, View, Text, Image} from 'react-native';
+import {StatusBar, View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {Input} from '../../common/components/InputField';
 import {CustomButton} from '../../common/components/Button';
+import Constants from '../../common/constants';
 
 /*const LoginScreen = () => {
   renderLoginHeader = (email, password) => {
@@ -38,13 +39,17 @@ const Login = () => {
         <View style={styles.horizontalDivider}></View>
         <Input set={setInputEmail} titletext="Email ID" />
         <Input set={setInputPassword} titletext="Password" />
-        <Text style={styles.forgotPassText}>Forgot Password?</Text>
-        <CustomButton buttitle="LOGIN" />
-        <Text> OR</Text>
-        <CustomButton buttitle="LOGIN WITH FACEBOOK" />
+        <TouchableOpacity onPress={null}>
+          <Text style={styles.forgotPassText}>Forgot Password?</Text>
+        </TouchableOpacity>
+        <CustomButton buttitle={Constants.LOGINBUTTONTEXT} />
+        <Text style={styles.orText}> OR</Text>
+        <CustomButton buttitle={Constants.LOGINWITHFACEBOOKBUTTONTEXT} />
         <View style={styles.registerView}>
           <Text style={styles.registerTextNormal}>Don't have an account?</Text>
-          <Text style={styles.registerTextBold}>REGISTER</Text>
+          <TouchableOpacity onPress={null}>
+            <Text style={styles.registerTextBold}>REGISTER</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

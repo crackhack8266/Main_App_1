@@ -72,7 +72,7 @@ export default StyleSheet.create({
     borderColor: 'red',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    width: 385,
+    width: '100%',
     height: 375.8,
   },
 });

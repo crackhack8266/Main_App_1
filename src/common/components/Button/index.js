@@ -1,24 +1,29 @@
 import React from 'react';
 import {Image, View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
+import Constants from '../../constants';
 
 export const CustomButton = ({buttitle}) => {
   return (
     <View>
-      {buttitle == 'LOGIN' ? (
+      {buttitle == Constants.LOGINBUTTONTEXT ? (
         <TouchableOpacity>
           <View style={styles.loginButtonView}>
-            <Text style={styles.buttonTextForLogin}>{buttitle}</Text>
+            <Text style={styles.buttonTextForLogin}>
+              {buttitle.toUpperCase()}
+            </Text>
           </View>
         </TouchableOpacity>
-      ) : buttitle == 'LOGIN WITH FACEBOOK' ? (
+      ) : buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT ? (
         <TouchableOpacity>
           <View style={styles.facebookLoginButtonView}>
             <Image
               source={require('../../assets/facebookicon.png')}
               style={styles.facebookIcon}
             />
-            <Text style={styles.buttonTextForFacebookLogin}>{buttitle}</Text>
+            <Text style={styles.buttonTextForFacebookLogin}>
+              {buttitle.toUpperCase()}
+            </Text>
           </View>
         </TouchableOpacity>
       ) : (

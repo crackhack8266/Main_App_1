@@ -16,12 +16,12 @@ export const Input = ({set, titletext}) => {
             style={styles.inputPassField}
             secureTextEntry={true}
           />
-          <SimpleLineIcons
+          {/*<SimpleLineIcons
             name="eye"
             size={14}
             color="black"
             style={styles.icon}
-          />
+          /> */}
         </View>
       ) : (
         <TextInput

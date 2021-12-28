@@ -1,0 +1,104 @@
+import {StyleSheet} from 'react-native';
+
+export default StyleSheet.create({
+  profileHeaderView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  incompleteProfileText: {
+    color: '#ffffff',
+    marginLeft: 69,
+  },
+  profileComplitionDetailView: {
+    width: 384,
+    height: 65,
+    borderRadius: 10,
+    backgroundColor: '#a94446',
+    position: 'absolute',
+    top: 150,
+    marginTop: 16.2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  columns2Row1View: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 30,
+  },
+  profileDetailsOverlayView: {
+    backgroundColor: 'white',
+    height: 515,
+    top: 233,
+    borderRadius: 15,
+    width: 343,
+    elevation: 1,
+    position: 'absolute',
+    marginLeft: 20,
+  },
+  profileEmailText: {
+    marginLeft: 7.8,
+    fontSize: 12,
+    fontStyle: 'italic',
+  },
+  emailIconAndEmailView: {
+    flexDirection: 'row',
+    marginTop: 5.5,
+    alignItems: 'center',
+  },
+  overlay1View: {
+    alignSelf: 'center',
+    marginLeft: 5,
+  },
+  profileNameText: {
+    width: 73,
+    height: 20,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  profileLogo: {
+    height: 60,
+    width: 60,
+    marginHorizontal: 10,
+  },
+  profileImageView: {
+    alignSelf: 'center',
+  },
+  profileNameOverlayView: {
+    backgroundColor: 'white',
+    height: 86.8,
+    alignSelf: 'center',
+    borderRadius: 20,
+    flexDirection: 'row',
+    width: 339,
+    elevation: 1,
+    position: 'absolute',
+    marginLeft: 22,
+    top: 65,
+  },
+  leftCarreticon: {
+    marginLeft: 17,
+    top: 5,
+  },
+  profileHeaderText: {
+    color: '#ffffff',
+    fontSize: 18,
+    width: 58,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    height: 23,
+  },
+  parentContainer: {
+    backgroundColor: '#f5f5f5',
+    flex: 1,
+  },
+  topSectionView: {
+    backgroundColor: '#4e4e4e',
+    width: '100%',
+    height: 128,
+    paddingTop: 7,
+    borderBottomLeftRadius: 20,
+    flexDirection: 'row',
+    borderBottomRightRadius: 20,
+  },
+});
