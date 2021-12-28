@@ -5,14 +5,16 @@ import styles from './styles';
 import Constants from '../../constants';
 
 export const Input = ({set, titletext}) => {
+  const convertedTitleText =
+    titletext.charAt(0).toUpperCase() + titletext.slice(1);
   return (
     <View>
-      <Text style={styles.titleText}>{titletext}</Text>
+      <Text style={styles.titleText}>{convertedTitleText}</Text>
       {titletext == Constants.PASSWORDFIELDIDENTIFICATIONSTRING ? (
         <View style={styles.inputFieldView}>
           <TextInput
             onChangeText={set}
-            placeholder={`Enter ${titletext.toUpperCase()}`}
+            placeholder={`Enter ${convertedTitleText}`}
             style={styles.inputPassField}
             secureTextEntry={true}
           />
@@ -26,7 +28,7 @@ export const Input = ({set, titletext}) => {
       ) : (
         <TextInput
           onChangeText={set}
-          placeholder={`Enter ${titletext}`}
+          placeholder={`Enter ${convertedTitleText}`}
           style={styles.inputEmailField}
         />
       )}

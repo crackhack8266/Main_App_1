@@ -18,7 +18,7 @@ import Constants from '../../common/constants';
 }
 */
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   return (
@@ -37,9 +37,15 @@ const Login = () => {
       <View style={styles.loginBodyOverlay}>
         <Text style={styles.loginHeader}>Login</Text>
         <View style={styles.horizontalDivider}></View>
-        <Input set={setInputEmail} titletext="Email ID" />
-        <Input set={setInputPassword} titletext="Password" />
-        <TouchableOpacity onPress={null}>
+        <Input
+          set={setInputEmail}
+          titletext={Constants.EMAILFIELDIDENTIFICATIONSTRING}
+        />
+        <Input
+          set={setInputPassword}
+          titletext={Constants.PASSWORDFIELDIDENTIFICATIONSTRING}
+        />
+        <TouchableOpacity onPress={null} navigation={navigation}>
           <Text style={styles.forgotPassText}>Forgot Password?</Text>
         </TouchableOpacity>
         <CustomButton buttitle={Constants.LOGINBUTTONTEXT} />

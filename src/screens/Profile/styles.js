@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   profileHeaderView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
     width: '100%',
   },
   incompleteProfileText: {
@@ -83,10 +83,7 @@ export default StyleSheet.create({
   profileHeaderText: {
     color: '#ffffff',
     fontSize: 18,
-    width: 58,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    height: 23,
+    marginRight: 70,
   },
   parentContainer: {
     backgroundColor: '#f5f5f5',

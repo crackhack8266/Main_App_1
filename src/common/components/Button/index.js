@@ -3,11 +3,17 @@ import {Image, View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Constants from '../../constants';
 
+import {useNavigation} from '@react-navigation/native';
+
 export const CustomButton = ({buttitle}) => {
+  const navigation = useNavigation();
   return (
     <View>
       {buttitle == Constants.LOGINBUTTONTEXT ? (
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ProfileScreen');
+          }}>
           <View style={styles.loginButtonView}>
             <Text style={styles.buttonTextForLogin}>
               {buttitle.toUpperCase()}
