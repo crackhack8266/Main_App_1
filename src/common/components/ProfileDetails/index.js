@@ -5,7 +5,7 @@ import styles from './styles';
 import Constants from '../../constants';
 
 export const ProfileDetails = ({title, value}) => {
-  function render2Column1RowLayout(title) {
+  const renderDottedLine = title => {
     if (
       title == Constants.COLUMN2ROW1IDENTIFICATIONSTRING1 ||
       title == Constants.COLUMN2ROW1IDENTIFICATIONSTRING2
@@ -34,14 +34,14 @@ export const ProfileDetails = ({title, value}) => {
         </View>
       );
     }
-  }
+  };
 
   return (
     <View style={styles.parentContainer}>
       <Text style={styles.detailTextTitle}>{title}</Text>
       <Text style={styles.detailTextValue}>{value}</Text>
 
-      {render2Column1RowLayout(title)}
+      {renderDottedLine(title)}
     </View>
   );
 };

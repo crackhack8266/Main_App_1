@@ -7,10 +7,8 @@ import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
 
 const ProfileScreen = () => {
-  return (
-    <View style={styles.parentContainer}>
-      <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
-
+  const renderProfileHeader = () => {
+    return (
       <View style={styles.topSectionView}>
         <AntDesign
           name="left"
@@ -37,7 +35,11 @@ const ProfileScreen = () => {
           </View>
         </View>
       </View>
-      {/* BelowError : Text Strings Must be rendered withing a <Text>*/}
+    );
+  };
+
+  const renderProfileCompleteBar = () => {
+    return (
       <View style={styles.profileComplitionDetailView}>
         <Text style={styles.incompleteProfileText}>
           Your profile is incomplete
@@ -47,7 +49,11 @@ const ProfileScreen = () => {
 
         <CustomButton title="View Details" />
       </View>
-      {/* AboveError : Text Strings Must be rendered withing a <Text>*/}
+    );
+  };
+
+  const renderProfileDetails = () => {
+    return (
       <View style={styles.profileDetailsOverlayView}>
         <View style={styles.columns2Row1View}>
           <ProfileDetails title="Age" value="26 Years" />
@@ -62,6 +68,15 @@ const ProfileScreen = () => {
         />
         <ProfileDetails title="Dietary Restrictions" value="Diabetic" />
       </View>
+    );
+  };
+
+  return (
+    <View style={styles.parentContainer}>
+      <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
+      {renderProfileHeader()}
+      {renderProfileCompleteBar()}
+      {renderProfileDetails()}
     </View>
   );
 };

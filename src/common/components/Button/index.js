@@ -7,9 +7,10 @@ import {useNavigation} from '@react-navigation/native';
 
 export const CustomButton = ({buttitle}) => {
   const navigation = useNavigation();
-  return (
-    <View>
-      {buttitle == Constants.LOGINBUTTONTEXT ? (
+
+  const renderCustomButton = (buttitle, navigation) => {
+    if (buttitle == Constants.LOGINBUTTONTEXT) {
+      return (
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('ProfileScreen');
@@ -20,7 +21,9 @@ export const CustomButton = ({buttitle}) => {
             </Text>
           </View>
         </TouchableOpacity>
-      ) : buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT ? (
+      );
+    } else if (buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT) {
+      return (
         <TouchableOpacity>
           <View style={styles.facebookLoginButtonView}>
             <Image
@@ -32,14 +35,18 @@ export const CustomButton = ({buttitle}) => {
             </Text>
           </View>
         </TouchableOpacity>
-      ) : (
+      );
+    } else {
+      return (
         <TouchableOpacity>
           <View style={styles.viewDetailsButtonView}>
             <Text style={styles.buttonTextForViewDetails}>View Details</Text>
           </View>
           <Text style={styles.underlinedText}>Don't show again</Text>
         </TouchableOpacity>
-      )}
-    </View>
-  );
+      );
+    }
+  };
+
+  return <View>{renderCustomButton(buttitle, navigation)}</View>;
 };

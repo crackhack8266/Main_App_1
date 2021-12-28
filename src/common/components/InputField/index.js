@@ -9,7 +9,7 @@ export const Input = ({set, titletext}) => {
     titletext.charAt(0).toUpperCase() + titletext.slice(1);
   const titleText = titletext;
 
-  function renderPasswordInputField(titletext, convertedTitleText) {
+  const renderPasswordInputField = (titletext, convertedTitleText) => {
     if (titletext == Constants.PASSWORDFIELDIDENTIFICATIONSTRING) {
       return (
         <View style={styles.inputFieldView}>
@@ -28,9 +28,8 @@ export const Input = ({set, titletext}) => {
         </View>
       );
     }
-  }
-
-  function renderSimpleInputField(titletext, convertedTitleText) {
+  };
+  const renderSimpleInputField = (titletext, convertedTitleText) => {
     if (titletext != Constants.PASSWORDFIELDIDENTIFICATIONSTRING) {
       return (
         <TextInput
@@ -40,7 +39,7 @@ export const Input = ({set, titletext}) => {
         />
       );
     }
-  }
+  };
 
   return (
     <View>
@@ -50,3 +49,30 @@ export const Input = ({set, titletext}) => {
     </View>
   );
 };
+
+{
+  /*
+  const componentFields = [
+  {
+    type: 'text',
+    errorText: '',
+    placeHolder: '',
+  },
+  {},
+];
+
+const renderFormFields = componentFields =>
+  componentFields.map(field => {
+    <View style={styles.inputFieldView}>
+      <TextInput
+        onChangeText={set}
+        placeholder={`Enter ${field.placeholder}`}
+        style={styles.inputPassField}
+        secureTextEntry={true}
+      />
+      <SimpleLineIcons name="eye" size={14} color="black" style={styles.icon} />
+    </View>;
+  });
+
+*/
+}
