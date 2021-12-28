@@ -7,10 +7,11 @@ import Constants from '../../constants';
 export const Input = ({set, titletext}) => {
   const convertedTitleText =
     titletext.charAt(0).toUpperCase() + titletext.slice(1);
-  return (
-    <View>
-      <Text style={styles.titleText}>{convertedTitleText}</Text>
-      {titletext == Constants.PASSWORDFIELDIDENTIFICATIONSTRING ? (
+  const titleText = titletext;
+
+  function renderPasswordInputField(titletext, convertedTitleText) {
+    if (titletext == Constants.PASSWORDFIELDIDENTIFICATIONSTRING) {
+      return (
         <View style={styles.inputFieldView}>
           <TextInput
             onChangeText={set}
@@ -25,13 +26,27 @@ export const Input = ({set, titletext}) => {
             style={styles.icon}
           />
         </View>
-      ) : (
+      );
+    }
+  }
+
+  function renderSimpleInputField(titletext, convertedTitleText) {
+    if (titletext != Constants.PASSWORDFIELDIDENTIFICATIONSTRING) {
+      return (
         <TextInput
           onChangeText={set}
           placeholder={`Enter ${convertedTitleText}`}
           style={styles.inputEmailField}
         />
-      )}
+      );
+    }
+  }
+
+  return (
+    <View>
+      <Text style={styles.titleText}>{convertedTitleText}</Text>
+      {renderPasswordInputField(titletext, convertedTitleText)}
+      {renderSimpleInputField(titleText, convertedTitleText)}
     </View>
   );
 };
