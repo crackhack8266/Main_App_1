@@ -1,7 +1,7 @@
 import React from 'react';
-import {AntDesign} from 'react-native-vector-icons';
-import {FontAwesome} from 'react-native-vector-icons';
-import {View, Text, Image, StatusBar, ScrollView} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {View, Text, Image, StatusBar} from 'react-native';
 import {ProfileDetails} from '../../common/components/ProfileDetails';
 import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
@@ -12,6 +12,12 @@ const ProfileScreen = () => {
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
 
       <View style={styles.topSectionView}>
+        <AntDesign
+          name="left"
+          size={16}
+          color="white"
+          style={styles.leftCarreticon}
+        />
         <View style={styles.profileHeaderView}>
           <Text style={styles.profileHeaderText}>Profile</Text>
         </View>
@@ -25,6 +31,7 @@ const ProfileScreen = () => {
           <View style={styles.overlay1View}>
             <Text style={styles.profileNameText}>John Doe</Text>
             <View style={styles.emailIconAndEmailView}>
+              <FontAwesome name="envelope" size={12} color="grey" />
               <Text style={styles.profileEmailText}>Johndoe@nutrition.com</Text>
             </View>
           </View>

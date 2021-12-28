@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, TextInput} from 'react-native';
-//import {SimpleLineIcons} from 'react-native-vector-icons';
-//Check the above line if included showing errors
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import styles from './styles';
 
 export const Input = ({set, titletext}) => {
@@ -16,12 +15,12 @@ export const Input = ({set, titletext}) => {
             style={styles.inputPassField}
             secureTextEntry={true}
           />
-          {/*<SimpleLineIcons
+          <SimpleLineIcons
             name="eye"
             size={14}
             color="black"
             style={styles.icon}
-          /> */}
+          />
         </View>
       ) : (
         <TextInput
