@@ -28,7 +28,7 @@ export default StyleSheet.create({
   },
   profileDetailsOverlayView: {
     backgroundColor: 'white',
-    height: 515,
+    height: 915,
     top: 233,
     borderRadius: 15,
     width: 343,

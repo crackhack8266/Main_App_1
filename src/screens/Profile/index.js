@@ -1,39 +1,20 @@
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {View, Text, Image, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StatusBar,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import {ProfileDetails} from '../../common/components/ProfileDetails';
 import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
+import Constants from '../../common/constants/';
 
-const ProfileScreen = () => {
-  const profileDetailsProps = [
-    {
-      id: 1,
-      title: 'Height',
-      value: '5.4 ft/inches',
-    },
-    {
-      id: 2,
-      title: 'Current Weight',
-      value: '250 Lbs',
-    },
-    {
-      id: 3,
-      title: 'Weight Goals',
-      value: 'Target 140 Lbs',
-    },
-    {
-      id: 4,
-      title: 'Physical Activity Level',
-      value: 'Moderate exercise (3-5 days per week)',
-    },
-    {
-      id: 5,
-      title: 'Dietary Restrictions',
-      value: 'Diabetic',
-    },
-  ];
+function ProfileScreen() {
   const renderProfileHeader = () => {
     return (
       <View style={styles.topSectionView}>
@@ -103,15 +84,19 @@ const ProfileScreen = () => {
       </View>
     );
   };
-
+  const screenHeight = Dimensions.get('window').height;
   return (
-    <View style={styles.parentContainer}>
-      <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
-      {renderProfileHeader()}
-      {renderProfileCompleteBar()}
-      {renderProfileDetails(profileDetailsProps)}
+    <View style={{height: screenHeight, ...styles.parentContainer}}>
+      <ScrollView>
+        <View style={{height: screenHeight + 200}}>
+          <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
+          {renderProfileHeader()}
+          {renderProfileCompleteBar()}
+          {renderProfileDetails(Constants.profileDetailsProps)}
+        </View>
+      </ScrollView>
     </View>
   );
-};
+}
 
 export default ProfileScreen;
