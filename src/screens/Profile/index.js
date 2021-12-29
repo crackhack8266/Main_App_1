@@ -88,7 +88,7 @@ function ProfileScreen() {
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
       <ScrollView>
-        <View style={{height: screenHeight + 200}}>
+        <View style={{height: screenHeight + 300}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
           {renderProfileHeader()}
           {renderProfileCompleteBar()}

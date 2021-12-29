@@ -33,26 +33,6 @@ const Constants = {
       title: 'Dietary Restrictions',
       value: 'Diabetic',
     },
-    {
-      id: 6,
-      title: 'Dietary Restrictions',
-      value: 'Diabetic',
-    },
-    {
-      id: 7,
-      title: 'Dietary Restrictions',
-      value: 'Diabetic',
-    },
-    {
-      id: 8,
-      title: 'Dietary Restrictions',
-      value: 'Diabetic',
-    },
-    {
-      id: 9,
-      title: 'Dietary Restrictions',
-      value: 'Diabetic',
-    },
   ],
 };
 export default Constants;
