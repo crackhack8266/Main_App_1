@@ -14,7 +14,7 @@ import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
 import Constants from '../../common/constants/';
 
-function ProfileScreen() {
+const ProfileScreen = () => {
   const renderProfileHeader = () => {
     return (
       <View style={styles.topSectionView}>
@@ -84,6 +84,19 @@ function ProfileScreen() {
       </View>
     );
   };
+
+  const renderNutritionalGoals = () => {
+    return (
+      <View style={styles.nutritionalGoalsOverlay}>
+        <Text style={styles.nutritionalGoalsTitle}>Nutritional Goals</Text>
+        <View style={styles.divider}></View>
+        <View style={styles.childOfNutritionalGoals}>
+          <Text>Hello</Text>
+        </View>
+      </View>
+    );
+  };
+
   const screenHeight = Dimensions.get('window').height;
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
@@ -93,10 +106,11 @@ function ProfileScreen() {
           {renderProfileHeader()}
           {renderProfileCompleteBar()}
           {renderProfileDetails(Constants.profileDetailsProps)}
+          {renderNutritionalGoals()}
         </View>
       </ScrollView>
     </View>
   );
-}
+};
 
 export default ProfileScreen;

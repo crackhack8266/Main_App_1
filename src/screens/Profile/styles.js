@@ -98,4 +98,40 @@ export default StyleSheet.create({
     flexDirection: 'row',
     borderBottomRightRadius: 20,
   },
+
+  // Last Section: Nutritional Overlay
+  nutritionalGoalsOverlay: {
+    backgroundColor: 'white',
+    height: 171,
+    top: 765,
+    borderRadius: 15,
+    width: 343,
+    elevation: 1,
+    position: 'absolute',
+    marginHorizontal: 20,
+  },
+
+  nutritionalGoalsTitle: {
+    marginHorizontal: 13,
+    marginVertical: 15,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 7,
+    color: '#252122',
+  },
+
+  divider: {
+    backgroundColor: '#f2efef',
+    marginTop: 8,
+    width: '100%',
+    height: 1,
+  },
+  childOfNutritionalGoals: {
+    backgroundColor: '#f9b7b8',
+    marginTop: 15,
+    height: 40,
+    width: 311,
+    borderRadius: 5,
+    marginHorizontal: 13,
+  },
 });
