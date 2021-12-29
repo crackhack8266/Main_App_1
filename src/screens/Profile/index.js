@@ -7,6 +7,33 @@ import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
 
 const ProfileScreen = () => {
+  const profileDetailsProps = [
+    {
+      id: 1,
+      title: 'Height',
+      value: '5.4 ft/inches',
+    },
+    {
+      id: 2,
+      title: 'Current Weight',
+      value: '250 Lbs',
+    },
+    {
+      id: 3,
+      title: 'Weight Goals',
+      value: 'Target 140 Lbs',
+    },
+    {
+      id: 4,
+      title: 'Physical Activity Level',
+      value: 'Moderate exercise (3-5 days per week)',
+    },
+    {
+      id: 5,
+      title: 'Dietary Restrictions',
+      value: 'Diabetic',
+    },
+  ];
   const renderProfileHeader = () => {
     return (
       <View style={styles.topSectionView}>
@@ -52,21 +79,27 @@ const ProfileScreen = () => {
     );
   };
 
-  const renderProfileDetails = () => {
+  const renderProfileDetails_withFullWidth_dottedline = profileDetailsProps => {
+    return profileDetailsProps.map(field => {
+      return (
+        <ProfileDetails
+          title={field.title}
+          value={field.value}
+          key={field.id}
+        />
+      );
+    });
+  };
+  const renderProfileDetails = profileDetailsProps => {
     return (
+      //Implement Flatlist or use map()
       <View style={styles.profileDetailsOverlayView}>
         <View style={styles.columns2Row1View}>
           <ProfileDetails title="Age" value="26 Years" />
           <ProfileDetails title="Sex" value="Male" />
         </View>
-        <ProfileDetails title="Height" value="5.4 ft/inches" />
-        <ProfileDetails title="Current Weight" value="250 Lbs" />
-        <ProfileDetails title="Weight Goals" value="Target 140 Lbs" />
-        <ProfileDetails
-          title="Physical Activity Level"
-          value="Moderate exercise (3-5 days per week)"
-        />
-        <ProfileDetails title="Dietary Restrictions" value="Diabetic" />
+
+        {renderProfileDetails_withFullWidth_dottedline(profileDetailsProps)}
       </View>
     );
   };
@@ -76,7 +109,7 @@ const ProfileScreen = () => {
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
       {renderProfileHeader()}
       {renderProfileCompleteBar()}
-      {renderProfileDetails()}
+      {renderProfileDetails(profileDetailsProps)}
     </View>
   );
 };

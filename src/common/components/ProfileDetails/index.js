@@ -5,11 +5,14 @@ import styles from './styles';
 import Constants from '../../constants';
 
 export const ProfileDetails = ({title, value}) => {
+  const convertedText1 =
+    Constants.COLUMN2ROW1IDENTIFICATIONSTRING1.charAt(0).toUpperCase() +
+    title.slice(1);
+  const convertedText2 =
+    Constants.COLUMN2ROW1IDENTIFICATIONSTRING2.charAt(0).toUpperCase() +
+    title.slice(1);
   const renderDottedLine = title => {
-    if (
-      title == Constants.COLUMN2ROW1IDENTIFICATIONSTRING1 ||
-      title == Constants.COLUMN2ROW1IDENTIFICATIONSTRING2
-    ) {
+    if (title == convertedText1 || title == convertedText2) {
       return (
         <View style={styles.dottedline}>
           <DashedLine
