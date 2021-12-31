@@ -13,6 +13,7 @@ import {ProfileDetails} from '../../common/components/ProfileDetails';
 import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
 import Constants from '../../common/constants/';
+import {NutriSections} from '../../common/components/NutriSections';
 
 const ProfileScreen = () => {
   const renderProfileHeader = () => {
@@ -89,32 +90,20 @@ const ProfileScreen = () => {
     );
   };
 
-const renderNutritionalGoalsSection = () => {
-    profileDetailsProps.map(field => {
-      return (
-        <View style={styles.childOfNutritionalGoals}>
-        <Text style={styles.nurtitionalLists}>Nurtients</Text>
-        <AntDesign
-          name="rightcircle"
-          size={16}
-          color="#a94446"
-          style={styles.rightCircle}
-        />
-      </View>
-      );
-    });
-  )
-}
-
-  const renderNutritionalGoals = (NURTITIONALGOALSSECTIONPROPS) => {
+  const renderNutritionalGoals = NURTITIONALGOALSSECTIONPROPS => {
     return (
       <View style={styles.nutritionalGoalsOverlay}>
         <Text style={styles.nutritionalGoalsTitle}>Nutritional Goals</Text>
         <View style={styles.divider}></View>
-        
-        
+        {renderNutritionalGoalsSection(NURTITIONALGOALSSECTIONPROPS)}
       </View>
     );
+  };
+
+  const renderNutritionalGoalsSection = NURTITIONALGOALSSECTIONPROPS => {
+    return NURTITIONALGOALSSECTIONPROPS.map(section => {
+      return <NutriSections name={section.name} key={section.key} />;
+    });
   };
 
   const screenHeight = Dimensions.get('window').height;
