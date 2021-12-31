@@ -89,14 +89,30 @@ const ProfileScreen = () => {
     );
   };
 
-  const renderNutritionalGoals = () => {
+const renderNutritionalGoalsSection = () => {
+    profileDetailsProps.map(field => {
+      return (
+        <View style={styles.childOfNutritionalGoals}>
+        <Text style={styles.nurtitionalLists}>Nurtients</Text>
+        <AntDesign
+          name="rightcircle"
+          size={16}
+          color="#a94446"
+          style={styles.rightCircle}
+        />
+      </View>
+      );
+    });
+  )
+}
+
+  const renderNutritionalGoals = (NURTITIONALGOALSSECTIONPROPS) => {
     return (
       <View style={styles.nutritionalGoalsOverlay}>
         <Text style={styles.nutritionalGoalsTitle}>Nutritional Goals</Text>
         <View style={styles.divider}></View>
-        <View style={styles.childOfNutritionalGoals}>
-          <Text>Hello</Text>
-        </View>
+        
+        
       </View>
     );
   };
@@ -110,7 +126,7 @@ const ProfileScreen = () => {
           {renderProfileHeader()}
           {renderProfileCompleteBar()}
           {renderProfileDetails(Constants.profileDetailsProps)}
-          {renderNutritionalGoals()}
+          {renderNutritionalGoals(Constants.NURTITIONALGOALSSECTIONPROPS)}
         </View>
       </ScrollView>
     </View>

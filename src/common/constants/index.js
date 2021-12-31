@@ -34,5 +34,15 @@ const Constants = {
       value: 'Diabetic',
     },
   ],
+  NURTITIONALGOALSSECTIONPROPS: [
+    {
+      id: 1,
+      name: 'Nutrients',
+    },
+    {
+      id: 2,
+      name: 'Food Sources',
+    },
+  ],
 };
 export default Constants;
