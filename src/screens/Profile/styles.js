@@ -9,6 +9,7 @@ export default StyleSheet.create({
   incompleteProfileText: {
     color: '#ffffff',
     marginLeft: 69,
+    lineHeight: 16.7,
     fontSize: 12,
     fontFamily: 'Merriweather-Regular',
   },
@@ -124,6 +125,7 @@ export default StyleSheet.create({
     marginVertical: 15,
     fontSize: 16,
     fontWeight: '900',
+    fontFamily: 'Merriweather-Bold',
     marginTop: 16,
     marginLeft: 20,
     marginBottom: 12.9,

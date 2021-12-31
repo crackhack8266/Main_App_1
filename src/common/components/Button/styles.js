@@ -4,6 +4,7 @@ export default StyleSheet.create({
   underlinedText: {
     textDecorationLine: 'underline',
     fontSize: 10,
+    fontFamily: 'Merriweather-Regular',
     marginLeft: 30,
     color: 'white',
   },
