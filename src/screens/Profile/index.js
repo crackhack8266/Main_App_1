@@ -1,6 +1,6 @@
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import {
   View,
   Text,
@@ -37,7 +37,10 @@ const ProfileScreen = () => {
           <View style={styles.overlay1View}>
             <Text style={styles.profileNameText}>John Doe</Text>
             <View style={styles.emailIconAndEmailView}>
-              <FontAwesome name="envelope" size={12} color="grey" />
+              <Image
+                source={require('../../common/assets/envelope.png')}
+                style={styles.envelope}
+              />
               <Text style={styles.profileEmailText}>Johndoe@nutrition.com</Text>
             </View>
           </View>
@@ -67,6 +70,7 @@ const ProfileScreen = () => {
           title={field.title}
           value={field.value}
           key={field.id}
+          id={field.id}
         />
       );
     });
@@ -76,8 +80,8 @@ const ProfileScreen = () => {
       //Implement Flatlist or use map()
       <View style={styles.profileDetailsOverlayView}>
         <View style={styles.columns2Row1View}>
-          <ProfileDetails title="Age" value="26 Years" />
-          <ProfileDetails title="Sex" value="Male" />
+          <ProfileDetails title="Age" value="26 Years" id={null} />
+          <ProfileDetails title="Sex" value="Male" id={null} />
         </View>
 
         {renderProfileDetails_withFullWidth_dottedline(profileDetailsProps)}

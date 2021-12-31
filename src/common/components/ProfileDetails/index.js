@@ -4,7 +4,7 @@ import DashedLine from 'react-native-dashed-line';
 import styles from './styles';
 import Constants from '../../constants';
 
-export const ProfileDetails = ({title, value}) => {
+export const ProfileDetails = ({title, value, id}) => {
   const convertedText1 =
     Constants.COLUMN2ROW1IDENTIFICATIONSTRING1.charAt(0).toUpperCase() +
     title.slice(1);
@@ -12,7 +12,10 @@ export const ProfileDetails = ({title, value}) => {
     Constants.COLUMN2ROW1IDENTIFICATIONSTRING2.charAt(0).toUpperCase() +
     title.slice(1);
   const renderDottedLine = title => {
-    if (title == convertedText1 || title == convertedText2) {
+    if (
+      (title == convertedText1 || title == convertedText2) &&
+      Constants.profileDetailsProps.length != id
+    ) {
       return (
         <View style={styles.dottedline}>
           <DashedLine
@@ -24,6 +27,8 @@ export const ProfileDetails = ({title, value}) => {
           />
         </View>
       );
+    } else if (Constants.profileDetailsProps.length == id) {
+      return null;
     } else {
       return (
         <View style={styles.dottedLineFullWidth}>

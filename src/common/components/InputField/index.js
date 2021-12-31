@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import {View, Text, TextInput, Image} from 'react-native';
 import styles from './styles';
 import Constants from '../../constants';
 
@@ -19,10 +18,8 @@ export const Input = ({set, titletext}) => {
             style={styles.inputPassField}
             secureTextEntry={true}
           />
-          <SimpleLineIcons
-            name="eye"
-            size={14}
-            color="black"
+          <Image
+            source={require('../../assets/eye-open2x.png')}
             style={styles.icon}
           />
         </View>
@@ -43,7 +40,7 @@ export const Input = ({set, titletext}) => {
 
   return (
     <View>
-      <Text style={styles.titleText}>{convertedTitleText}</Text>
+      <Text style={styles.titleText}>{convertedTitleText} *</Text>
       {renderPasswordInputField(titletext, convertedTitleText)}
       {renderSimpleInputField(titleText, convertedTitleText)}
     </View>
