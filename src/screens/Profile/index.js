@@ -102,7 +102,7 @@ const ProfileScreen = () => {
 
   const renderNutritionalGoalsSection = NURTITIONALGOALSSECTIONPROPS => {
     return NURTITIONALGOALSSECTIONPROPS.map(section => {
-      return <NutriSections name={section.name} key={section.key} />;
+      return <NutriSections name={section.name} key={section.id} />;
     });
   };
 
@@ -110,7 +110,7 @@ const ProfileScreen = () => {
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
       <ScrollView>
-        <View style={{height: screenHeight + 300}}>
+        <View style={{height: screenHeight + 75}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
           {renderProfileHeader()}
           {renderProfileCompleteBar()}
