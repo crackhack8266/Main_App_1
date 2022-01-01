@@ -43,6 +43,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   icon: {
     width: 15.2,
     height: 9.8,

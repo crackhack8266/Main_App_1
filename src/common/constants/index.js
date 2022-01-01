@@ -7,6 +7,8 @@ const Constants = {
   EMAILFIELDIDENTIFICATIONSTRING: 'email ID',
   COLUMN2ROW1IDENTIFICATIONSTRING1: 'age',
   COLUMN2ROW1IDENTIFICATIONSTRING2: 'sex',
+  HEADERTITLE: 'Find Your Meals',
+  SEARCHTEXT: 'search meal',
   profileDetailsProps: [
     {
       id: 1,
