@@ -3,6 +3,7 @@ import {View, Text, StatusBar, Image} from 'react-native';
 import styles from './styles';
 import Constants from '../../common/constants';
 import {SearchBar} from '../../common/components/SearchBar';
+import {ListOfMeals} from '../../common/components/ListOfMeals';
 
 const renderHeader = () => {
   return (
@@ -34,6 +35,14 @@ const renderSearchBar = setSearchQuery => {
   );
 };
 
+const renderListOfMeals = () => {
+  return (
+    <View>
+      <ListOfMeals />
+    </View>
+  );
+};
+
 const OrderScreen = () => {
   const [searchquery, setSearchQuery] = useState('');
   return (
@@ -41,6 +50,7 @@ const OrderScreen = () => {
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
       {renderHeader()}
       {renderSearchBar(setSearchQuery)}
+      {renderListOfMeals()}
     </View>
   );
 };
