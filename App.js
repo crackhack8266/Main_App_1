@@ -6,14 +6,16 @@ import Login from './src/screens/Login';
 import ProfileScreen from './src/screens/Profile';
 import SplashScreen from './src/screens/SplashScreen';
 import OrderScreen from './src/screens/OrderNow';
+import NutriDoc from './src/screens/NutriDoc';
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="OrderScreen"
-        screenOptions={{headerShown: false}}>
+        initialRouteName="NutriDoc"
+        //</NavigationContainer>screenOptions={{headerShown: false}}
+      >
         <Stack.Screen
           name="Login"
           component={Login}
@@ -28,6 +30,16 @@ const App = () => {
           name="SplashScreen"
           component={SplashScreen}
           options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NutriDoc"
+          component={NutriDoc}
+          options={{
+            title: 'My Nutri Doc',
+            headerTitleStyle: {
+              fontFamily: 'Merriweather-Regular',
+            },
+          }}
         />
         <Stack.Screen
           name="ProfileScreen"
