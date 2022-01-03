@@ -10,6 +10,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     marginTop: 35.2,
+    marginBottom: -19.2,
   },
   aboveLine: {
     height: 109.8,
@@ -141,5 +142,36 @@ export default StyleSheet.create({
     color: 'black',
     marginTop: 4,
     marginLeft: 7,
+  },
+  rightDetailsColumns_1st_row: {
+    flexDirection: 'row',
+  },
+  infoView: {
+    width: 21.6,
+    height: 21.6,
+    backgroundColor: '#b7b7b7',
+    borderRadius: 25,
+    marginLeft: 89,
+  },
+  green: {
+    width: 36.2,
+    height: 29.9,
+    marginTop: 6.9,
+    marginLeft: 8.2,
+    marginTop: -8.9,
+  },
+  red: {
+    width: 36.2,
+    height: 29.9,
+    marginTop: 6.9,
+    marginLeft: 8.2,
+    marginTop: -8.9,
+  },
+  yellow: {
+    width: 36.2,
+    height: 29.9,
+    marginTop: 6.9,
+    marginLeft: 8.2,
+    marginTop: -8.9,
   },
 });

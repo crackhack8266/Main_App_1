@@ -46,5 +46,31 @@ const Constants = {
       name: 'Food Sources',
     },
   ],
+  LISTOFMEALS_PROPS: [
+    {
+      id: 1,
+      src: 'green',
+    },
+    {
+      id: 2,
+      src: 'yellow',
+    },
+    {
+      id: 3,
+      src: 'red',
+    },
+    {
+      id: 4,
+      src: 'green',
+    },
+    {
+      id: 5,
+      src: 'yellow',
+    },
+    {
+      id: 6,
+      src: 'red',
+    },
+  ],
 };
 export default Constants;
