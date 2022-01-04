@@ -11,11 +11,32 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 import Goals from '../../common/components/Goals';
 import Constants from '../../common/constants';
+import StackedBarChart from 'react-native-chart-kit';
+
+const data = {
+  labels: ['Carbs', 'Fats', 'Proteins'],
+  data: [
+    [60, 60, 60],
+    [30, 30, 60],
+  ],
+  barColors: ['#7dedde', '#434348', '#7cb5ec', '#7d97ed', '#4099af', '#ed897d'],
+};
 
 const renderGoals = goals => {
   return goals.map(goal => {
     return <Goals key={goal.id} title={goal.title} img={goal.img} />;
   });
+};
+
+const renderChart = data => {
+  <StackedBarChart
+    style={graphStyle}
+    data={data}
+    width={298}
+    height={200}
+    strokeWidth={16}
+    chartConfig={chartConfig}
+  />;
 };
 
 const NutriDoc = () => {
@@ -98,6 +119,7 @@ const NutriDoc = () => {
         <Text style={styles.macroNutrientsSubHeading}>
           Distribution of macronutrients you have consumed shown below.
         </Text>
+        {renderChart(data)}
         <Text style={styles.myGoalsTitle}>Am I Achieving My Goals?</Text>
         <View style={styles.overlay}>{renderGoals(Constants.GOALS)}</View>
       </View>

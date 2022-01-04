@@ -132,7 +132,7 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 2,
     marginTop: 23,
-    marginHorizontal: 38,
+    marginHorizontal: 41,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#d5d5d5',
