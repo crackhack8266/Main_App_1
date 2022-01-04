@@ -10,6 +10,13 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 import Goals from '../../common/components/Goals';
+import Constants from '../../common/constants';
+
+const renderGoals = goals => {
+  return goals.map(goal => {
+    return <Goals key={goal.id} title={goal.title} img={goal.img} />;
+  });
+};
 
 const NutriDoc = () => {
   const [active, setActive] = useState(2);
@@ -92,9 +99,7 @@ const NutriDoc = () => {
           Distribution of macronutrients you have consumed shown below.
         </Text>
         <Text style={styles.myGoalsTitle}>Am I Achieving My Goals?</Text>
-        <View style={styles.overlay}>
-          <Goals />
-        </View>
+        <View style={styles.overlay}>{renderGoals(Constants.GOALS)}</View>
       </View>
     </View>
   );

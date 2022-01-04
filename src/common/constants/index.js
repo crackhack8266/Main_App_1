@@ -72,5 +72,22 @@ const Constants = {
       src: 'red',
     },
   ],
+  GOALS: [
+    {
+      id: 1,
+      title: 'Carbohydrates',
+      img: 'checkmark',
+    },
+    {
+      id: 2,
+      title: 'Fats',
+      img: 'equivalent',
+    },
+    {
+      id: 3,
+      title: 'Proteins',
+      img: 'close',
+    },
+  ],
 };
 export default Constants;

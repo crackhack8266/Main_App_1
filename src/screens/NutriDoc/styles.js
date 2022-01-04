@@ -4,6 +4,7 @@ export default StyleSheet.create({
   parentContainer: {
     flex: 1,
     backgroundColor: '#ffffff',
+    marginTop: 2,
   },
   nutriScore: {
     width: 341,
@@ -127,7 +128,7 @@ export default StyleSheet.create({
   },
   macroNutrients: {
     width: 298,
-    height: 501.3,
+    height: 531.3,
     backgroundColor: '#fff',
     elevation: 2,
     marginTop: 23,

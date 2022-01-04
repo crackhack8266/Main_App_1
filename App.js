@@ -38,6 +38,7 @@ const App = () => {
             title: 'My Nutri Doc',
             headerTitleStyle: {
               fontFamily: 'Merriweather-Regular',
+              elevation: 10,
             },
           }}
         />
