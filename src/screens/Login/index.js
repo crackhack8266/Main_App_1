@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {StatusBar, View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  StatusBar,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import styles from './styles';
 import {Input} from '../../common/components/InputField';
 import {CustomButton} from '../../common/components/Button';
@@ -46,13 +54,18 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
 };
 
 const Login = () => {
+  const screenHeight = Dimensions.get('window').height;
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   return (
-    <View style={styles.parentContainer}>
+    <View style={{height: screenHeight, ...styles.parentContainer}}>
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
-      {renderLoginHeader()}
-      {renderLoginBody(setInputEmail, setInputPassword)}
+      <ScrollView>
+        <View style={{height: screenHeight - 10}}>
+          {renderLoginHeader()}
+          {renderLoginBody(setInputEmail, setInputPassword)}
+        </View>
+      </ScrollView>
     </View>
   );
 };
