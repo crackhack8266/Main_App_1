@@ -1,93 +1,12 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {View, Image} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Login from './src/screens/Login';
-import ProfileScreen from './src/screens/Profile';
-import styles from './styles';
-import SplashScreen from './src/screens/SplashScreen';
-import OrderScreen from './src/screens/OrderNow';
-import NutriDoc from './src/screens/NutriDoc';
-import DashedLine from 'react-native-dashed-line';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-const Tab = createBottomTabNavigator();
+import BottomTabNavigator from './src/common/components/Navigation';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName={SplashScreen}
-        screenOptions={{
-          activeTintColor: 'tomato',
-          inactiveTintColor: 'grey',
-          tabBarShowLabel: false,
-        }}>
-        <Tab.Screen
-          name="OrderScreen"
-          component={OrderScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({focused}) => (
-              <View style={styles.commonView}>
-                <Image
-                  source={require('./src/common/assets/Home.png')}
-                  style={styles.homeIcon}
-                />
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({focused}) => (
-              <View style={styles.commonView}>
-                <Image
-                  source={require('./src/common/assets/Feed.png')}
-                  style={styles.feedIcon}
-                />
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="NutriDoc"
-          component={NutriDoc}
-          options={{
-            headerShown: true,
-            tabBarIcon: ({focused}) => (
-              <View style={styles.commonView}>
-                <Image
-                  source={require('./src/common/assets/SPA.png')}
-                  style={styles.spaIcon}
-                />
-              </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ProfileScreen"
-          component={ProfileScreen}
-          options={{
-            headerShown: false,
-            tabBarIcon: ({focused}) => (
-              <View style={styles.commonView}>
-                <Image
-                  source={require('./src/common/assets/BottomProfile.png')}
-                  style={styles.bottomProfileIcon}
-                />
-                <View style={styles.bottomProfileView}></View>
-              </View>
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <BottomTabNavigator />
       {/*<Stack.Navigator
         initialRouteName="NutriDoc"
         //</NavigationContainer>screenOptions={{headerShown: false}}
