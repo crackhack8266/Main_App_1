@@ -11,20 +11,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 import Goals from '../../common/components/Goals';
 import Constants from '../../common/constants';
-<<<<<<< HEAD
-import {StackedBarChart} from 'react-native-chart-kit';
-=======
 import StackedBarChart from 'react-native-chart-kit';
-
-const data = {
-  labels: ['Carbs', 'Fats', 'Proteins'],
-  data: [
-    [60, 60, 60],
-    [30, 30, 60],
-  ],
-  barColors: ['#7dedde', '#434348', '#7cb5ec', '#7d97ed', '#4099af', '#ed897d'],
-};
->>>>>>> 80b9728b5c5962ac44adc8a668ff5dca551e007c
 
 const renderGoals = goals => {
   return goals.map(goal => {
@@ -32,40 +19,7 @@ const renderGoals = goals => {
   });
 };
 
-<<<<<<< HEAD
-const renderChart = (data, chartConfig) => {
-  <StackedBarChart
-=======
-const renderChart = data => {
-  <StackedBarChart
-    style={graphStyle}
->>>>>>> 80b9728b5c5962ac44adc8a668ff5dca551e007c
-    data={data}
-    width={298}
-    height={200}
-    strokeWidth={16}
-    chartConfig={chartConfig}
-  />;
-};
-
 const NutriDoc = () => {
-  const data = {
-    labels: ['Carbs', 'Fats', 'Proteins'],
-    data: [
-      [60, 60, 60],
-      [30, 30, 60],
-    ],
-    barColors: ['#7dedde', '#434348', '#7cb5ec'],
-  };
-  const chartConfig = {
-    backgroundGradientFrom: '#1E2923',
-    backgroundGradientFromOpacity: 0,
-    backgroundGradientTo: '#08130D',
-    backgroundGradientToOpacity: 0.5,
-    strokeWidth: 2, // optional, default 3
-    barPercentage: 0.5,
-    useShadowColorFromDataset: false,
-  };
   const [active, setActive] = useState(2);
   return (
     <View style={styles.parentContainer}>
@@ -145,12 +99,7 @@ const NutriDoc = () => {
         <Text style={styles.macroNutrientsSubHeading}>
           Distribution of macronutrients you have consumed shown below.
         </Text>
-<<<<<<< HEAD
-        {renderChart(data, chartConfig)}
 
-=======
-        {renderChart(data)}
->>>>>>> 80b9728b5c5962ac44adc8a668ff5dca551e007c
         <Text style={styles.myGoalsTitle}>Am I Achieving My Goals?</Text>
         <View style={styles.overlay}>{renderGoals(Constants.GOALS)}</View>
       </View>
