@@ -54,7 +54,7 @@ const OrderScreen = () => {
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
       <ScrollView>
-        <View style={{height: screenHeight + 400}}>
+        <View style={{height: screenHeight + 340}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
           {renderHeader()}
           {renderSearchBar(setSearchQuery)}

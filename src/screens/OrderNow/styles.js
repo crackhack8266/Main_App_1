@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   header: {
     width: '100%',
-    height: 101.8,
+    height: 77.8,
     backgroundColor: '#4e4e4e',
   },
   headerHeading: {
@@ -47,6 +47,6 @@ export default StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 48,
     position: 'absolute',
-    top: 77,
+    top: 53,
   },
 });

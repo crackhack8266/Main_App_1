@@ -13,7 +13,7 @@ export const CustomButton = ({buttitle}) => {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ProfileScreen');
+            navigation.navigate('BottomTabNavigator');
           }}>
           <View style={styles.loginButtonView}>
             <Text style={styles.buttonTextForLogin}>

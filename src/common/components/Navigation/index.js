@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Image} from 'react-native';
 import Login from '../../../screens/Login';
 import ProfileScreen from '../../../screens/Profile';
-import styles from './styles';
+import styles from '../../../../styles';
 import SplashScreen from '../../../screens/SplashScreen';
 import OrderScreen from '../../../screens/OrderNow';
 import NutriDoc from '../../../screens/NutriDoc';
@@ -12,7 +12,6 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName={SplashScreen}
       screenOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'grey',
@@ -33,21 +32,7 @@ const BottomTabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({focused}) => (
-            <View style={styles.commonView}>
-              <Image
-                source={require('../../assets/Feed.png')}
-                style={styles.feedIcon}
-              />
-            </View>
-          ),
-        }}
-      />
+
       <Tab.Screen
         name="NutriDoc"
         component={NutriDoc}
