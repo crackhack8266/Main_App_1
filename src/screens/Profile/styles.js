@@ -111,7 +111,7 @@ export default StyleSheet.create({
   // Last Section: Nutritional Overlay
   nutritionalGoalsOverlay: {
     backgroundColor: 'white',
-    height: 171,
+    height: 571, //171
     top: 666,
     borderRadius: 15,
     width: 343,

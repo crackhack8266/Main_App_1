@@ -46,6 +46,18 @@ const Constants = {
       name: 'Food Sources',
     },
   ],
+  NURTITIONALGOALSSECTIONPROPS_SECTIONLIST: [
+    {
+      id: 1,
+      title: 'Nutrients',
+      data: ['Nutrient A', 'Nutrient B', 'Nutrient C'],
+    },
+    {
+      id: 2,
+      title: 'Food Sources',
+      data: ['Food Source A', 'Food Source B', 'Food Source C'],
+    },
+  ],
   LISTOFMEALS_PROPS: [
     {
       id: 1,

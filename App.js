@@ -10,6 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {View, Image} from 'react-native';
 import styles from './styles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import ActivityIndicatorScreen from './src/screens/TestScreens/ActivityIndicator';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -64,6 +65,21 @@ const BottomTabNavigator = () => {
                 style={styles.bottomProfileIcon}
               />
               <View style={styles.bottomProfileView}></View>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ActivityIndicatorScreen"
+        component={ActivityIndicatorScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused}) => (
+            <View style={styles.commonView}>
+              <Image
+                source={require('./src/common/assets/Feed.png')}
+                style={styles.feedIcon}
+              />
             </View>
           ),
         }}

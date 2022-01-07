@@ -8,6 +8,8 @@ import {
   StatusBar,
   ScrollView,
   Dimensions,
+  FlatList,
+  SectionList,
 } from 'react-native';
 import {ProfileDetails} from '../../common/components/ProfileDetails';
 import {CustomButton} from '../../common/components/Button';
@@ -16,6 +18,7 @@ import Constants from '../../common/constants/';
 import {NutriSections} from '../../common/components/NutriSections';
 
 const ProfileScreen = () => {
+  const sections = Constants.NURTITIONALGOALSSECTIONPROPS_SECTIONLIST;
   const renderProfileHeader = () => {
     return (
       <View style={styles.topSectionView}>
@@ -100,17 +103,57 @@ const ProfileScreen = () => {
     );
   };
 
-  const renderNutritionalGoalsSection = NURTITIONALGOALSSECTIONPROPS => {
+  const renderNutritionalGoalsSection =
+    NURTITIONALGOALSSECTIONPROPS_SECTIONLIST => {
+      return (
+        <SectionList
+          sections={sections}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => {
+            return <NutriSections name={item} />;
+          }}
+          renderSectionHeader={({section}) => {
+            return (
+              <Text
+                style={{
+                  padding: 15,
+                  marginBottom: 5,
+                  backgroundColor: 'steelblue',
+                  color: 'white',
+                  fontWeight: 'bold',
+                }}>
+                {section.title}
+              </Text>
+            );
+          }}
+        />
+      );
+    };
+
+  /*const renderNutritionalGoalsSection = NURTITIONALGOALSSECTIONPROPS => {
+    return (
+      <FlatList
+        data={NURTITIONALGOALSSECTIONPROPS}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          return <NutriSections name={item.name} />;
+        }}
+      />
+    );
+  };
+*/
+
+  /*const renderNutritionalGoalsSection = NURTITIONALGOALSSECTIONPROPS => {
     return NURTITIONALGOALSSECTIONPROPS.map(section => {
       return <NutriSections name={section.name} key={section.id} />;
     });
-  };
+  };*/
 
   const screenHeight = Dimensions.get('window').height;
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
       <ScrollView>
-        <View style={{height: screenHeight + 75}}>
+        <View style={{height: screenHeight + 575}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
           {renderProfileHeader()}
           {renderProfileCompleteBar()}

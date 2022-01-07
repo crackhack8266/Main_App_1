@@ -24,9 +24,6 @@ export default StyleSheet.create({
     position: 'absolute',
     top: 32,
   },
-  spaView: {},
-  feedView: {},
-  homeView: {},
   commonView: {
     flexDirection: 'column',
     alignItems: 'center',
