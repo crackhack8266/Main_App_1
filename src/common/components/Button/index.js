@@ -1,5 +1,12 @@
 import React from 'react';
-import {Image, View, Text, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
+} from 'react-native';
 import styles from './styles';
 import Constants from '../../constants';
 
@@ -24,7 +31,12 @@ export const CustomButton = ({buttitle}) => {
       );
     } else if (buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT) {
       return (
-        <TouchableOpacity>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            navigation.navigate('BottomTabNavigator', {
+              screen: 'ProfileScreen',
+            });
+          }}>
           <View style={styles.facebookLoginButtonView}>
             <Image
               source={require('../../assets/facebookicon.png')}
@@ -34,7 +46,21 @@ export const CustomButton = ({buttitle}) => {
               {buttitle.toUpperCase()}
             </Text>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
+      );
+    } else if (buttitle == Constants.TOUCHABLEHIGHLIGHT) {
+      return (
+        <TouchableHighlight
+          onPress={() => alert('HighLight Button Pressed')}
+          style={styles.touchableHighlight}
+          underlayColor="red"
+          activeOpacity={0.8}>
+          <View style={styles.facebookLoginButtonView}>
+            <Text style={styles.buttonTextForFacebookLogin}>
+              {buttitle.toUpperCase()}
+            </Text>
+          </View>
+        </TouchableHighlight>
       );
     } else {
       return (

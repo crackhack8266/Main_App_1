@@ -59,7 +59,7 @@ export default StyleSheet.create({
   },
   loginBodyOverlay: {
     backgroundColor: 'white',
-    height: 555.8,
+    height: 665.8, //555.8
     marginTop: 154.8,
     marginHorizontal: 21,
     alignSelf: 'center',

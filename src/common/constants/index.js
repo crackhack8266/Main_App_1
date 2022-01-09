@@ -3,6 +3,7 @@ import {Platform} from 'react-native';
 const Constants = {
   LOGINBUTTONTEXT: 'login',
   LOGINWITHFACEBOOKBUTTONTEXT: 'login with facebook',
+  TOUCHABLEHIGHLIGHT: 'Touchable Highlight Example',
   PASSWORDFIELDIDENTIFICATIONSTRING: 'password',
   EMAILFIELDIDENTIFICATIONSTRING: 'email ID',
   COLUMN2ROW1IDENTIFICATIONSTRING1: 'age',

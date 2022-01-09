@@ -53,7 +53,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 13,
     width: 296,
-    marginBottom: 12,
   },
   buttonTextForFacebookLogin: {
     color: '#232222',
@@ -69,8 +68,15 @@ export default StyleSheet.create({
     borderRadius: 25,
     elevation: 3,
     height: 50,
+
+    marginBottom: 13,
     alignSelf: 'center',
     flexDirection: 'row',
     width: 299.1,
+  },
+  touchableHighlight: {
+    borderRadius: 25,
+    height: 50,
+    marginHorizontal: 17,
   },
 });

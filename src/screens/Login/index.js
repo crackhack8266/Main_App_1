@@ -43,6 +43,10 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
       <CustomButton buttitle={Constants.LOGINBUTTONTEXT} />
       <Text style={styles.orText}> OR</Text>
       <CustomButton buttitle={Constants.LOGINWITHFACEBOOKBUTTONTEXT} />
+      {/* Starts new temp button added touchablehighlight*/}
+      <Text style={styles.orText}> OR</Text>
+      <CustomButton buttitle={Constants.TOUCHABLEHIGHLIGHT} />
+      {/* Ends*/}
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>
         <TouchableOpacity onPress={null}>
@@ -61,7 +65,7 @@ const Login = () => {
     <View style={{height: screenHeight, ...styles.parentContainer}}>
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
       <ScrollView>
-        <View style={{height: screenHeight - 10}}>
+        <View style={{height: screenHeight + 85}}>
           {renderLoginHeader()}
           {renderLoginBody(setInputEmail, setInputPassword)}
         </View>
