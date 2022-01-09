@@ -1,4 +1,5 @@
-import {Platform} from 'react-native';
+import {Image} from 'react-native';
+import React from 'react';
 
 const Constants = {
   LOGINBUTTONTEXT: 'login',
@@ -8,8 +9,46 @@ const Constants = {
   EMAILFIELDIDENTIFICATIONSTRING: 'email ID',
   COLUMN2ROW1IDENTIFICATIONSTRING1: 'age',
   COLUMN2ROW1IDENTIFICATIONSTRING2: 'sex',
+  APPLYFILTER: 'Apply Filter',
   HEADERTITLE: 'Find Your Meals',
   SEARCHTEXT: 'search meal',
+  DROPDOWN1: [
+    {label: 'Item 1', value: 'item_1'},
+    {label: 'Item 2', value: 'item_2'},
+    {label: 'Item 3', value: 'item_3'},
+  ],
+  DROPDOWN2: [
+    {
+      label: 'Medium',
+      value: 'medium',
+      icon: () => (
+        <Image
+          source={require('../assets/yellow.png')}
+          style={{width: 36.2, height: 29.9}}
+        />
+      ),
+    },
+    {
+      label: 'Hard',
+      value: 'hard',
+      icon: () => (
+        <Image
+          source={require('../assets/yellow.png')}
+          style={{width: 36.2, height: 29.9}}
+        />
+      ),
+    },
+    {
+      label: 'Normal',
+      value: 'normal',
+      icon: () => (
+        <Image
+          source={require('../assets/yellow.png')}
+          style={{width: 36.2, height: 29.9}}
+        />
+      ),
+    },
+  ],
   profileDetailsProps: [
     {
       id: 1,
