@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import styles from './styles';
 import Constants from '../../common/constants';
@@ -48,12 +49,32 @@ const renderListOfMeals = listOfMeals_props => {
   });
 };
 
+//Something new timeout related thing starts
+// also search aboyt what is promise and what does it do
+// so after understanding this remove the above comment
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+//something new timeout related thing ends
+
 const OrderScreen = () => {
   const [searchquery, setSearchQuery] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const screenHeight = Dimensions.get('window').height;
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    wait(2000).then(() => {
+      setRefreshing(false);
+    }, []);
+  };
+
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View style={{height: screenHeight + 340}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
           {renderHeader()}
