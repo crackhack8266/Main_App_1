@@ -6,30 +6,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {RadioButton} from 'react-native-paper';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
-const renderHeader = () => {
-  return (
-    <View style={styles.header}>
-      <View style={styles.headerDivider}></View>
-      <Text style={styles.filterByText}>Filter By</Text>
-    </View>
-  );
-};
-
-const renderApplyFilterButton = setState => {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        setState(false);
-      }}>
-      <View style={styles.applyFilterView}>
-        <Text style={styles.buttonTextForFilter}>
-          {Constants.APPLYFILTER.toUpperCase()}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
-
 const renderMultiSlider = (multiSliderValue, multiSliderValuesChange) => {
   return (
     <MultiSlider
