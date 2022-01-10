@@ -40,6 +40,10 @@ const ProfileScreen = () => {
           </View>
           <View style={styles.overlay1View}>
             <Text style={styles.profileNameText}>John Doe</Text>
+            <Image
+              source={require('../../common/assets/left-arrow.png')}
+              style={styles.leftArrow}
+            />
             <View style={styles.emailIconAndEmailView}>
               <Image
                 source={require('../../common/assets/envelope.png')}
@@ -113,18 +117,7 @@ const ProfileScreen = () => {
             return <NutriSections name={item} />;
           }}
           renderSectionHeader={({section}) => {
-            return (
-              <Text
-                style={{
-                  padding: 15,
-                  marginBottom: 5,
-                  backgroundColor: 'steelblue',
-                  color: 'white',
-                  fontWeight: 'bold',
-                }}>
-                {section.title}
-              </Text>
-            );
+            return <Text style={styles.sectionTitle}>{section.title}</Text>;
           }}
         />
       );
@@ -153,7 +146,7 @@ const ProfileScreen = () => {
   return (
     <View style={{height: screenHeight, ...styles.parentContainer}}>
       <ScrollView>
-        <View style={{height: screenHeight + 575}}>
+        <View style={{height: screenHeight + 420}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
           {renderProfileHeader()}
           {renderProfileCompleteBar()}

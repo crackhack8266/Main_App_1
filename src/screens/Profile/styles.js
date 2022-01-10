@@ -9,7 +9,7 @@ export default StyleSheet.create({
   incompleteProfileText: {
     color: '#ffffff',
     marginLeft: 69,
-    lineHeight: 16.7,
+    lineHeight: 20,
     fontSize: 12,
     fontFamily: 'Merriweather-Regular',
   },
@@ -43,17 +43,18 @@ export default StyleSheet.create({
   },
   profileEmailText: {
     marginLeft: 8.8,
+    lineHeight: 15,
     fontSize: 12,
     color: '#121229',
     fontFamily: 'Merriweather-LightItalic',
   },
   emailIconAndEmailView: {
     flexDirection: 'row',
-    marginTop: 8.5,
     alignItems: 'center',
   },
   overlay1View: {
     alignSelf: 'center',
+    width: 235,
   },
   envelope: {
     width: 13.2,
@@ -61,6 +62,7 @@ export default StyleSheet.create({
   },
   profileNameText: {
     width: 73,
+    lineHeight: 21,
     height: 20,
     fontSize: 16,
     fontFamily: 'Merriweather-Bold',
@@ -80,6 +82,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     flexDirection: 'row',
+    marginTop: 10,
     width: 339,
     elevation: 1,
     position: 'absolute',
@@ -94,6 +97,13 @@ export default StyleSheet.create({
     color: '#ffffff',
     fontSize: 18,
     marginRight: 70,
+    lineHeight: 28,
+    letterSpacing: -0.27,
+  },
+  leftArrow: {
+    width: 5.7,
+    alignSelf: 'flex-end',
+    height: 9.7,
   },
   parentContainer: {
     backgroundColor: '#f5f5f5',
@@ -102,16 +112,29 @@ export default StyleSheet.create({
   topSectionView: {
     backgroundColor: '#4e4e4e',
     width: '100%',
-    height: 158,
-    borderBottomStartRadius: 20,
+    height: 110,
+    transform: [{scaleX: 1.04}],
+    borderBottomStartRadius: 15,
     flexDirection: 'row',
     borderBottomEndRadius: 20,
+  },
+  sectionTitle: {
+    padding: 15,
+    marginBottom: 5,
+    marginTop: 10,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: '#abd5f7aa',
+    color: 'black',
+    borderColor: '#abd5f7',
+    borderWidth: 1,
+    fontFamily: 'Merriweather-BoldItalic',
   },
 
   // Last Section: Nutritional Overlay
   nutritionalGoalsOverlay: {
     backgroundColor: 'white',
-    height: 571, //171
+    height: 510, //171
     top: 666,
     borderRadius: 15,
     width: 343,

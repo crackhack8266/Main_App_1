@@ -38,7 +38,7 @@ export default StyleSheet.create({
     width: 85,
     height: 85,
     alignSelf: 'center',
-    top: 44,
+    marginTop: 34,
     justifyContent: 'center',
   },
   loginHeader: {
@@ -78,10 +78,9 @@ export default StyleSheet.create({
   loginLogoContainer: {
     backgroundColor: '#4e4e4e',
     borderColor: 'red',
-    borderBottomLeftRadius: 800,
-    borderBottomEndRadius: 330,
-    transform: [{scaleX: 1.5}],
+    borderBottomStartRadius: 20,
+    borderBottomEndRadius: 20,
     width: '100%',
-    height: 411.8,
+    height: 360.8,
   },
 });
