@@ -12,6 +12,7 @@ import Constants from '../../../common/constants';
 import DropDownPicker from 'react-native-dropdown-picker';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {CustomButton} from '../Button';
+import ScrollViewStickyHeaderWithForwardedRef from 'react-native/Libraries/Components/ScrollView/ScrollViewStickyHeader';
 
 const FilterModal = ({
   showState,
@@ -27,7 +28,7 @@ const FilterModal = ({
 }) => {
   const multiSliderValuesChange = values => setMultiSliderValue(values);
   return (
-    <Modal transparent={true} visible={showState}>
+    <Modal transparent={true} visible={showState} animationType="fade">
       <View style={styles.outerModalView}>
         <View style={styles.innerModalView}>
           <View style={styles.header}>
@@ -117,7 +118,16 @@ const FilterModal = ({
               <Text style={styles.miles}>Miles</Text>
             </View>
 
-            <CustomButton buttitle={Constants.APPLYFILTER} />
+            <TouchableOpacity
+              onPress={() => {
+                setState(false);
+              }}>
+              <View style={styles.applyFilterView}>
+                <Text style={styles.buttonTextForFilter}>
+                  {Constants.APPLYFILTER.toUpperCase()}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
           {/*<Text style={{fontSize: 30}}>Modal Text</Text>
           <Button

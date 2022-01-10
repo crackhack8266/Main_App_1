@@ -11,7 +11,6 @@ import {View, Image} from 'react-native';
 import styles from './styles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ActivityIndicatorScreen from './src/screens/TestScreens/ActivityIndicator';
-import ModalScreen from './src/screens/TestScreens/ModalScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -93,18 +92,14 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ModalScreen"
+        initialRouteName="SplashScreen"
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name="BottomTabNavigator"
           component={BottomTabNavigator}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="ModalScreen"
-          component={ModalScreen}
-          options={{headerShown: false}}
-        />
+
         <Stack.Screen
           name="Login"
           component={Login}

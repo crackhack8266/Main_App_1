@@ -7,13 +7,15 @@ import {
   Dimensions,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
 import Constants from '../../common/constants';
 import {SearchBar} from '../../common/components/SearchBar';
 import {ListOfMeals} from '../../common/components/ListOfMeals';
+import FilterModal from '../../common/components/FilterModal';
 
-const renderHeader = () => {
+const renderHeader = setShow => {
   return (
     <View style={styles.header}>
       <View style={styles.headerHeading}>
@@ -22,10 +24,15 @@ const renderHeader = () => {
           style={styles.rightArrowImage}
         />
         <Text style={styles.headerHeadingTitle}>{Constants.HEADERTITLE}</Text>
-        <Image
-          source={require('../../common/assets/filter.png')}
-          style={styles.filterImage}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            setShow(true);
+          }}>
+          <Image
+            source={require('../../common/assets/filter.png')}
+            style={styles.filterImage}
+          />
+        </TouchableOpacity>
         <Image
           source={require('../../common/assets/sort.png')}
           style={styles.sortImage}
@@ -58,6 +65,11 @@ const wait = timeout => {
 //something new timeout related thing ends
 
 const OrderScreen = () => {
+  const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [miles, setMiles] = useState('9');
+  const [multiSliderValue, setMultiSliderValue] = useState([3, 7]);
   const [searchquery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const screenHeight = Dimensions.get('window').height;
@@ -77,9 +89,21 @@ const OrderScreen = () => {
         }>
         <View style={{height: screenHeight + 340}}>
           <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
-          {renderHeader()}
+          {renderHeader(setShow)}
           {renderSearchBar(setSearchQuery)}
           {renderListOfMeals(Constants.LISTOFMEALS_PROPS)}
+          <FilterModal
+            showState={show}
+            setState={setShow}
+            open={open}
+            value={value}
+            setOpen={setOpen}
+            setValue={setValue}
+            miles={miles}
+            setMiles={setMiles}
+            multiSliderValue={multiSliderValue}
+            setMultiSliderValue={setMultiSliderValue}
+          />
         </View>
       </ScrollView>
     </View>

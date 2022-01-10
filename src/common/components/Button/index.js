@@ -29,19 +29,6 @@ export const CustomButton = ({buttitle}) => {
           </View>
         </TouchableOpacity>
       );
-    } else if (buttitle == Constants.APPLYFILTER) {
-      return (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('BottomTabNavigator');
-          }}>
-          <View style={styles.applyFilterView}>
-            <Text style={styles.buttonTextForFilter}>
-              {buttitle.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
     } else if (buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT) {
       return (
         <TouchableWithoutFeedback
