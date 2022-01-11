@@ -9,15 +9,17 @@ const Constants = {
   EMAILFIELDIDENTIFICATIONSTRING: 'email ID',
   COLUMN2ROW1IDENTIFICATIONSTRING1: 'age',
   COLUMN2ROW1IDENTIFICATIONSTRING2: 'sex',
+  DISTANCETEXT: 'Distance',
   APPLYFILTER: 'Apply Filter',
+  FILTERTITLE: 'Filter By',
   HEADERTITLE: 'Find Your Meals',
   SEARCHTEXT: 'search meal',
-  DROPDOWN1: [
+  NUTRITIONAL_VALUES_DROP_DOWN: [
     {label: 'Item 1', value: 'item_1'},
     {label: 'Item 2', value: 'item_2'},
     {label: 'Item 3', value: 'item_3'},
   ],
-  DROPDOWN2: [
+  STATUS_DROP_DOWN: [
     {
       label: 'Medium',
       value: 'medium',

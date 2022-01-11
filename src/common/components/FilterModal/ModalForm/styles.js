@@ -12,7 +12,6 @@ export default StyleSheet.create({
     letterSpacing: -0.24,
     color: '#232222',
   },
-
   fromToPrice: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -27,11 +26,7 @@ export default StyleSheet.create({
     letterSpacing: -0.21,
   },
   inputMilesView: {
-    backgroundColor: '#f9f8f8',
-    borderColor: '#ecebf1',
-    paddingLeft: 20,
     flexDirection: 'row',
-    alignItems: 'center',
   },
   miles: {
     fontFamily: 'ProximaNova-Regular',
@@ -40,24 +35,7 @@ export default StyleSheet.create({
     letterSpacing: -0.21,
     color: '#a2a2a2',
     alignSelf: 'center',
-  },
-  radioButtonView: {flexDirection: 'row', marginTop: 10},
-  radioCheckedLabel: {
-    fontFamily: 'ProximaNova-Semibold',
-    fontSize: 16,
-    lineHeight: 28,
-    letterSpacing: -0.24,
-    color: '#232222',
-  },
-  yesNoText: {
-    marginLeft: 10,
-    alignSelf: 'center',
-    marginRight: 25,
-  },
-  radioUncheckedLabel: {
-    fontFamily: 'ProximaNova-Regular',
-    fontSize: 16,
-    lineHeight: 28,
-    letterSpacing: -0.24,
+    right: 70,
+    top: 26,
   },
 });

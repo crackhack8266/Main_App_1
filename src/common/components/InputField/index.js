@@ -1,75 +1,67 @@
 import React from 'react';
 import {View, Text, TextInput, Image} from 'react-native';
 import styles from './styles';
-import Constants from '../../constants';
 
-export const Input = ({set, titletext}) => {
+export const Input = ({
+  setChangeText,
+  secureTextEntry,
+  source,
+  titletext,
+  circularField,
+  keyboardType,
+  value,
+  styleprop,
+  title_style_prop,
+}) => {
   const convertedTitleText =
     titletext.charAt(0).toUpperCase() + titletext.slice(1);
-  const titleText = titletext;
 
-  const renderPasswordInputField = (titletext, convertedTitleText) => {
-    if (titletext == Constants.PASSWORDFIELDIDENTIFICATIONSTRING) {
-      return (
-        <View style={styles.inputFieldView}>
-          <TextInput
-            onChangeText={set}
-            placeholder={`Enter ${convertedTitleText}`}
-            style={styles.inputPassField}
-            secureTextEntry={true}
-          />
+  const renderInputField = (
+    setChangeText,
+    secureTextEntry,
+    source,
+    convertedTitleText,
+    circularField,
+    keyboardType,
+    value,
+    styleprop,
+  ) => {
+    return (
+      <View style={styles.inputFieldView}>
+        <TextInput
+          onChangeText={setChangeText}
+          placeholder={`Enter ${convertedTitleText}`}
+          style={
+            circularField ? styles.inputField : [styles.inputField, styleprop]
+          }
+          secureTextEntry={secureTextEntry}
+          keyboardType={keyboardType}
+          value={value}
+        />
+        {source == false ? null : (
           <Image
             source={require('../../assets/eye-open2x.png')}
             style={styles.icon}
           />
-        </View>
-      );
-    }
+        )}
+      </View>
+    );
   };
-  const renderSimpleInputField = (titletext, convertedTitleText) => {
-    if (titletext != Constants.PASSWORDFIELDIDENTIFICATIONSTRING) {
-      return (
-        <TextInput
-          onChangeText={set}
-          placeholder={`Enter ${convertedTitleText}`}
-          style={styles.inputEmailField}
-        />
-      );
-    }
-  };
-
   return (
     <View>
-      <Text style={styles.titleText}>{convertedTitleText} *</Text>
-      {renderPasswordInputField(titletext, convertedTitleText)}
-      {renderSimpleInputField(titleText, convertedTitleText)}
+      <Text style={[styles.titleText, title_style_prop]}>
+        {convertedTitleText}
+      </Text>
+      {renderInputField(
+        setChangeText,
+        secureTextEntry,
+        source,
+        convertedTitleText,
+        circularField,
+        keyboardType,
+        value,
+        styleprop,
+      )}
     </View>
   );
 };
-
-{
-  /*
-  const componentFields = [
-  {
-    type: 'text',
-    errorText: '',
-    placeHolder: '',
-  },
-  {},
-];
-
-const renderFormFields = componentFields =>
-  componentFields.map(field => {
-    <View style={styles.inputFieldView}>
-      <TextInput
-        onChangeText={set}
-        placeholder={`Enter ${field.placeholder}`}
-        style={styles.inputPassField}
-        secureTextEntry={true}
-      />
-      <SimpleLineIcons name="eye" size={14} color="black" style={styles.icon} />
-    </View>;
-  });
-
-*/
-}

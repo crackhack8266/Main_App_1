@@ -7,7 +7,6 @@ export default StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
   outerModalView: {
     backgroundColor: '#000000aa',
     flex: 1,

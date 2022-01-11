@@ -7,72 +7,38 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
 } from 'react-native';
-import styles from './styles';
-import Constants from '../../constants';
+import PrimaryButton from './PrimaryButton';
+import SocialMedia_Button from './SocialMedia_Button';
+import DefaultButton from './DefaultButton';
 
-import {useNavigation} from '@react-navigation/native';
-
-export const CustomButton = ({buttitle}) => {
-  const navigation = useNavigation();
-
-  const renderCustomButton = (buttitle, navigation) => {
-    if (buttitle == Constants.LOGINBUTTONTEXT) {
-      return (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('BottomTabNavigator');
-          }}>
-          <View style={styles.loginButtonView}>
-            <Text style={styles.buttonTextForLogin}>
-              {buttitle.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    } else if (buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT) {
-      return (
-        <TouchableWithoutFeedback
-          onPress={() => {
-            navigation.navigate('BottomTabNavigator', {
-              screen: 'ProfileScreen',
-            });
-          }}>
-          <View style={styles.facebookLoginButtonView}>
-            <Image
-              source={require('../../assets/facebookicon.png')}
-              style={styles.facebookIcon}
-            />
-            <Text style={styles.buttonTextForFacebookLogin}>
-              {buttitle.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
-      );
-    } else if (buttitle == Constants.TOUCHABLEHIGHLIGHT) {
-      return (
-        <TouchableHighlight
-          onPress={() => alert('HighLight Button Pressed')}
-          style={styles.touchableHighlight}
-          underlayColor="red"
-          activeOpacity={0.8}>
-          <View style={styles.facebookLoginButtonView}>
-            <Text style={styles.buttonTextForFacebookLogin}>
-              {buttitle.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableHighlight>
-      );
-    } else {
-      return (
-        <TouchableOpacity>
-          <View style={styles.viewDetailsButtonView}>
-            <Text style={styles.buttonTextForViewDetails}>View Details</Text>
-          </View>
-          <Text style={styles.underlinedText}>Don't show again</Text>
-        </TouchableOpacity>
-      );
-    }
-  };
-
-  return <View>{renderCustomButton(buttitle, navigation)}</View>;
+export const CustomButton = ({
+  button_title,
+  navigator,
+  route,
+  type,
+  setState,
+  isNavigation,
+  styleprop,
+}) => {
+  return (
+    <View>
+      {type == 'primary' ? (
+        <PrimaryButton
+          button_title={button_title}
+          route={route}
+          isNavigation={isNavigation}
+          setState={setState}
+          styleprop={styleprop}
+        />
+      ) : type == 'socialmedia' ? (
+        <SocialMedia_Button
+          button_title={button_title}
+          navigator={navigator}
+          route={route}
+        />
+      ) : (
+        <DefaultButton button_title={button_title} route={route} type={type} />
+      )}
+    </View>
+  );
 };

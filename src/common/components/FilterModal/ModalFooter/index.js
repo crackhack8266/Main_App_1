@@ -1,21 +1,36 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import styles from '../styles';
+import {View, Text, TouchableOpacity} from 'react-native';
+import styles from './styles';
 import Constants from '../../../constants';
+import {CustomButton} from '../../Button';
 
-const ModalFooter = setState => {
+const ModalFooter = ({setState}) => {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        setState(false);
-      }}>
-      <View style={styles.applyFilterView}>
-        <Text style={styles.buttonTextForFilter}>
-          {Constants.APPLYFILTER.toUpperCase()}
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <CustomButton
+      button_title={Constants.APPLYFILTER}
+      navigator={'null'}
+      route={'null'}
+      type="primary"
+      setState={setState}
+      isNavigation={false}
+      styleprop={{
+        backgroundColor: '#4e4e4e',
+        width: 342,
+      }}
+    />
   );
 };
 
 export default ModalFooter;
+{
+  /*<TouchableOpacity
+  onPress={() => {
+    setState(false);
+  }}>
+  <View style={styles.applyFilterView}>
+    <Text style={styles.buttonTextForFilter}>
+      {Constants.APPLYFILTER.toUpperCase()}
+    </Text>
+  </View>
+</TouchableOpacity>*/
+}

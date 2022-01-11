@@ -8,6 +8,7 @@ import {
   ScrollView,
   RefreshControl,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 import styles from './styles';
 import Constants from '../../common/constants';
@@ -73,6 +74,7 @@ const OrderScreen = () => {
   const [searchquery, setSearchQuery] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const screenHeight = Dimensions.get('window').height;
+  const [checked, setChecked] = useState('first');
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -92,6 +94,7 @@ const OrderScreen = () => {
           {renderHeader(setShow)}
           {renderSearchBar(setSearchQuery)}
           {renderListOfMeals(Constants.LISTOFMEALS_PROPS)}
+
           <FilterModal
             showState={show}
             setState={setShow}
@@ -99,10 +102,12 @@ const OrderScreen = () => {
             value={value}
             setOpen={setOpen}
             setValue={setValue}
-            miles={miles}
-            setMiles={setMiles}
             multiSliderValue={multiSliderValue}
             setMultiSliderValue={setMultiSliderValue}
+            checked={checked}
+            setChecked={setChecked}
+            miles={miles}
+            setMiles={setMiles}
           />
         </View>
       </ScrollView>

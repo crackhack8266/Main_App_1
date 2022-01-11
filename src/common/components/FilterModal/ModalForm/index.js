@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import styles from '../styles';
-import Constants from '../../../common/constants';
-import DropDownPicker from 'react-native-dropdown-picker';
-import {RadioButton} from 'react-native-paper';
+import {View, Text, TextInput} from 'react-native';
+import styles from './styles';
+import Constants from '../../../constants';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import DropDown from '../../DropDown';
+import RadioButtonComponent from '../../RadioButton';
+import {Input} from '../../InputField';
 
 const renderMultiSlider = (multiSliderValue, multiSliderValuesChange) => {
   return (
@@ -14,7 +15,7 @@ const renderMultiSlider = (multiSliderValue, multiSliderValuesChange) => {
       onValuesChange={multiSliderValuesChange}
       min={0}
       max={10}
-      step={1}
+      step={0.01}
       allowOverlap
       snapped
     />
@@ -43,100 +44,93 @@ const renderFromTo = () => {
 const renderMilesInputField = (setMiles, miles) => {
   return (
     <View style={styles.inputMilesView}>
-      <TextInput onChangeText={setMiles} value={miles} style={{width: 277}} />
+      <Input
+        setChangeText={setMiles}
+        secureTextEntry={false}
+        source={false}
+        titletext={Constants.DISTANCETEXT}
+        circularField={false}
+        value={miles}
+        keyboardType="numeric"
+        styleprop={{
+          borderRadius: 5,
+          marginLeft: 0,
+          width: 345,
+          borderColor: '#ecebf1',
+          borderWidth: 1,
+        }}
+        title_style_prop={{
+          marginLeft: 0,
+        }}
+      />
       <Text style={styles.miles}>Miles</Text>
     </View>
   );
 };
-const renderRadioButtons = (checked, setChecked) => {
+
+const ModalForm = ({
+  setState,
+  open,
+  value,
+  setOpen,
+  setValue,
+  multiSliderValue,
+  multiSliderValuesChange,
+  checked,
+  setChecked,
+  miles,
+  setMiles,
+}) => {
   return (
-    <View style={styles.radioButtonView}>
-      <RadioButton
-        value="first"
-        color="#ff0e89"
-        status={checked === 'first' ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('first')}
+    <View style={styles.form}>
+      <Text style={styles.fieldTitle}>Nutritional Value</Text>
+      <DropDown
+        open={open}
+        value={value}
+        items={Constants.NUTRITIONAL_VALUES_DROP_DOWN}
+        setOpen={setOpen}
+        setValue={setValue}
+        style={{
+          backgroundColor: '#f9f8f8',
+          borderColor: '#ecebf1',
+          marginTop: 12.6,
+        }}
+        placeholder="High"
+        dropDownContainerStyle={{
+          backgroundColor: '#dfdfdf',
+          marginTop: 5,
+        }}
+        dropDownDirection="BOTTOM"
       />
-      <View style={styles.yesNoText}>
-        {checked === 'first' ? (
-          <Text style={styles.radioCheckedLabel}>Yes</Text>
-        ) : (
-          <Text style={styles.radioUncheckedLabel}>Yes</Text>
-        )}
-      </View>
-      <RadioButton
-        value="second"
-        color="#ff0e89"
-        status={checked === 'second' ? 'checked' : 'unchecked'}
-        onPress={() => setChecked('second')}
+      <Text style={[styles.fieldTitle, {marginTop: 20.4}]}>Price</Text>
+      {renderMultiSlider(multiSliderValue, multiSliderValuesChange)}
+      {renderFromTo()}
+      <Text style={[styles.fieldTitle, {marginTop: 20.4}]}>Pickup</Text>
+      <RadioButtonComponent checked={checked} setChecked={setChecked} />
+
+      <Text style={[styles.fieldTitle, {marginTop: 20}]}>Status</Text>
+      <DropDown
+        open={open}
+        value={value}
+        items={Constants.STATUS_DROP_DOWN}
+        setOpen={setOpen}
+        setValue={setValue}
+        style={{
+          backgroundColor: '#f9f8f8',
+          borderColor: '#ecebf1',
+          marginTop: 12.6,
+        }}
+        placeholder="Medium"
+        dropDownContainerStyle={{
+          backgroundColor: '#dfdfdf',
+          marginTop: 15,
+        }}
+        dropDownDirection="BOTTOM"
       />
-      <View style={styles.yesNoText}>
-        {checked === 'second' ? (
-          <Text style={styles.radioCheckedLabel}>No</Text>
-        ) : (
-          <Text style={styles.radioUncheckedLabel}>No</Text>
-        )}
-      </View>
+
+      {renderMilesInputField(setMiles, miles)}
     </View>
   );
-};
-
-const ModalForm = () => {
-  (
-    setState,
-    open,
-    value,
-    setOpen,
-    setValue,
-    multiSliderValue,
-    multiSliderValuesChange,
-    miles,
-    setMiles,
-    checked,
-    setChecked,
-  ) => {
-    return (
-      <View style={styles.form}>
-        <Text style={styles.fieldTitle}>Nutritional Value</Text>
-        <DropDownPicker
-          open={open}
-          value={value}
-          items={Constants.DROPDOWN1}
-          setOpen={setOpen}
-          setValue={setValue}
-          style={styles.dropdownStyle}
-          placeholder="High"
-          dropDownContainerStyle={{
-            backgroundColor: '#dfdfdf',
-            marginTop: 15,
-          }}
-        />
-        <Text style={[styles.fieldTitle, {marginTop: 20.4}]}>Price</Text>
-        {renderMultiSlider(multiSliderValue, multiSliderValuesChange)}
-        {renderFromTo()}
-        <Text style={[styles.fieldTitle, {marginTop: 20.4}]}>Pickup</Text>
-        {renderRadioButtons(checked, setChecked)}
-
-        <Text style={[styles.fieldTitle, {marginTop: 20}]}>Status</Text>
-        <DropDownPicker
-          open={open}
-          dropDownDirection="BOTTOM"
-          value={value}
-          items={Constants.DROPDOWN2}
-          setOpen={setOpen}
-          setValue={setValue}
-          style={styles.dropdownStyle}
-          dropDownContainerStyle={{
-            backgroundColor: '#dfdfdf',
-            marginTop: 15,
-          }}
-        />
-        <Text style={[styles.fieldTitle, {marginTop: 19.4}]}>Distance</Text>
-        {renderMilesInputField(setMiles, miles)}
-        {renderApplyFilterButton(setState)}
-      </View>
-    );
-  };
 };
 
 export default ModalForm;

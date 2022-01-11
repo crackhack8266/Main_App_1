@@ -7,14 +7,14 @@ export default StyleSheet.create({
     backgroundColor: '#4e4e4e',
     borderRadius: 25,
     justifyContent: 'center',
-    marginTop: 20,
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   buttonTextForFilter: {
     fontFamily: 'ProximaNova-Bold',
     fontSize: 16,
     lineHeight: 20,
     letterSpacing: -0.38,
-    alignSelf: 'center',
     color: '#ffffff',
   },
 });

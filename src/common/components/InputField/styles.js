@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  inputPassField: {
+  inputField: {
     height: 50,
     width: 299,
     marginLeft: 17.1,
@@ -16,21 +16,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 25,
   },
-  inputEmailField: {
-    height: 50,
-    width: 299,
-    marginLeft: 17.1,
-    marginRight: 17.7,
-    paddingTop: 19,
-    paddingBottom: 17,
-    fontSize: 14,
-    paddingRight: 55,
-    fontFamily: 'ProximaNova-Regular',
-    paddingLeft: 20,
-    backgroundColor: '#f9f8f8',
-    alignSelf: 'center',
-    borderRadius: 25,
-  },
+
   titleText: {
     marginLeft: 17,
     fontSize: 16,

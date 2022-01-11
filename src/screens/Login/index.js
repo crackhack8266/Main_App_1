@@ -30,23 +30,45 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
       <Text style={styles.loginHeader}>Login</Text>
       <View style={styles.horizontalDivider}></View>
       <Input
-        set={setInputEmail}
+        setChangeText={setInputEmail}
+        secureTextEntry={false}
+        source={false}
         titletext={Constants.EMAILFIELDIDENTIFICATIONSTRING}
+        circularField={true}
+        keyboardType="default"
+        value={null}
+        styleprop={null}
       />
       <Input
-        set={setInputPassword}
+        setChangeText={setInputPassword}
+        secureTextEntry={true}
+        source={true}
         titletext={Constants.PASSWORDFIELDIDENTIFICATIONSTRING}
+        circularField={true}
+        keyboardType="default"
+        value={null}
+        styleprop={null}
       />
       <TouchableOpacity onPress={null}>
         <Text style={styles.forgotPassText}>Forgot Password?</Text>
       </TouchableOpacity>
-      <CustomButton buttitle={Constants.LOGINBUTTONTEXT} />
+      <CustomButton
+        button_title={Constants.LOGINBUTTONTEXT}
+        navigator={'null'}
+        route="BottomTabNavigator"
+        type="primary"
+        setState={null}
+        isNavigation={true}
+      />
       <Text style={styles.orText}> OR</Text>
-      <CustomButton buttitle={Constants.LOGINWITHFACEBOOKBUTTONTEXT} />
-      {/* Starts new temp button added touchablehighlight*/}
-      <Text style={styles.orText}> OR</Text>
-      <CustomButton buttitle={Constants.TOUCHABLEHIGHLIGHT} />
-      {/* Ends*/}
+      <CustomButton
+        button_title={Constants.LOGINWITHFACEBOOKBUTTONTEXT}
+        navigator="BottomTabNavigator"
+        route="ProfileScreen"
+        type="socialmedia"
+        setState={null}
+        isNavigation={true}
+      />
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>
         <TouchableOpacity onPress={null}>

@@ -92,7 +92,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SplashScreen"
+        initialRouteName="Login"
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name="BottomTabNavigator"
