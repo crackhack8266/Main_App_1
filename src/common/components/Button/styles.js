@@ -29,4 +29,27 @@ export default StyleSheet.create({
     height: 50,
     marginHorizontal: 17,
   },
+  //The new changes here
+  buttonView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 13,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    width: 298,
+  },
+  buttonText: {
+    fontSize: 16,
+    textAlign: 'left',
+    marginVertical: 15,
+    lineHeight: 20,
+    letterSpacing: -0.38,
+  },
+  icon: {
+    height: 20.2,
+    width: 20.2,
+    marginRight: 13,
+  },
 });

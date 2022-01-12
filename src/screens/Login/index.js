@@ -59,6 +59,13 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
         type="primary"
         setState={null}
         isNavigation={true}
+        viewstyleprop={{
+          backgroundColor: '#a94446',
+        }}
+        textstyleprop={{
+          color: '#fff',
+          fontFamily: 'ProximaNova-Bold',
+        }}
       />
       <Text style={styles.orText}> OR</Text>
       <CustomButton
@@ -68,6 +75,14 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
         type="socialmedia"
         setState={null}
         isNavigation={true}
+        viewstyleprop={{
+          backgroundColor: '#fff',
+          elevation: 3,
+        }}
+        textstyleprop={{
+          color: '#232222',
+          fontFamily: 'ProximaNova-Semibold',
+        }}
       />
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>

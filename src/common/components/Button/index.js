@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  Image,
-  View,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
-} from 'react-native';
-import PrimaryButton from './PrimaryButton';
-import SocialMedia_Button from './SocialMedia_Button';
-import DefaultButton from './DefaultButton';
+import {Image, View, Text, TouchableOpacity} from 'react-native';
+import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 export const CustomButton = ({
   button_title,
@@ -18,27 +10,54 @@ export const CustomButton = ({
   type,
   setState,
   isNavigation,
-  styleprop,
+  viewstyleprop,
+  textstyleprop,
 }) => {
+  const navigation = useNavigation();
   return (
     <View>
-      {type == 'primary' ? (
-        <PrimaryButton
-          button_title={button_title}
-          route={route}
-          isNavigation={isNavigation}
-          setState={setState}
-          styleprop={styleprop}
-        />
-      ) : type == 'socialmedia' ? (
-        <SocialMedia_Button
-          button_title={button_title}
-          navigator={navigator}
-          route={route}
-        />
-      ) : (
-        <DefaultButton button_title={button_title} route={route} type={type} />
-      )}
+      <TouchableOpacity
+        onPress={() => {
+          isNavigation
+            ? navigator != 'null'
+              ? navigation.navigate(navigator, {
+                  screen: route,
+                })
+              : navigation.navigate(route)
+            : setState(false);
+        }}>
+        <View style={[styles.buttonView, viewstyleprop]}>
+          {type == 'socialmedia' ? (
+            <Image
+              source={require('../../assets/facebookicon.png')}
+              style={styles.icon}
+            />
+          ) : null}
+          <Text style={[styles.buttonText, textstyleprop]}>
+            {button_title.toUpperCase()}
+          </Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
+
+{
+  /* {type == 'primary' ? (
+  <PrimaryButton
+    button_title={button_title}
+    route={route}
+    isNavigation={isNavigation}
+    setState={setState}
+    styleprop={styleprop}
+  />
+) : type == 'socialmedia' ? (
+  <SocialMedia_Button
+    button_title={button_title}
+    navigator={navigator}
+    route={route}
+  />
+) : (
+  <DefaultButton button_title={button_title} route={route} type={type} />
+)} */
+}

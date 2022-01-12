@@ -13,9 +13,13 @@ const ModalFooter = ({setState}) => {
       type="primary"
       setState={setState}
       isNavigation={false}
-      styleprop={{
+      viewstyleprop={{
         backgroundColor: '#4e4e4e',
         width: 342,
+      }}
+      textstyleprop={{
+        color: '#fff',
+        fontFamily: 'ProximaNova-Bold',
       }}
     />
   );
