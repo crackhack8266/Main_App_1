@@ -65,8 +65,32 @@ const ProfileScreen = () => {
           {'\n'}
           Please take some time to fill it.
         </Text>
-
-        <CustomButton title="View Details" />
+        <View style={styles.viewDetails_view}>
+          <CustomButton
+            button_title="View Details"
+            navigator={'null'}
+            route={'Login'}
+            type="small"
+            setState={null}
+            isNavigation={false}
+            viewstyleprop={{
+              backgroundColor: '#fff',
+              elevation: 2,
+              marginBottom: 5,
+              marginLeft: 21,
+              height: 30,
+              width: 93,
+            }}
+            textstyleprop={{
+              color: '#2f2f2f',
+              fontFamily: 'Merriweather-BoldItalic',
+              fontSize: 12,
+              lineHeight: 15,
+              letterSpacing: -0.29,
+            }}
+          />
+          <Text style={styles.underlinedText}>Don't show again</Text>
+        </View>
       </View>
     );
   };

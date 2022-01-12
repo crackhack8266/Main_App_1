@@ -40,6 +40,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: 298,
   },
+
   buttonText: {
     fontSize: 16,
     textAlign: 'left',

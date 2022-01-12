@@ -33,9 +33,13 @@ export const CustomButton = ({
               style={styles.icon}
             />
           ) : null}
-          <Text style={[styles.buttonText, textstyleprop]}>
-            {button_title.toUpperCase()}
-          </Text>
+          {type == 'small' ? (
+            <Text style={textstyleprop}>{button_title}</Text>
+          ) : (
+            <Text style={[styles.buttonText, textstyleprop]}>
+              {button_title.toUpperCase()}
+            </Text>
+          )}
         </View>
       </TouchableOpacity>
     </View>

@@ -13,8 +13,7 @@ export default StyleSheet.create({
   registerView: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: 28,
-    marginBottom: 29.6,
+    marginTop: 21,
   },
   registerTextBold: {
     fontSize: 16,
@@ -59,7 +58,7 @@ export default StyleSheet.create({
   },
   loginBodyOverlay: {
     backgroundColor: 'white',
-    height: 665.8, //555.8
+    height: 578.8, //555.8
     marginTop: 154.8,
     marginHorizontal: 21,
     alignSelf: 'center',

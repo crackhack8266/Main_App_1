@@ -86,7 +86,7 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
       />
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>
-        <TouchableOpacity onPress={null}>
+        <TouchableOpacity>
           <Text style={styles.registerTextBold}>REGISTER</Text>
         </TouchableOpacity>
       </View>
@@ -99,14 +99,12 @@ const Login = () => {
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   return (
-    <View style={{height: screenHeight, ...styles.parentContainer}}>
+    <View style={styles.parentContainer}>
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
-      <ScrollView>
-        <View style={{height: screenHeight + 85}}>
-          {renderLoginHeader()}
-          {renderLoginBody(setInputEmail, setInputPassword)}
-        </View>
-      </ScrollView>
+      <View style={{height: screenHeight + 85}}>
+        {renderLoginHeader()}
+        {renderLoginBody(setInputEmail, setInputPassword)}
+      </View>
     </View>
   );
 };

@@ -183,4 +183,11 @@ export default StyleSheet.create({
   rightCircle: {
     marginRight: 14,
   },
+  underlinedText: {
+    textDecorationLine: 'underline',
+    fontSize: 10,
+    fontFamily: 'Merriweather-Regular',
+    marginLeft: 25,
+    color: 'white',
+  },
 });

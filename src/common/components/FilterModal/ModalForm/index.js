@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text} from 'react-native';
 import styles from './styles';
 import Constants from '../../../constants';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
