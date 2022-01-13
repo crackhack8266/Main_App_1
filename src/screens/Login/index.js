@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import {Input} from '../../common/components/InputField';
-import {CustomButton} from '../../common/components/Button';
+import CustomButton from '../../common/components/Button';
 import Constants from '../../common/constants';
 
 const renderLoginHeader = () => {
@@ -53,37 +53,39 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
         <Text style={styles.forgotPassText}>Forgot Password?</Text>
       </TouchableOpacity>
       <CustomButton
-        button_title={Constants.LOGINBUTTONTEXT}
+        button_title={Constants.LOGINBUTTONTEXT.toUpperCase()}
         navigator={'null'}
         route="BottomTabNavigator"
-        type="primary"
         setState={null}
         isNavigation={true}
-        viewstyleprop={{
-          backgroundColor: '#a94446',
-        }}
-        textstyleprop={{
-          color: '#fff',
-          fontFamily: 'ProximaNova-Bold',
-        }}
+        height={'50px'}
+        marginBottom={'13px'}
+        width={'296px'}
+        bgColor="#a94446"
+        elevation={'0px'}
+        fontSize={'16px'}
+        marginVertical={'15px'}
+        lineHeight={'20px'}
+        letterSpacing={'-0.38px'}
+        color="#fff"
+        fontFamily="ProximaNova-Bold"
+        icon={
+          <Image
+            source={require('../../common/assets/facebookicon.png')}
+            style={{height: 20.2, width: 20.2}}
+          />
+        }
       />
       <Text style={styles.orText}> OR</Text>
-      <CustomButton
+      {/* <CustomButton1
         button_title={Constants.LOGINWITHFACEBOOKBUTTONTEXT}
         navigator="BottomTabNavigator"
         route="ProfileScreen"
         type="socialmedia"
         setState={null}
         isNavigation={true}
-        viewstyleprop={{
-          backgroundColor: '#fff',
-          elevation: 3,
-        }}
-        textstyleprop={{
-          color: '#232222',
-          fontFamily: 'ProximaNova-Semibold',
-        }}
-      />
+       
+     /> */}
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>
         <TouchableOpacity>

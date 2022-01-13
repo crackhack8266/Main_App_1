@@ -10,6 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {View, Image} from 'react-native';
 import styles from './styles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import StyledComponents from './src/screens/TestScreens/StyledComponents';
 import ActivityIndicatorScreen from './src/screens/TestScreens/ActivityIndicator';
 
 const Tab = createBottomTabNavigator();
@@ -103,6 +104,11 @@ const App = () => {
         <Stack.Screen
           name="Login"
           component={Login}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="StyledComponents"
+          component={StyledComponents}
           options={{headerShown: false}}
         />
         <Stack.Screen

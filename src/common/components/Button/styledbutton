@@ -1,46 +1,46 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {View, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const ButtonView = styled.View`
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  margin-bottom: ${props => props.marginBottom};
-  background-color: ${props => props.bgColor};
-  align-self: center;
-  flex-direction: row;
-  width: ${props => props.width};
-  height: ${props => props.height};
+    align-items: center,
+    justify-content: center,
+    border-radius: 25px,
+    margin-bottom: 13px,
+    background-color: ${props => props.bgColor},
+    align-self: center,
+    flex-direction: row,
+    width: 298,
 `;
 
 const ButtonText = styled.Text`
-  font-size: ${props => props.fontSize};
-  text-align: left;
-  margin-vertical: ${props => props.marginVertical};
-  color: ${props => props.color};
-  line-height: ${props => props.lineHeight};
-  letter-spacing: ${props => props.letterSpacing};
-  font-family: ${props => props.fontFamily};
+    font-size: ${props => props.fontSize},
+    text-align: left,
+    margin-vertical: ${props => props.marginVertical},
+    color: ${props => props.color},
+    line-height: ${props => props.lineHeight},
+    letter-spacing: ${props => props.letterSpacing},
 `;
 
-const CustomButton = ({
+const CustomButton1 = ({
   button_title,
   navigator,
   route,
   setState,
   isNavigation,
-  height,
-  marginBottom,
-  width,
+  // borderRadius,
+  //height,
+  //marginBottom,
+  //width,
   bgColor,
-  fontSize,
-  marginVertical,
-  lineHeight,
-  letterSpacing,
-  color,
-  fontFamily,
+  //elevation,
+  //fontSize,
+  //marginVertical,
+  //lineHeight,
+  //letterSpacing,
+  //color,
+  //fontFamily,
   icon,
 }) => {
   const navigation = useNavigation();
@@ -65,24 +65,24 @@ const CustomButton = ({
       <TouchableOpacity
         onPress={() => checkNavigation(isNavigation, navigator, route)}>
         <ButtonView
-          height={height}
-          width={width}
-          marginBottom={marginBottom}
+          borderRadius={25}
+          height={50}
+          marginBottom={13}
+          width={298}
           bgColor={bgColor}>
           {isIcon(icon)}
-          <ButtonText
+          {/* <ButtonText
             fontSize={fontSize}
             marginVertical={marginVertical}
             lineHeight={lineHeight}
             letterSpacing={letterSpacing}
-            color={color}
-            fontFamily={fontFamily}>
+            color={color}>
             {button_title}
-          </ButtonText>
+  </ButtonText> */}
         </ButtonView>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default CustomButton;
+export default CustomButton1;

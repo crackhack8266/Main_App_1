@@ -11,6 +11,7 @@ import {
   FlatList,
   SectionList,
 } from 'react-native';
+import * as Progress from 'react-native-progress';
 import {ProfileDetails} from '../../common/components/ProfileDetails';
 import {CustomButton} from '../../common/components/Button';
 import styles from './styles';
@@ -60,6 +61,7 @@ const ProfileScreen = () => {
   const renderProfileCompleteBar = () => {
     return (
       <View style={styles.profileComplitionDetailView}>
+        <Progress.Circle size={30} indeterminate={true} />
         <Text style={styles.incompleteProfileText}>
           Your profile is incomplete
           {'\n'}
