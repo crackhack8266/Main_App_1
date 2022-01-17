@@ -1,56 +1,23 @@
-import {StyleSheet} from 'react-native';
+import styled from 'styled-components/native';
+export const ButtonView = styled.View`
+  align-items: center;
+  justify-content: center;
+  border-radius: 25px;
+  background-color: ${props =>
+    props.disabled ? '#cb8f90' : props.bgColor || '#a94446'};
+  align-self: center;
+  flex-direction: row;
+  width: ${props => props.width || '297px'};
+  height: ${props => props.height || '50px'};
+  elevation: ${props => props.elevation || 0};
+`;
 
-export default StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'white',
-  },
-
-  applyFilterView: {
-    width: 342,
-    height: 50,
-    backgroundColor: '#4e4e4e',
-    borderRadius: 25,
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  buttonTextForFilter: {
-    fontFamily: 'ProximaNova-Bold',
-    fontSize: 16,
-    lineHeight: 20,
-    letterSpacing: -0.38,
-    alignSelf: 'center',
-    color: '#ffffff',
-  },
-
-  touchableHighlight: {
-    borderRadius: 25,
-    height: 50,
-    marginHorizontal: 17,
-  },
-  //The new changes here
-  buttonView: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    height: 50,
-    marginBottom: 13,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    width: 298,
-  },
-
-  buttonText: {
-    fontSize: 16,
-    textAlign: 'left',
-    marginVertical: 15,
-    lineHeight: 20,
-    letterSpacing: -0.38,
-  },
-  icon: {
-    height: 20.2,
-    width: 20.2,
-    marginRight: 13,
-  },
-});
+export const ButtonText = styled.Text`
+  font-size: ${props => props.fontSize || '16px'};
+  text-align: left;
+  margin-vertical: ${props => props.marginVertical || '15px'};
+  color: ${props => props.color || '#fff'};
+  line-height: ${props => props.lineHeight || '20px'};
+  letter-spacing: ${props => props.letterSpacing || '-0.38px'};
+  font-family: ${props => props.fontFamily || 'ProximaNova-Bold'};
+`;

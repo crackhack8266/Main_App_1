@@ -1,17 +1,17 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import Login from './src/screens/Login';
-import SplashScreen from './src/screens/SplashScreen';
-import ProfileScreen from './src/screens/Profile';
-import OrderScreen from './src/screens/OrderNow';
-import NutriDoc from './src/screens/NutriDoc';
+import Login from 'screens/Login/index';
+import SplashScreen from 'screens/SplashScreen';
+import ProfileScreen from 'screens/Profile';
+import OrderScreen from 'screens/OrderNow';
+import NutriDoc from 'screens/NutriDoc';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View, Image} from 'react-native';
 import styles from './styles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import StyledComponents from './src/screens/TestScreens/StyledComponents';
-import ActivityIndicatorScreen from './src/screens/TestScreens/ActivityIndicator';
+import StyledComponents from 'screens/TestScreens/StyledComponents';
+import ActivityIndicatorScreen from 'screens/TestScreens/ActivityIndicator';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

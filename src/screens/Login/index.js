@@ -9,9 +9,9 @@ import {
   Dimensions,
 } from 'react-native';
 import styles from './styles';
-import {Input} from '../../common/components/InputField';
-import CustomButton from '../../common/components/Button';
-import Constants from '../../common/constants';
+import {Input} from 'components/InputField';
+import CustomButton from 'components/Button';
+import Constants from 'constants';
 
 const renderLoginHeader = () => {
   return (
@@ -53,39 +53,34 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
         <Text style={styles.forgotPassText}>Forgot Password?</Text>
       </TouchableOpacity>
       <CustomButton
-        button_title={Constants.LOGINBUTTONTEXT.toUpperCase()}
+        buttonTitle={Constants.LOGINBUTTONTEXT.toUpperCase()}
         navigator={'null'}
         route="BottomTabNavigator"
         setState={null}
         isNavigation={true}
-        height={'50px'}
-        marginBottom={'13px'}
-        width={'296px'}
-        bgColor="#a94446"
-        elevation={'0px'}
-        fontSize={'16px'}
-        marginVertical={'15px'}
-        lineHeight={'20px'}
-        letterSpacing={'-0.38px'}
-        color="#fff"
-        fontFamily="ProximaNova-Bold"
+        icon={null}
+      />
+      <Text style={styles.orText}> OR</Text>
+
+      <CustomButton
+        buttonTitle={Constants.LOGINWITHFACEBOOKBUTTONTEXT.toUpperCase()}
+        navigator="null"
+        route="null"
+        setState={null}
+        isNavigation={true}
+        bgColor="#ffffff"
+        elevation={3}
+        color="#232222"
+        fontFamily="ProximaNova-Semibold"
         icon={
           <Image
             source={require('../../common/assets/facebookicon.png')}
-            style={{height: 20.2, width: 20.2}}
+            style={{height: 20.2, width: 20.2, marginHorizontal: 13}}
           />
         }
+        left={true}
       />
-      <Text style={styles.orText}> OR</Text>
-      {/* <CustomButton1
-        button_title={Constants.LOGINWITHFACEBOOKBUTTONTEXT}
-        navigator="BottomTabNavigator"
-        route="ProfileScreen"
-        type="socialmedia"
-        setState={null}
-        isNavigation={true}
-       
-     /> */}
+
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>
         <TouchableOpacity>

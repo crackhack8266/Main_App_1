@@ -1,26 +1,18 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import styles from './styles';
 import Constants from '../../../constants';
-import {CustomButton} from '../../Button';
+import CustomButton from '../../Button';
 
 const ModalFooter = ({setState}) => {
   return (
     <CustomButton
-      button_title={Constants.APPLYFILTER}
+      button_title={Constants.APPLYFILTER.toUpperCase()}
       navigator={'null'}
       route={'null'}
-      type="primary"
       setState={setState}
       isNavigation={false}
-      viewstyleprop={{
-        backgroundColor: '#4e4e4e',
-        width: 342,
-      }}
-      textstyleprop={{
-        color: '#fff',
-        fontFamily: 'ProximaNova-Bold',
-      }}
+      width={'342px'}
+      bgColor="#4e4e4e"
+      icon={null}
     />
   );
 };

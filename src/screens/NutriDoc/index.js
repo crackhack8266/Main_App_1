@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
-import Goals from '../../common/components/Goals';
-import Constants from '../../common/constants';
+import Goals from 'components/Goals';
+import Constants from 'constants';
 
 const renderGoals = goals => {
   return goals.map(goal => {

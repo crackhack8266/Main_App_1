@@ -1,32 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
-import {View, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {ButtonView, ButtonText} from './styles';
+import {View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const ButtonView = styled.View`
-  align-items: center;
-  justify-content: center;
-  border-radius: 25px;
-  margin-bottom: ${props => props.marginBottom};
-  background-color: ${props => props.bgColor};
-  align-self: center;
-  flex-direction: row;
-  width: ${props => props.width};
-  height: ${props => props.height};
-`;
-
-const ButtonText = styled.Text`
-  font-size: ${props => props.fontSize};
-  text-align: left;
-  margin-vertical: ${props => props.marginVertical};
-  color: ${props => props.color};
-  line-height: ${props => props.lineHeight};
-  letter-spacing: ${props => props.letterSpacing};
-  font-family: ${props => props.fontFamily};
-`;
-
 const CustomButton = ({
-  button_title,
+  buttonTitle,
   navigator,
   route,
   setState,
@@ -35,6 +13,7 @@ const CustomButton = ({
   marginBottom,
   width,
   bgColor,
+  elevation,
   fontSize,
   marginVertical,
   lineHeight,
@@ -43,6 +22,8 @@ const CustomButton = ({
   fontFamily,
   icon,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigation = useNavigation();
   const checkNavigator = (navigator, route) => {
     if (navigator != 'null')
@@ -51,8 +32,12 @@ const CustomButton = ({
   };
 
   const checkNavigation = (isNavigation, navigator, route) => {
-    if (isNavigation) return checkNavigator(navigator, route);
-    setState(false);
+    setDisabled(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      if (isNavigation) return checkNavigator(navigator, route);
+      setState(false);
+    }, 3000);
   };
 
   const isIcon = icon => {
@@ -60,15 +45,22 @@ const CustomButton = ({
     return null;
   };
 
+  const renderLoading = () => {
+    return <ActivityIndicator animating={true} color={'#fff'} size={'small'} />;
+  };
+
   return (
     <View>
       <TouchableOpacity
-        onPress={() => checkNavigation(isNavigation, navigator, route)}>
+        onPress={() => checkNavigation(isNavigation, navigator, route)}
+        disabled={disabled}>
         <ButtonView
           height={height}
           width={width}
+          elevation={elevation}
           marginBottom={marginBottom}
-          bgColor={bgColor}>
+          bgColor={bgColor}
+          disabled={disabled}>
           {isIcon(icon)}
           <ButtonText
             fontSize={fontSize}
@@ -77,12 +69,11 @@ const CustomButton = ({
             letterSpacing={letterSpacing}
             color={color}
             fontFamily={fontFamily}>
-            {button_title}
+            {isLoading ? renderLoading() : buttonTitle}
           </ButtonText>
         </ButtonView>
       </TouchableOpacity>
     </View>
   );
 };
-
 export default CustomButton;

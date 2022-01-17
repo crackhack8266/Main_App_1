@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   orText: {
-    marginBottom: 13,
+    marginVertical: 13,
     alignSelf: 'center',
     textAlign: 'center',
     fontSize: 16,
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   registerView: {
     flexDirection: 'row',
     alignSelf: 'center',
-    marginTop: 21,
+    marginTop: 24,
   },
   registerTextBold: {
     fontSize: 16,
@@ -58,7 +58,7 @@ export default StyleSheet.create({
   },
   loginBodyOverlay: {
     backgroundColor: 'white',
-    height: 578.8, //555.8
+    height: 555.8, //555.8
     marginTop: 154.8,
     marginHorizontal: 21,
     alignSelf: 'center',

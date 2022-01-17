@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 import {ProfileDetails} from '../../common/components/ProfileDetails';
-import {CustomButton} from '../../common/components/Button';
+import CustomButton from '../../common/components/Button';
 import styles from './styles';
 import Constants from '../../common/constants/';
 import {NutriSections} from '../../common/components/NutriSections';
@@ -69,28 +69,24 @@ const ProfileScreen = () => {
         </Text>
         <View style={styles.viewDetails_view}>
           <CustomButton
-            button_title="View Details"
+            button_title={Constants.VIEWDETAILS_TEXT}
             navigator={'null'}
-            route={'Login'}
-            type="small"
+            route={'null'}
             setState={null}
             isNavigation={false}
-            viewstyleprop={{
-              backgroundColor: '#fff',
-              elevation: 2,
-              marginBottom: 5,
-              marginLeft: 21,
-              height: 30,
-              width: 93,
-            }}
-            textstyleprop={{
-              color: '#2f2f2f',
-              fontFamily: 'Merriweather-BoldItalic',
-              fontSize: 12,
-              lineHeight: 15,
-              letterSpacing: -0.29,
-            }}
+            height={'30px'}
+            width={'93px'}
+            bgColor="#fff"
+            elevation={2}
+            fontSize={'12px'}
+            marginVertical={'2px'}
+            lineHeight={'15px'}
+            letterSpacing={'-0.29px'}
+            color="#2f2f2f"
+            fontFamily="Merriweather-BoldItalic"
+            icon={null}
           />
+
           <Text style={styles.underlinedText}>Don't show again</Text>
         </View>
       </View>

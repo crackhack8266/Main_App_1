@@ -11,10 +11,10 @@ import {
   Modal,
 } from 'react-native';
 import styles from './styles';
-import Constants from '../../common/constants';
-import {SearchBar} from '../../common/components/SearchBar';
-import {ListOfMeals} from '../../common/components/ListOfMeals';
-import FilterModal from '../../common/components/FilterModal';
+import Constants from 'constants';
+import {SearchBar} from 'components/SearchBar';
+import {ListOfMeals} from 'components/ListOfMeals';
+import FilterModal from 'components/FilterModal';
 
 const renderHeader = setShow => {
   return (
