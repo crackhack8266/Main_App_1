@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Constants from 'constants/';
 import styles from './styles';
+import {render} from 'react-dom';
 
 const capitalize_FirstLetterOfWord = pickerText => {
   return pickerText.charAt(0).toUpperCase() + pickerText.slice(1);
@@ -76,8 +77,29 @@ if (selectedItem) {
   setSelectedItem({});
 }
 */
-const update_Selected_Item = (setSelectedItem, id, value) => {
+const update_Selected_Item = (
+  setSelectedItem,
+  id,
+  value,
+  isMultiple,
+  multiple_Selected_Item,
+  setMultiple_Selected_Item,
+) => {
+  if (isMultiple) {
+    if (multiple_Selected_Item.includes(id)) {
+      const newListItem = multiple_Selected_Item.filter(
+        itemId => itemId !== id,
+      );
+      return setMultiple_Selected_Item(newListItem);
+    }
+    setMultiple_Selected_Item([...multiple_Selected_Item, id]);
+  }
   setSelectedItem({id: id, value: value});
+};
+
+const getSelected = (id, multiple_Selected_Item) => {
+  console.log(id, multiple_Selected_Item);
+  return multiple_Selected_Item.includes(id);
 };
 
 const renderTags = selectedItem => {
@@ -97,7 +119,6 @@ const update_MultiSelected = (
   multiple_Selected_Item,
 ) => {
   setMultiple_Selected_Item([...multiple_Selected_Item, id]);
-  console.log(multiple_Selected_Item);
 };
 
 const renderDropdown = (
@@ -109,6 +130,8 @@ const renderDropdown = (
   setIsMultiple,
   multiple_Selected_Item,
   setMultiple_Selected_Item,
+  renderData,
+  setRenderData,
 ) => {
   return (
     <View style={styles.dropdownView}>
@@ -132,7 +155,14 @@ const renderDropdown = (
                   //</View>multiple_Selected_Item,
                   //);
                   //} else {
-                  update_Selected_Item(setSelectedItem, id, value);
+                  update_Selected_Item(
+                    setSelectedItem,
+                    id,
+                    value,
+                    isMultiple,
+                    multiple_Selected_Item,
+                    setMultiple_Selected_Item,
+                  );
                   update_isSelected_State(
                     selectedItem,
                     setIsSelected,
@@ -141,12 +171,16 @@ const renderDropdown = (
                   );
                 }} //}
               >
-                {selectedItem.id == id ? (
+                {getSelected(id, multiple_Selected_Item) ? (
                   <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
                 ) : (
                   <Text>{item.label}</Text>
                 )}
-                {/*<Text>{item.label}</Text>*/}
+                {/* {selectedItem.id == id ? (
+                  <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
+                ) : (
+                  
+                )} */}
                 <View style={styles.divider}></View>
               </TouchableOpacity>
             </View>
@@ -163,8 +197,9 @@ const CustomPicker = () => {
   const [showState, setShowState] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const [isMultiple, setIsMultiple] = useState(false);
+  const [isMultiple, setIsMultiple] = useState(true);
   const [multiple_Selected_Item, setMultiple_Selected_Item] = useState([]);
+
   return (
     <View>
       {renderSelectView(
@@ -188,6 +223,7 @@ const CustomPicker = () => {
             setMultiple_Selected_Item,
           )
         : null}
+      {console.log(multiple_Selected_Item)}
     </View>
   );
 };
