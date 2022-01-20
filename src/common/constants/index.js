@@ -15,21 +15,36 @@ const Constants = {
   FILTERTITLE: 'Filter By',
   HEADERTITLE: 'Find Your Meals',
   SEARCHTEXT: 'search meal',
+  DROPDOWN_ICON_CONTAINER_STYLE: {
+    left: 70,
+  },
+  TEXT_STYLE: {
+    right: 40,
+  },
   NUTRITIONAL_VALUES_DROP_DOWN: [
-    {label: 'Item 1', value: 'item_1'},
-    {label: 'Item 2', value: 'item_2'},
-    {label: 'Item 3', value: 'item_3'},
+    {id: 1, label: 'Item 1', value: 'item_1'},
+    {id: 2, label: 'Item 2', value: 'item_2'},
+    {id: 3, label: 'Item 3', value: 'item_3'},
+    {id: 4, label: 'Item 1', value: 'item_1'},
+    {id: 5, label: 'Item 2', value: 'item_2'},
+    {id: 6, label: 'Item 3', value: 'item_3'},
+    {id: 7, label: 'Item 1', value: 'item_1'},
+    {id: 8, label: 'Item 2', value: 'item_2'},
+    {id: 9, label: 'Item 3', value: 'item_3'},
+    {id: 10, label: 'Item 1', value: 'item_1'},
+    {id: 11, label: 'Item 2', value: 'item_2'},
+    {id: 12, label: 'Item 3', value: 'item_3'},
   ],
   STATUS_DROP_DOWN: [
     {
-      label: 'Medium',
-      value: 'medium',
       icon: () => (
         <Image
           source={require('../assets/yellow.png')}
           style={{width: 36.2, height: 29.9}}
         />
       ),
+      label: 'Medium',
+      value: 'medium',
     },
     {
       label: 'Hard',

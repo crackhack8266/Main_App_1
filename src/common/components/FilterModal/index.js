@@ -9,10 +9,6 @@ import ModalHeader from './ModalHeader';
 const FilterModal = ({
   showState,
   setState,
-  open,
-  value,
-  setOpen,
-  setValue,
   multiSliderValue,
   setMultiSliderValue,
   checked,
@@ -30,10 +26,6 @@ const FilterModal = ({
           <View style={styles.horizontalDivider}></View>
           <ModalForm
             setState={setState}
-            open={open}
-            value={value}
-            setOpen={setOpen}
-            setValue={setValue}
             multiSliderValue={multiSliderValue}
             multiSliderValuesChange={multiSliderValuesChange}
             checked={checked}

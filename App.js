@@ -12,6 +12,7 @@ import styles from './styles';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import StyledComponents from 'screens/TestScreens/StyledComponents';
 import ActivityIndicatorScreen from 'screens/TestScreens/ActivityIndicator';
+import PickerScreen from 'screens/TestScreens/PickerScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -93,7 +94,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="PickerScreen"
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name="BottomTabNavigator"
@@ -114,6 +115,11 @@ const App = () => {
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="PickerScreen"
+          component={PickerScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

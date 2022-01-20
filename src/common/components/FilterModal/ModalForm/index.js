@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StatusBar} from 'react-native';
 import styles from './styles';
 import Constants from '../../../constants';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
@@ -69,11 +69,6 @@ const renderMilesInputField = (setMiles, miles) => {
 };
 
 const ModalForm = ({
-  setState,
-  open,
-  value,
-  setOpen,
-  setValue,
   multiSliderValue,
   multiSliderValuesChange,
   checked,
@@ -81,26 +76,31 @@ const ModalForm = ({
   miles,
   setMiles,
 }) => {
+  const [nutrientsOpen, setNutrientsOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [nutrientsValue, setNutrientsValue] = useState([]);
+  const [statusValue, setStatusValue] = useState([]);
+
+  const onNutrientsOpen = () => {
+    setStatusOpen(false);
+  };
+
+  const onStatusOpen = () => {
+    setNutrientsOpen(false);
+  };
+
   return (
     <View style={styles.form}>
       <Text style={styles.fieldTitle}>Nutritional Value</Text>
       <DropDown
-        open={open}
-        value={value}
+        open={nutrientsOpen}
+        onOpen={onNutrientsOpen}
+        value={nutrientsValue}
         items={Constants.NUTRITIONAL_VALUES_DROP_DOWN}
-        setOpen={setOpen}
-        setValue={setValue}
-        style={{
-          backgroundColor: '#f9f8f8',
-          borderColor: '#ecebf1',
-          marginTop: 12.6,
-        }}
-        placeholder="High"
-        dropDownContainerStyle={{
-          backgroundColor: '#dfdfdf',
-          marginTop: 5,
-        }}
-        dropDownDirection="BOTTOM"
+        setOpen={setNutrientsOpen}
+        setValue={setNutrientsValue}
+        placeholder="Select Nutrients"
+        multiple={true}
       />
       <Text style={[styles.fieldTitle, {marginTop: 20.4}]}>Price</Text>
       {renderMultiSlider(multiSliderValue, multiSliderValuesChange)}
@@ -110,22 +110,20 @@ const ModalForm = ({
 
       <Text style={[styles.fieldTitle, {marginTop: 20}]}>Status</Text>
       <DropDown
-        open={open}
-        value={value}
+        open={statusOpen}
+        onOpen={onStatusOpen}
+        value={statusValue}
         items={Constants.STATUS_DROP_DOWN}
-        setOpen={setOpen}
-        setValue={setValue}
-        style={{
-          backgroundColor: '#f9f8f8',
-          borderColor: '#ecebf1',
-          marginTop: 12.6,
-        }}
-        placeholder="Medium"
-        dropDownContainerStyle={{
-          backgroundColor: '#dfdfdf',
-          marginTop: 15,
-        }}
-        dropDownDirection="BOTTOM"
+        setOpen={setStatusOpen}
+        setValue={setStatusValue}
+        placeholder="Select Status"
+
+        //main thing starts
+
+        // iconContainerStyle={Constants.DROPDOWN_ICON_CONTAINER_STYLE}
+        //textStyle={Constants.TEXT_STYLE}
+
+        //main thing ends
       />
 
       {renderMilesInputField(setMiles, miles)}

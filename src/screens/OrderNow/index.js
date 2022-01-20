@@ -67,8 +67,7 @@ const wait = timeout => {
 
 const OrderScreen = () => {
   const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+
   const [miles, setMiles] = useState('9');
   const [multiSliderValue, setMultiSliderValue] = useState([3, 7]);
   const [searchquery, setSearchQuery] = useState('');
@@ -98,10 +97,12 @@ const OrderScreen = () => {
           <FilterModal
             showState={show}
             setState={setShow}
-            open={open}
-            value={value}
-            setOpen={setOpen}
-            setValue={setValue}
+            //nutrientsOpen={nutrientsOpen}
+            //statusOpen={statusOpen}
+            //value={value}
+            //setNutrientsOpen={setNutrientsOpen}
+            // setNutrientsOpen={setNutrientsOpen}
+            //setValue={setValue}
             multiSliderValue={multiSliderValue}
             setMultiSliderValue={setMultiSliderValue}
             checked={checked}
