@@ -9,26 +9,25 @@ import {
 } from 'react-native';
 import Constants from 'constants/';
 import styles from './styles';
-import {render} from 'react-dom';
-
 const capitalize_FirstLetterOfWord = pickerText => {
   return pickerText.charAt(0).toUpperCase() + pickerText.slice(1);
 };
-const renderSelectView = (showState, setShowState, selectedItem) => {
+const renderSelectView = (
+  showState,
+  setShowState,
+  selectedItem,
+  isMultiple,
+  multipleSelectedItem,
+) => {
   const pickerText = selectedItem.value || Constants.DROPDOWN_TEXT;
-
+  console.log(multipleSelectedItem);
   return (
     <TouchableOpacity
       onPress={() => {
         update_Show_State(showState, setShowState);
       }}>
       <View style={styles.searchView}>
-        <Text>
-          {capitalize_FirstLetterOfWord(pickerText)}
-          {/*isMultiple
-            ? capitalize_FirstLetterOfWord(renderTags(selectedItem))
-          : capitalize_FirstLetterOfWord(pickerText)*/}
-        </Text>
+        {renderTags(multipleSelectedItem)}
         {showState ? (
           <Image
             source={require('images/right.png')}
@@ -53,13 +52,6 @@ const update_Show_State = (showState, setShowState) => {
   }
 };
 
-const removeEntry = (id, multiple_Selected_Item, setMultiple_Selected_Item) => {
-  const multiple_Selected_Item1 = multiple_Selected_Item.filter(
-    item => item.id !== id,
-  );
-  setMultiple_Selected_Item(multiple_Selected_Item1);
-};
-
 const update_isSelected_State = (
   selectedItem,
   setIsSelected,
@@ -82,43 +74,21 @@ const update_Selected_Item = (
   id,
   value,
   isMultiple,
-  multiple_Selected_Item,
-  setMultiple_Selected_Item,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
 ) => {
   if (isMultiple) {
-    if (multiple_Selected_Item.includes(id)) {
-      const newListItem = multiple_Selected_Item.filter(
-        itemId => itemId !== id,
-      );
-      return setMultiple_Selected_Item(newListItem);
+    if (multipleSelectedItem.some(itemId => itemId.id == id)) {
+      const newListItem = multipleSelectedItem.filter(item => item.id !== id);
+      return setMultipleSelectedItem(newListItem);
     }
-    setMultiple_Selected_Item([...multiple_Selected_Item, id]);
+    setMultipleSelectedItem([...multipleSelectedItem, {id: id, value: value}]);
   }
   setSelectedItem({id: id, value: value});
 };
 
-const getSelected = (id, multiple_Selected_Item) => {
-  console.log(id, multiple_Selected_Item);
-  return multiple_Selected_Item.includes(id);
-};
-
-const renderTags = selectedItem => {
-  if (selectedItem.id != null)
-    return (
-      <View
-        style={{alignSelf: 'flex-start', backgroundColor: 'grey', padding: 12}}>
-        <Text style={{color: 'red'}}>{selectedItem.value}</Text>
-      </View>
-    );
-  return Constants.DROPDOWN_TEXT;
-};
-
-const update_MultiSelected = (
-  setMultiple_Selected_Item,
-  id,
-  multiple_Selected_Item,
-) => {
-  setMultiple_Selected_Item([...multiple_Selected_Item, id]);
+const getSelected = (id, multipleSelectedItem) => {
+  return multipleSelectedItem.some(item => item.id == id);
 };
 
 const renderDropdown = (
@@ -128,10 +98,8 @@ const renderDropdown = (
   setSelectedItem,
   isMultiple,
   setIsMultiple,
-  multiple_Selected_Item,
-  setMultiple_Selected_Item,
-  renderData,
-  setRenderData,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
 ) => {
   return (
     <View style={styles.dropdownView}>
@@ -148,20 +116,13 @@ const renderDropdown = (
             <View style={styles.dropdownItem}>
               <TouchableOpacity
                 onPress={() => {
-                  // if (isMultiple) {
-                  // update_MultiSelected(
-                  // setMultiple_Selected_Item,
-                  //id,
-                  //</View>multiple_Selected_Item,
-                  //);
-                  //} else {
                   update_Selected_Item(
                     setSelectedItem,
                     id,
                     value,
                     isMultiple,
-                    multiple_Selected_Item,
-                    setMultiple_Selected_Item,
+                    multipleSelectedItem,
+                    setMultipleSelectedItem,
                   );
                   update_isSelected_State(
                     selectedItem,
@@ -169,15 +130,20 @@ const renderDropdown = (
                     id,
                     setSelectedItem,
                   );
-                }} //}
-              >
-                {getSelected(id, multiple_Selected_Item) ? (
+                }}>
+                {isMultiple ? (
+                  getSelected(id, multipleSelectedItem) ? (
+                    <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
+                  ) : (
+                    <Text>{item.label}</Text>
+                  )
+                ) : selectedItem.id == id ? (
                   <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
                 ) : (
                   <Text>{item.label}</Text>
                 )}
+
                 {/* {selectedItem.id == id ? (
-                  <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
                 ) : (
                   
                 )} */}
@@ -191,14 +157,31 @@ const renderDropdown = (
   );
 };
 
-const renderMultiSelect = (multiple_Selected_Item, id) => {};
+const renderTags = multipleSelectedItem => {
+  return multipleSelectedItem.length > 0 ? (
+    multipleSelectedItem.map(item => {
+      return (
+        <View
+          style={{
+            alignSelf: 'flex-start',
+            backgroundColor: 'grey',
+            padding: 12,
+          }}>
+          <Text style={{color: 'red'}}>{item.id}</Text>
+        </View>
+      );
+    })
+  ) : (
+    <Text>Select Multiple Nutrients</Text>
+  );
+};
 
 const CustomPicker = () => {
   const [showState, setShowState] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [isMultiple, setIsMultiple] = useState(true);
-  const [multiple_Selected_Item, setMultiple_Selected_Item] = useState([]);
+  const [multipleSelectedItem, setMultipleSelectedItem] = useState([]);
 
   return (
     <View>
@@ -207,9 +190,7 @@ const CustomPicker = () => {
         setShowState,
         selectedItem,
         isMultiple,
-        setIsMultiple,
-        multiple_Selected_Item,
-        setMultiple_Selected_Item,
+        multipleSelectedItem,
       )}
       {showState
         ? renderDropdown(
@@ -219,11 +200,11 @@ const CustomPicker = () => {
             setSelectedItem,
             isMultiple,
             setIsMultiple,
-            multiple_Selected_Item,
-            setMultiple_Selected_Item,
+            multipleSelectedItem,
+            setMultipleSelectedItem,
           )
         : null}
-      {console.log(multiple_Selected_Item)}
+      {console.log('multipleSelectedItem' + multipleSelectedItem)}
     </View>
   );
 };
