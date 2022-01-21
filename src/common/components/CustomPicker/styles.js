@@ -35,4 +35,12 @@ export default StyleSheet.create({
     backgroundColor: 'grey',
     marginTop: 9,
   },
+  tagsView: {
+    alignSelf: 'flex-start',
+    backgroundColor: 'grey',
+    padding: 12,
+  },
+  tagsText: {
+    color: 'red',
+  },
 });

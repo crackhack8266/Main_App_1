@@ -91,6 +91,10 @@ const getSelected = (id, multipleSelectedItem) => {
   return multipleSelectedItem.some(item => item.id == id);
 };
 
+const selectedItemText = item => {
+  return <Text style={{backgroundColor: 'red'}}>{item.label}</Text>;
+};
+
 const renderDropdown = (
   isSelected,
   setIsSelected,
@@ -133,20 +137,16 @@ const renderDropdown = (
                 }}>
                 {isMultiple ? (
                   getSelected(id, multipleSelectedItem) ? (
-                    <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
+                    selectedItemText(item)
                   ) : (
                     <Text>{item.label}</Text>
                   )
                 ) : selectedItem.id == id ? (
-                  <Text style={{backgroundColor: 'red'}}>{item.label}</Text>
+                  selectedItemText(item)
                 ) : (
                   <Text>{item.label}</Text>
                 )}
 
-                {/* {selectedItem.id == id ? (
-                ) : (
-                  
-                )} */}
                 <View style={styles.divider}></View>
               </TouchableOpacity>
             </View>
@@ -161,13 +161,8 @@ const renderTags = multipleSelectedItem => {
   return multipleSelectedItem.length > 0 ? (
     multipleSelectedItem.map(item => {
       return (
-        <View
-          style={{
-            alignSelf: 'flex-start',
-            backgroundColor: 'grey',
-            padding: 12,
-          }}>
-          <Text style={{color: 'red'}}>{item.id}</Text>
+        <View style={styles.tagsView}>
+          <Text style={styles.tagsText}>{item.id}</Text>
         </View>
       );
     })
@@ -204,7 +199,6 @@ const CustomPicker = () => {
             setMultipleSelectedItem,
           )
         : null}
-      {console.log('multipleSelectedItem' + multipleSelectedItem)}
     </View>
   );
 };
