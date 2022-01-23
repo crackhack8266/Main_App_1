@@ -1,15 +1,8 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Image,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
 import Constants from 'constants/';
 import styles from './styles';
+
 const capitalize_FirstLetterOfWord = pickerText => {
   return pickerText.charAt(0).toUpperCase() + pickerText.slice(1);
 };
@@ -21,46 +14,21 @@ const renderSelectView = (
   isMultiple,
   multipleSelectedItem,
   setMultipleSelectedItem,
-  item,
 ) => {
-  const pickerText = selectedItem.value || Constants.DROPDOWN_TEXT;
+  const pickerText =
+    (!isMultiple && selectedItem.value) || Constants.DROPDOWN_TEXT;
 
   return (
-    // <TouchableOpacity
-    //   onPress={() => {
-    //     update_Show_State(showState, setShowState);
-    //   }}>
-
     <View style={styles.searchView}>
-      <View style={{flexDirection: 'row'}}>
-        {isMultiple ? (
-          renderTags(
-            multipleSelectedItem,
-            setMultipleSelectedItem,
-            showState,
-            setShowState,
-            item,
-          )
-        ) : (
-          <Text onPress={() => update_Show_State(showState, setShowState)}>
-            {' '}
-            {capitalize_FirstLetterOfWord(pickerText)}
-          </Text>
-        )}
-      </View>
-      <View>
-        {showState ? (
-          <Image
-            source={require('images/right.png')}
-            style={[styles.arrowIcon, {transform: [{rotate: '90deg'}]}]}
-          />
-        ) : (
-          <Image
-            source={require('images/right.png')}
-            style={styles.arrowIcon}
-          />
-        )}
-      </View>
+      {renderSelectedItem_Text_View(
+        isMultiple,
+        multipleSelectedItem,
+        setMultipleSelectedItem,
+        showState,
+        setShowState,
+        pickerText,
+      )}
+      {renderIcon(showState)}
     </View>
   );
 };
@@ -73,23 +41,6 @@ const update_Show_State = (showState, setShowState) => {
   }
 };
 
-const update_isSelected_State = (
-  selectedItem,
-  setIsSelected,
-  id,
-  setSelectedItem,
-) => {
-  if (selectedItem.id == id) {
-    setIsSelected(true);
-    setSelectedItem({});
-  }
-};
-/*
-if (selectedItem) {
-  setIsSelected(true);
-  setSelectedItem({});
-}
-*/
 const renderFilterList = (
   id,
   value,
@@ -102,7 +53,9 @@ const renderFilterList = (
   }
   setMultipleSelectedItem([...multipleSelectedItem, {id: id, value: value}]);
 };
+
 const update_Selected_Item = (
+  selectedItem,
   setSelectedItem,
   id,
   value,
@@ -112,9 +65,11 @@ const update_Selected_Item = (
 ) => {
   if (isMultiple) {
     renderFilterList(id, value, multipleSelectedItem, setMultipleSelectedItem);
+  } else if (selectedItem.id == id) {
+    setSelectedItem({});
+  } else {
+    setSelectedItem({id: id, value: value});
   }
-
-  setSelectedItem({id: id, value: value});
 };
 
 const getSelected = (id, multipleSelectedItem) => {
@@ -126,12 +81,9 @@ const selectedItemText = item => {
 };
 
 const renderDropdown = (
-  isSelected,
-  setIsSelected,
   selectedItem,
   setSelectedItem,
   isMultiple,
-  setIsMultiple,
   multipleSelectedItem,
   setMultipleSelectedItem,
 ) => {
@@ -151,18 +103,13 @@ const renderDropdown = (
               <TouchableOpacity
                 onPress={() => {
                   update_Selected_Item(
+                    selectedItem,
                     setSelectedItem,
                     id,
                     value,
                     isMultiple,
                     multipleSelectedItem,
                     setMultipleSelectedItem,
-                  );
-                  update_isSelected_State(
-                    selectedItem,
-                    setIsSelected,
-                    id,
-                    setSelectedItem,
                   );
                 }}>
                 {isMultiple ? (
@@ -212,6 +159,7 @@ const renderTags = (
       }}
       horizontal={true}
       extraData={true}
+      style={{width: 10}}
       renderItem={({item}) => {
         return (
           <View style={styles.tagsView}>
@@ -239,13 +187,57 @@ const renderTags = (
   );
 };
 
-const CustomPicker = () => {
-  const [showState, setShowState] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
-  const [isMultiple, setIsMultiple] = useState(true);
-  const [multipleSelectedItem, setMultipleSelectedItem] = useState([]);
+const renderSelectedItem_Text_View = (
+  isMultiple,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+  showState,
+  setShowState,
+  pickerText,
+) => {
+  return (
+    <View style={styles.selectedItem_Text_View}>
+      {isMultiple ? (
+        renderTags(
+          multipleSelectedItem,
+          setMultipleSelectedItem,
+          showState,
+          setShowState,
+        )
+      ) : (
+        <Text onPress={() => update_Show_State(showState, setShowState)}>
+          {capitalize_FirstLetterOfWord(pickerText)}
+        </Text>
+      )}
+    </View>
+  );
+};
 
+const renderIcon = showState => {
+  return (
+    <View>
+      {showState ? (
+        <Image
+          source={require('images/right.png')}
+          style={[styles.arrowIcon, {transform: [{rotate: '90deg'}]}]}
+        />
+      ) : (
+        <Image source={require('images/right.png')} style={styles.arrowIcon} />
+      )}
+    </View>
+  );
+};
+
+const CustomPicker = ({
+  showState,
+  setShowState,
+  selectedItem,
+  setSelectedItem,
+  isMultiple,
+  setIsMultiple,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+}) => {
   return (
     <View>
       {renderSelectView(
@@ -258,12 +250,9 @@ const CustomPicker = () => {
       )}
       {showState
         ? renderDropdown(
-            isSelected,
-            setIsSelected,
             selectedItem,
             setSelectedItem,
             isMultiple,
-            setIsMultiple,
             multipleSelectedItem,
             setMultipleSelectedItem,
           )

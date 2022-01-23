@@ -11,11 +11,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    overflow: 'hidden',
   },
 
   arrowIcon: {
-    marginHorizontal: 10,
-    alignSelf: 'flex-end',
+    marginRight: 20,
   },
   dropdownView: {
     width: Dimensions.get('window').width - 40,
@@ -52,5 +52,8 @@ export default StyleSheet.create({
     height: 10,
     width: 10,
     marginLeft: 10,
+  },
+  selectedItem_Text_View: {
+    flexDirection: 'row',
   },
 });
