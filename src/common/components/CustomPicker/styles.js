@@ -13,8 +13,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  searchBarIcon: {
+  arrowIcon: {
     marginHorizontal: 10,
+    alignSelf: 'flex-end',
   },
   dropdownView: {
     width: Dimensions.get('window').width - 40,
@@ -39,8 +40,17 @@ export default StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: 'grey',
     padding: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 5,
   },
   tagsText: {
     color: 'red',
+  },
+  closeIcon: {
+    height: 10,
+    width: 10,
+    marginLeft: 10,
   },
 });

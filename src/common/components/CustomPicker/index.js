@@ -6,41 +6,62 @@ import {
   TextInput,
   Image,
   FlatList,
+  Dimensions,
 } from 'react-native';
 import Constants from 'constants/';
 import styles from './styles';
 const capitalize_FirstLetterOfWord = pickerText => {
   return pickerText.charAt(0).toUpperCase() + pickerText.slice(1);
 };
+
 const renderSelectView = (
   showState,
   setShowState,
   selectedItem,
   isMultiple,
   multipleSelectedItem,
+  setMultipleSelectedItem,
+  item,
 ) => {
   const pickerText = selectedItem.value || Constants.DROPDOWN_TEXT;
-  console.log(multipleSelectedItem);
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        update_Show_State(showState, setShowState);
-      }}>
-      <View style={styles.searchView}>
-        {renderTags(multipleSelectedItem)}
+    // <TouchableOpacity
+    //   onPress={() => {
+    //     update_Show_State(showState, setShowState);
+    //   }}>
+
+    <View style={styles.searchView}>
+      <View style={{flexDirection: 'row'}}>
+        {isMultiple ? (
+          renderTags(
+            multipleSelectedItem,
+            setMultipleSelectedItem,
+            showState,
+            setShowState,
+            item,
+          )
+        ) : (
+          <Text onPress={() => update_Show_State(showState, setShowState)}>
+            {' '}
+            {capitalize_FirstLetterOfWord(pickerText)}
+          </Text>
+        )}
+      </View>
+      <View>
         {showState ? (
           <Image
             source={require('images/right.png')}
-            style={[styles.searchBarIcon, {transform: [{rotate: '90deg'}]}]}
+            style={[styles.arrowIcon, {transform: [{rotate: '90deg'}]}]}
           />
         ) : (
           <Image
             source={require('images/right.png')}
-            style={styles.searchBarIcon}
+            style={styles.arrowIcon}
           />
         )}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -69,6 +90,18 @@ if (selectedItem) {
   setSelectedItem({});
 }
 */
+const renderFilterList = (
+  id,
+  value,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+) => {
+  if (multipleSelectedItem.some(itemId => itemId.id == id)) {
+    const newListItem = multipleSelectedItem.filter(item => item.id !== id);
+    return setMultipleSelectedItem(newListItem);
+  }
+  setMultipleSelectedItem([...multipleSelectedItem, {id: id, value: value}]);
+};
 const update_Selected_Item = (
   setSelectedItem,
   id,
@@ -78,12 +111,9 @@ const update_Selected_Item = (
   setMultipleSelectedItem,
 ) => {
   if (isMultiple) {
-    if (multipleSelectedItem.some(itemId => itemId.id == id)) {
-      const newListItem = multipleSelectedItem.filter(item => item.id !== id);
-      return setMultipleSelectedItem(newListItem);
-    }
-    setMultipleSelectedItem([...multipleSelectedItem, {id: id, value: value}]);
+    renderFilterList(id, value, multipleSelectedItem, setMultipleSelectedItem);
   }
+
   setSelectedItem({id: id, value: value});
 };
 
@@ -157,17 +187,55 @@ const renderDropdown = (
   );
 };
 
-const renderTags = multipleSelectedItem => {
+const renderDefaultPickerText_Multiple = (showState, setShowState) => {
+  return (
+    <Text
+      onPress={() => {
+        update_Show_State(showState, setShowState);
+      }}>
+      Select Multiple Nutrients
+    </Text>
+  );
+};
+
+const renderTags = (
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+  showState,
+  setShowState,
+) => {
   return multipleSelectedItem.length > 0 ? (
-    multipleSelectedItem.map(item => {
-      return (
-        <View style={styles.tagsView}>
-          <Text style={styles.tagsText}>{item.id}</Text>
-        </View>
-      );
-    })
+    <FlatList
+      data={multipleSelectedItem}
+      keyExtractor={item => {
+        return item.id;
+      }}
+      horizontal={true}
+      extraData={true}
+      renderItem={({item}) => {
+        return (
+          <View style={styles.tagsView}>
+            <Text style={styles.tagsText}>{item.value}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                renderFilterList(
+                  item.id,
+                  item.value,
+                  multipleSelectedItem,
+                  setMultipleSelectedItem,
+                );
+              }}>
+              <Image
+                source={require('images/close.png')}
+                style={styles.closeIcon}
+              />
+            </TouchableOpacity>
+          </View>
+        );
+      }}
+    />
   ) : (
-    <Text>Select Multiple Nutrients</Text>
+    renderDefaultPickerText_Multiple(showState, setShowState)
   );
 };
 
@@ -186,6 +254,7 @@ const CustomPicker = () => {
         selectedItem,
         isMultiple,
         multipleSelectedItem,
+        setMultipleSelectedItem,
       )}
       {showState
         ? renderDropdown(
