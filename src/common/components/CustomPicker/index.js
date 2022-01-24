@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 import Constants from 'constants/';
 import styles from './styles';
 
@@ -157,9 +164,12 @@ const renderTags = (
       keyExtractor={item => {
         return item.id;
       }}
-      horizontal={true}
       extraData={true}
-      style={{width: 10}}
+      scrollEnabled={false}
+      contentContainerStyle={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+      }}
       renderItem={({item}) => {
         return (
           <View style={styles.tagsView}>

@@ -4,9 +4,10 @@ export default StyleSheet.create({
   searchView: {
     width: Dimensions.get('window').width - 40,
     marginVertical: 10,
-    height: 40,
+    height: Dimensions.get('window').height - 790,
     borderRadius: 20,
     paddingLeft: 10,
+    paddingVertical: 15,
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
