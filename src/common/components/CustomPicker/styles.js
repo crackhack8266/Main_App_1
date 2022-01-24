@@ -57,4 +57,9 @@ export default StyleSheet.create({
   selectedItem_Text_View: {
     flexDirection: 'row',
   },
+
+  renderInputField: {
+    backgroundColor: 'red',
+    width: Dimensions.get('window').width - 100,
+  },
 });

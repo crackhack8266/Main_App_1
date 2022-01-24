@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,8 @@ import {
   Image,
   FlatList,
   Dimensions,
+  TextInput,
+  Keyboard,
 } from 'react-native';
 import Constants from 'constants/';
 import styles from './styles';
@@ -21,29 +23,52 @@ const renderSelectView = (
   isMultiple,
   multipleSelectedItem,
   setMultipleSelectedItem,
+  isInputEnabled,
+  searchQuery,
+  setSearchQuery,
+  data,
+  setData,
+  filteredData,
+  setFilteredData,
+  state,
+  setState,
+  setSelectedItem,
 ) => {
   const pickerText =
     (!isMultiple && selectedItem.value) || Constants.DROPDOWN_TEXT;
 
   return (
     <View style={styles.searchView}>
-      {renderSelectedItem_Text_View(
+      {renderInputField(
+        isInputEnabled,
+        searchQuery,
+        setSearchQuery,
+        setShowState,
+        showState,
+        data,
+        setData,
+        filteredData,
+        setFilteredData,
+        selectedItem,
+        state,
+        setState,
+        setSelectedItem,
+      )}
+      {/* {renderSelectedItem_Text_View(
         isMultiple,
         multipleSelectedItem,
         setMultipleSelectedItem,
         showState,
         setShowState,
         pickerText,
-      )}
-      {renderIcon(showState)}
+      )} */}
+      {renderIcon(showState, setShowState)}
     </View>
   );
 };
 
 const update_Show_State = (showState, setShowState) => {
-  if (showState) {
-    setShowState(false);
-  } else {
+  if (!showState) {
     setShowState(true);
   }
 };
@@ -69,12 +94,17 @@ const update_Selected_Item = (
   isMultiple,
   multipleSelectedItem,
   setMultipleSelectedItem,
+  setFilteredData,
+  data,
+  setShowState,
 ) => {
   if (isMultiple) {
     renderFilterList(id, value, multipleSelectedItem, setMultipleSelectedItem);
   } else if (selectedItem.id == id) {
+    setFilteredData(data);
     setSelectedItem({});
   } else {
+    setShowState(false);
     setSelectedItem({id: id, value: value});
   }
 };
@@ -93,11 +123,18 @@ const renderDropdown = (
   isMultiple,
   multipleSelectedItem,
   setMultipleSelectedItem,
+  data,
+  setData,
+  filteredData,
+  setFilteredData,
+  setShowState,
+  state,
+  setState,
 ) => {
   return (
     <View style={styles.dropdownView}>
       <FlatList
-        data={Constants.NUTRITIONAL_VALUES_DROP_DOWN}
+        data={filteredData}
         keyExtractor={item => {
           return item.id;
         }}
@@ -117,6 +154,9 @@ const renderDropdown = (
                     isMultiple,
                     multipleSelectedItem,
                     setMultipleSelectedItem,
+                    setFilteredData,
+                    data,
+                    setShowState,
                   );
                 }}>
                 {isMultiple ? (
@@ -223,17 +263,69 @@ const renderSelectedItem_Text_View = (
   );
 };
 
-const renderIcon = showState => {
+const renderIcon = (showState, setShowState) => {
   return (
     <View>
       {showState ? (
-        <Image
-          source={require('images/right.png')}
-          style={[styles.arrowIcon, {transform: [{rotate: '90deg'}]}]}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            setShowState(false);
+            Keyboard.dismiss();
+          }}>
+          <Image
+            source={require('images/right.png')}
+            style={[styles.arrowIcon, {transform: [{rotate: '90deg'}]}]}
+          />
+        </TouchableOpacity>
       ) : (
         <Image source={require('images/right.png')} style={styles.arrowIcon} />
       )}
+    </View>
+  );
+};
+const handleSearch = (text, setSearchQuery, data, setFilteredData) => {
+  const fromatedQuery = text.toLowerCase();
+
+  const newData = data.filter(item => {
+    const itemData = item.value;
+    return itemData.indexOf(fromatedQuery) > -1;
+  });
+  setFilteredData(newData);
+
+  setSearchQuery(fromatedQuery);
+};
+const renderInputField = (
+  isInputEnabled,
+  searchQuery,
+  setSearchQuery,
+  setShowState,
+  showState,
+  data,
+  setData,
+  filteredData,
+  setFilteredData,
+  selectedItem,
+  state,
+  setState,
+  setSelectedItem,
+) => {
+  return (
+    <View>
+      <TextInput
+        onChangeText={text => {
+          handleSearch(text, setSearchQuery, data, setFilteredData);
+        }}
+        placeholder={selectedItem.value || 'Enter Search Query'}
+        onPressIn={() => {
+          if (!showState) {
+            setShowState(true);
+          }
+          setSelectedItem({});
+          setFilteredData(data);
+        }}
+        style={styles.renderInputField}
+        value={selectedItem ? selectedItem.value : null}
+      />
     </View>
   );
 };
@@ -247,7 +339,16 @@ const CustomPicker = ({
   setIsMultiple,
   multipleSelectedItem,
   setMultipleSelectedItem,
+  data,
+  setData,
+  filteredData,
+  setFilteredData,
+  state,
+  setState,
 }) => {
+  const [isInputEnabled, setIsInputEnabled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(' ');
+
   return (
     <View>
       {renderSelectView(
@@ -257,6 +358,16 @@ const CustomPicker = ({
         isMultiple,
         multipleSelectedItem,
         setMultipleSelectedItem,
+        isInputEnabled,
+        searchQuery,
+        setSearchQuery,
+        data,
+        setData,
+        filteredData,
+        setFilteredData,
+        state,
+        setState,
+        setSelectedItem,
       )}
       {showState
         ? renderDropdown(
@@ -265,8 +376,16 @@ const CustomPicker = ({
             isMultiple,
             multipleSelectedItem,
             setMultipleSelectedItem,
+            data,
+            setData,
+            filteredData,
+            setFilteredData,
+            setShowState,
+            state,
+            setState,
           )
         : null}
+      <Text>{searchQuery}</Text>
     </View>
   );
 };
