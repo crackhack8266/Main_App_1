@@ -11,10 +11,9 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     overflow: 'hidden',
+    justifyContent: 'space-between',
   },
-
   arrowIcon: {
     marginRight: 20,
   },
@@ -58,7 +57,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
 
-  renderInputField: {
+  pickerText: {
     width: Dimensions.get('window').width - 100,
   },
 });

@@ -39,29 +39,20 @@ const renderSelectView = (
 
   return (
     <View style={styles.searchView}>
-      {renderInputField(
-        isInputEnabled,
-        searchQuery,
+      {renderSelectionType(
         setSearchQuery,
         setShowState,
         showState,
         data,
-        setData,
-        filteredData,
         setFilteredData,
         selectedItem,
-        state,
-        setState,
-        setSelectedItem,
-      )}
-      {/* {renderSelectedItem_Text_View(
         isMultiple,
         multipleSelectedItem,
         setMultipleSelectedItem,
-        showState,
-        setShowState,
         pickerText,
-      )} */}
+        isInputEnabled,
+      )}
+
       {renderIcon(showState, setShowState)}
     </View>
   );
@@ -139,6 +130,7 @@ const renderDropdown = (
           return item.id;
         }}
         extraData={selectedItem}
+        ListEmptyComponent={<Text>No Items Found</Text>}
         renderItem={({item}) => {
           const id = item.id;
           const value = item.value;
@@ -192,47 +184,92 @@ const renderDefaultPickerText_Multiple = (showState, setShowState) => {
   );
 };
 
+const renderMultipleSearch = (
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+  showState,
+  setShowState,
+  isInputEnabled,
+  setSearchQuery,
+  data,
+  setFilteredData,
+  selectedItem,
+  isMultiple,
+) => {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      {renderTags(
+        multipleSelectedItem,
+        setMultipleSelectedItem,
+        showState,
+        setShowState,
+        isInputEnabled,
+        setSearchQuery,
+        data,
+        setFilteredData,
+        selectedItem,
+        isMultiple,
+      )}
+      {renderInputField(
+        setSearchQuery,
+        setShowState,
+        showState,
+        data,
+        setFilteredData,
+        selectedItem,
+        isMultiple,
+      )}
+    </View>
+  );
+};
+
 const renderTags = (
   multipleSelectedItem,
   setMultipleSelectedItem,
   showState,
   setShowState,
+  isInputEnabled,
+  setSearchQuery,
+  data,
+  setFilteredData,
+  selectedItem,
+  isMultiple,
 ) => {
   return multipleSelectedItem.length > 0 ? (
-    <FlatList
-      data={multipleSelectedItem}
-      keyExtractor={item => {
-        return item.id;
-      }}
-      extraData={true}
-      scrollEnabled={false}
-      contentContainerStyle={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-      }}
-      renderItem={({item}) => {
-        return (
-          <View style={styles.tagsView}>
-            <Text style={styles.tagsText}>{item.value}</Text>
-            <TouchableOpacity
-              onPress={() => {
-                renderFilterList(
-                  item.id,
-                  item.value,
-                  multipleSelectedItem,
-                  setMultipleSelectedItem,
-                );
-              }}>
-              <Image
-                source={require('images/close.png')}
-                style={styles.closeIcon}
-              />
-            </TouchableOpacity>
-          </View>
-        );
-      }}
-    />
-  ) : (
+    <View>
+      <FlatList
+        data={multipleSelectedItem}
+        keyExtractor={item => {
+          return item.id;
+        }}
+        extraData={true}
+        scrollEnabled={false}
+        numColumns={3}
+        horizontal={false}
+        renderItem={({item}) => {
+          return (
+            <View style={styles.tagsView}>
+              <Text style={styles.tagsText}>{item.value}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  renderFilterList(
+                    item.id,
+                    item.value,
+                    multipleSelectedItem,
+                    setMultipleSelectedItem,
+                  );
+                }}>
+                <Image
+                  source={require('images/close.png')}
+                  style={styles.closeIcon}
+                />
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      />
+    </View>
+  ) : isMultiple ? null : (
     renderDefaultPickerText_Multiple(showState, setShowState)
   );
 };
@@ -255,7 +292,10 @@ const renderSelectedItem_Text_View = (
           setShowState,
         )
       ) : (
-        <Text onPress={() => update_Show_State(showState, setShowState)}>
+        <Text
+          onPress={() => update_Show_State(showState, setShowState)}
+          style={styles.pickerText}>
+          {console.log(pickerText)}
           {capitalize_FirstLetterOfWord(pickerText)}
         </Text>
       )}
@@ -265,7 +305,7 @@ const renderSelectedItem_Text_View = (
 
 const renderIcon = (showState, setShowState) => {
   return (
-    <View>
+    <View style={{marginHorizontal: 10}}>
       {showState ? (
         <TouchableOpacity
           onPress={() => {
@@ -295,27 +335,22 @@ const handleSearch = (text, setSearchQuery, data, setFilteredData) => {
   setSearchQuery(fromatedQuery);
 };
 const renderInputField = (
-  isInputEnabled,
-  searchQuery,
   setSearchQuery,
   setShowState,
   showState,
   data,
-  setData,
-  filteredData,
   setFilteredData,
   selectedItem,
-  state,
-  setState,
-  setSelectedItem,
+  isMultiple,
 ) => {
   return (
-    <View>
+    <View style={{flexShrink: 1, flexDirection: 'row'}}>
       <TextInput
         onChangeText={text => {
           handleSearch(text, setSearchQuery, data, setFilteredData);
         }}
-        placeholder={selectedItem.value || 'Select A Nutrient'}
+        placeholder={selectedItem.value || null}
+        multiline={true}
         placeholderTextColor={showState ? null : 'black'}
         onPressIn={() => {
           if (!showState) {
@@ -327,6 +362,46 @@ const renderInputField = (
       />
     </View>
   );
+};
+
+const renderSelectionType = (
+  setSearchQuery,
+  setShowState,
+  showState,
+  data,
+  setFilteredData,
+  selectedItem,
+  isMultiple,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+  pickerText,
+  isInputEnabled,
+) => {
+  if (isInputEnabled) {
+    if (isMultiple) {
+      return renderMultipleSearch(
+        multipleSelectedItem,
+        setMultipleSelectedItem,
+        showState,
+        setShowState,
+        isInputEnabled,
+        setSearchQuery,
+        data,
+        setFilteredData,
+        selectedItem,
+        isMultiple,
+      );
+    }
+  } else {
+    return renderSelectedItem_Text_View(
+      isMultiple,
+      multipleSelectedItem,
+      setMultipleSelectedItem,
+      showState,
+      setShowState,
+      pickerText,
+    );
+  }
 };
 
 const CustomPicker = ({
@@ -344,10 +419,11 @@ const CustomPicker = ({
   setFilteredData,
   state,
   setState,
+  isInputEnabled,
+  setIsInputEnabled,
+  searchQuery,
+  setSearchQuery,
 }) => {
-  const [isInputEnabled, setIsInputEnabled] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(' ');
-
   return (
     <View>
       {renderSelectView(
@@ -367,6 +443,10 @@ const CustomPicker = ({
         state,
         setState,
         setSelectedItem,
+        isInputEnabled,
+        setIsInputEnabled,
+        searchQuery,
+        setSearchQuery,
       )}
       {showState
         ? renderDropdown(
@@ -382,6 +462,10 @@ const CustomPicker = ({
             setShowState,
             state,
             setState,
+            isInputEnabled,
+            setIsInputEnabled,
+            searchQuery,
+            setSearchQuery,
           )
         : null}
       <Text>{searchQuery}</Text>
