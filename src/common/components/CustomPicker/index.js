@@ -315,16 +315,15 @@ const renderInputField = (
         onChangeText={text => {
           handleSearch(text, setSearchQuery, data, setFilteredData);
         }}
-        placeholder={selectedItem.value || 'Enter Search Query'}
+        placeholder={selectedItem.value || 'Select A Nutrient'}
+        placeholderTextColor={showState ? null : 'black'}
         onPressIn={() => {
           if (!showState) {
             setShowState(true);
           }
-          setSelectedItem({});
           setFilteredData(data);
         }}
         style={styles.renderInputField}
-        value={selectedItem ? selectedItem.value : null}
       />
     </View>
   );

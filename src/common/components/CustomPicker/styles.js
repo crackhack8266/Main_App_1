@@ -59,7 +59,6 @@ export default StyleSheet.create({
   },
 
   renderInputField: {
-    backgroundColor: 'red',
     width: Dimensions.get('window').width - 100,
   },
 });
