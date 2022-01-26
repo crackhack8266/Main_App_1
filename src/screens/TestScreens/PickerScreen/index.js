@@ -7,13 +7,13 @@ import HideKeyboard from 'components/HideKeyboad';
 const PickerScreen = () => {
   const [showState, setShowState] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const [isMultiple, setIsMultiple] = useState(true);
+  const [isMultiple, setIsMultiple] = useState(false);
   const [multipleSelectedItem, setMultipleSelectedItem] = useState([]);
   const [data, setData] = useState(Constants.NUTRITIONAL_VALUES_DROP_DOWN);
   const [filteredData, setFilteredData] = useState(
     Constants.NUTRITIONAL_VALUES_DROP_DOWN,
   );
-  const [isInputEnabled, setIsInputEnabled] = useState(true);
+  const [isInputEnabled, setIsInputEnabled] = useState(false);
   const [searchQuery, setSearchQuery] = useState(' ');
   const [state, setState] = useState({});
 

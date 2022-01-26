@@ -41,6 +41,7 @@ export default StyleSheet.create({
     backgroundColor: 'grey',
     padding: 12,
     flexDirection: 'row',
+    marginTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
@@ -59,5 +60,10 @@ export default StyleSheet.create({
 
   pickerText: {
     width: Dimensions.get('window').width - 100,
+  },
+  tagsWithView: {
+    flexDirection: 'row',
+    width: Dimensions.get('window').width - 50,
+    flexWrap: 'wrap',
   },
 });
