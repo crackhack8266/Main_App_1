@@ -236,15 +236,15 @@ const renderTags = (
   isMultiple,
 ) => {
   return multipleSelectedItem.length > 0
-    ? multipleSelectedItem.map((id, value) => {
+    ? multipleSelectedItem.map(item => {
         return (
           <View style={styles.tagsView}>
-            <Text style={styles.tagsText}>{value}</Text>
+            <Text style={styles.tagsText}>{item.value}</Text>
             <TouchableOpacity
               onPress={() => {
                 renderFilterList(
-                  id,
-                  value,
+                  item.id,
+                  item.value,
                   multipleSelectedItem,
                   setMultipleSelectedItem,
                 );
