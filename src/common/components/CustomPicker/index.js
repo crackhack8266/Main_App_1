@@ -197,7 +197,7 @@ const renderMultipleSearch = (
   isMultiple,
 ) => {
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
       {renderTags(
         multipleSelectedItem,
         setMultipleSelectedItem,
@@ -235,43 +235,31 @@ const renderTags = (
   selectedItem,
   isMultiple,
 ) => {
-  return multipleSelectedItem.length > 0 ? (
-    <View>
-      <FlatList
-        data={multipleSelectedItem}
-        keyExtractor={item => {
-          return item.id;
-        }}
-        extraData={true}
-        scrollEnabled={false}
-        numColumns={3}
-        horizontal={false}
-        renderItem={({item}) => {
-          return (
-            <View style={styles.tagsView}>
-              <Text style={styles.tagsText}>{item.value}</Text>
-              <TouchableOpacity
-                onPress={() => {
-                  renderFilterList(
-                    item.id,
-                    item.value,
-                    multipleSelectedItem,
-                    setMultipleSelectedItem,
-                  );
-                }}>
-                <Image
-                  source={require('images/close.png')}
-                  style={styles.closeIcon}
-                />
-              </TouchableOpacity>
-            </View>
-          );
-        }}
-      />
-    </View>
-  ) : isMultiple ? null : (
-    renderDefaultPickerText_Multiple(showState, setShowState)
-  );
+  return multipleSelectedItem.length > 0
+    ? multipleSelectedItem.map((id, value) => {
+        return (
+          <View style={styles.tagsView}>
+            <Text style={styles.tagsText}>{value}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                renderFilterList(
+                  id,
+                  value,
+                  multipleSelectedItem,
+                  setMultipleSelectedItem,
+                );
+              }}>
+              <Image
+                source={require('images/close.png')}
+                style={styles.closeIcon}
+              />
+            </TouchableOpacity>
+          </View>
+        );
+      })
+    : isMultiple
+    ? null
+    : renderDefaultPickerText_Multiple(showState, setShowState);
 };
 
 const renderSelectedItem_Text_View = (
@@ -344,13 +332,12 @@ const renderInputField = (
   isMultiple,
 ) => {
   return (
-    <View style={{flexShrink: 1, flexDirection: 'row'}}>
+    <View style={{flexDirection: 'row'}}>
       <TextInput
         onChangeText={text => {
           handleSearch(text, setSearchQuery, data, setFilteredData);
         }}
-        placeholder={selectedItem.value || null}
-        multiline={true}
+        placeholder={selectedItem.value || 'Select'}
         placeholderTextColor={showState ? null : 'black'}
         onPressIn={() => {
           if (!showState) {
@@ -392,6 +379,15 @@ const renderSelectionType = (
         isMultiple,
       );
     }
+    return renderInputField(
+      setSearchQuery,
+      setShowState,
+      showState,
+      data,
+      setFilteredData,
+      selectedItem,
+      isMultiple,
+    );
   } else {
     return renderSelectedItem_Text_View(
       isMultiple,

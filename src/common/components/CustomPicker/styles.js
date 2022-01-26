@@ -2,7 +2,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 export default StyleSheet.create({
   searchView: {
-    width: Dimensions.get('window').width - 40,
+    width: Dimensions.get('window').width,
     marginVertical: 10,
     height: Dimensions.get('window').height - 790,
     borderRadius: 20,
