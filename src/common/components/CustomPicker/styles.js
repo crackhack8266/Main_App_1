@@ -2,7 +2,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 export default StyleSheet.create({
   searchView: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width - 40,
     marginVertical: 10,
     height: Dimensions.get('window').height - 790,
     borderRadius: 20,
@@ -52,7 +52,7 @@ export default StyleSheet.create({
   closeIcon: {
     height: 10,
     width: 10,
-    marginLeft: 10,
+    marginHorizontal: 5,
   },
   selectedItem_Text_View: {
     flexDirection: 'row',
@@ -65,5 +65,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     width: Dimensions.get('window').width - 50,
     flexWrap: 'wrap',
+  },
+  renderIcon: {marginHorizontal: 10},
+  selectedText: {backgroundColor: 'red'},
+  multipleSearchView: {flexDirection: 'row', flexWrap: 'wrap'},
+  arrowIconRoated: {
+    transform: [{rotate: '90deg'}],
+    marginRight: 20,
   },
 });

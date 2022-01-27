@@ -1,44 +1,36 @@
 import React, {useState} from 'react';
 import CustomPicker from 'components/CustomPicker';
 import Constants from 'constants/';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 import HideKeyboard from 'components/HideKeyboad';
+import styles from './styles';
 
 const PickerScreen = () => {
   const [showState, setShowState] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
-  const [isMultiple, setIsMultiple] = useState(false);
+  const [isMultiple, setIsMultiple] = useState(true);
   const [multipleSelectedItem, setMultipleSelectedItem] = useState([]);
   const [data, setData] = useState(Constants.NUTRITIONAL_VALUES_DROP_DOWN);
-  const [filteredData, setFilteredData] = useState(
-    Constants.NUTRITIONAL_VALUES_DROP_DOWN,
-  );
-  const [isInputEnabled, setIsInputEnabled] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(' ');
-  const [state, setState] = useState({});
-
+  const [isInputEnabled, setIsInputEnabled] = useState(true);
   return (
-    <HideKeyboard showState={showState} setShowState={setShowState}>
+    <HideKeyboard setShowState={setShowState}>
       <View style={{flex: 1}}>
         <CustomPicker
           showState={showState}
           setShowState={setShowState}
           selectedItem={selectedItem}
           setSelectedItem={setSelectedItem}
-          isMultiple={isMultiple}
-          setIsMultiple={setIsMultiple}
-          multipleSelectedItem={multipleSelectedItem}
-          setMultipleSelectedItem={setMultipleSelectedItem}
+          // isMultiple={isMultiple}
+          // multipleSelectedItem={multipleSelectedItem}
+          // setMultipleSelectedItem={setMultipleSelectedItem}
           data={data}
-          setData={setData}
-          filteredData={filteredData}
-          setFilteredData={setFilteredData}
-          state={state}
-          setState={setState}
-          isInputEnabled={isInputEnabled}
-          setIsInputEnabled={setIsInputEnabled}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
+          // isInputEnabled={isInputEnabled}
+          //tagViewStyle={styles.tagView}
+          //tagIcon={<Image source={require('images/envelope.png')} />}
+          //tagIconStyle={styles.tagIcon}
+          //tagTextStyle={styles.tagText}
+          //selectedItemStyle={styles.selectedItemView}
+          //placeholderText="Hello Shail Select an Item"
         />
       </View>
     </HideKeyboard>

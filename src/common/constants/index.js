@@ -16,6 +16,7 @@ const Constants = {
   HEADERTITLE: 'Find Your Meals',
   SEARCHTEXT: 'search meal',
   DROPDOWN_TEXT: 'select a nutrient',
+  DEFAULT_DROPDOWN_TEXT: 'Select an Item / Items',
   DROPDOWN_ICON_CONTAINER_STYLE: {
     left: 70,
   },
