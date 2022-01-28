@@ -18,13 +18,13 @@ const PickerScreen = () => {
         <CustomPicker
           showState={showState}
           setShowState={setShowState}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-          // isMultiple={isMultiple}
-          // multipleSelectedItem={multipleSelectedItem}
-          // setMultipleSelectedItem={setMultipleSelectedItem}
+          // selectedItem={selectedItem}
+          // setSelectedItem={setSelectedItem}
+          isMultiple={isMultiple}
+          multipleSelectedItem={multipleSelectedItem}
+          setMultipleSelectedItem={setMultipleSelectedItem}
           data={data}
-          // isInputEnabled={isInputEnabled}
+          isInputEnabled={isInputEnabled}
           //tagViewStyle={styles.tagView}
           //tagIcon={<Image source={require('images/envelope.png')} />}
           //tagIconStyle={styles.tagIcon}
