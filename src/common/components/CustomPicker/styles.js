@@ -4,10 +4,10 @@ export default StyleSheet.create({
   searchView: {
     width: Dimensions.get('window').width - 40,
     marginVertical: 10,
-    height: Dimensions.get('window').height - 790,
+    height: Dimensions.get('window').height - 720,
     borderRadius: 20,
     paddingLeft: 10,
-    paddingVertical: 15,
+    paddingVertical: 10,
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
@@ -63,12 +63,16 @@ export default StyleSheet.create({
   },
   tagsWithView: {
     flexDirection: 'row',
-    width: Dimensions.get('window').width - 50,
+    width: Dimensions.get('window').width - 100,
     flexWrap: 'wrap',
   },
-  renderIcon: {marginHorizontal: 10},
+  renderIcon: {marginHorizontal: 15},
   selectedText: {backgroundColor: 'red'},
-  multipleSearchView: {flexDirection: 'row', flexWrap: 'wrap'},
+  multipleSearchView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: Dimensions.get('window').width - 100,
+  },
   arrowIconRoated: {
     transform: [{rotate: '90deg'}],
     marginRight: 20,

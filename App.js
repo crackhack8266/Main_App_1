@@ -112,6 +112,7 @@ const App = () => {
           component={StyledComponents}
           options={{headerShown: false}}
         />
+
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}

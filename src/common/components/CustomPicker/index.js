@@ -9,7 +9,6 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import Constants from 'constants/';
 import styles from './styles';
 
 const CustomPicker = props => {
@@ -18,26 +17,42 @@ const CustomPicker = props => {
 
   const inputRef = useRef();
 
-  const capitalize_FirstLetterOfWord = pickerText => {
-    return pickerText.charAt(0).toUpperCase() + pickerText.slice(1);
-  };
-
-  const check_SingleSelectedItem_PickerText = props => {
-    if (!props.isMultiple || undefined) {
-      return props.selectedItem.value || Constants.DROPDOWN_TEXT;
-    } else {
-      return null;
+  const renderPickerText = props => {
+    if (
+      props.isMultiple === undefined ||
+      props.isMultiple == null ||
+      !props.isMultiple
+    ) {
+      if (props.isInputEnabled) {
+        if (props.selectedItem.value == null) {
+          return props.placeholderText || props.defaultSelectText;
+        } else {
+          return props.selectedItem.value;
+        }
+      } else {
+        return props.selectedItem.value || props.defaultSelectText;
+      }
+    } else if (props.isMultiple) {
+      if (props.isInputEnabled) {
+        if (props.multipleSelectedItem.length == 0) {
+          if (props.placeholderText == undefined) {
+            return props.defaultSelectText;
+          } else {
+            return props.placeholderText;
+          }
+        }
+      } else {
+        return props.defaultSelectText;
+      }
     }
   };
 
   const renderSelectView = props => {
-    const pickerText = check_SingleSelectedItem_PickerText(props);
+    const pickerText = renderPickerText(props);
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          if (!props.showState) {
-            props.setShowState(true);
-          }
+          update_Show_State(props);
           if (props.isInputEnabled) {
             focus();
           }
@@ -73,7 +88,6 @@ const CustomPicker = props => {
     if (props.isMultiple) {
       renderFilterList(id, value, props);
     } else if (props.selectedItem.id == id) {
-      setFilteredData(props.data);
       props.setSelectedItem({});
     } else {
       props.setShowState(false);
@@ -105,7 +119,8 @@ const CustomPicker = props => {
       } else {
         return <Text>{item.label}</Text>;
       }
-    } else if (props.selectedItem.id == item.id) {
+    }
+    if (props.selectedItem.id == item.id) {
       return selectedItemText(item, props);
     } else {
       return <Text>{item.label}</Text>;
@@ -151,17 +166,12 @@ const CustomPicker = props => {
     );
   };
 
-  const renderDefaultPickerText_Multiple = props => {
-    if (!props.isInputEnabled) {
-      return (
-        <Text
-          onPress={() => {
-            update_Show_State(props);
-          }}>
-          Select Multiple Nutrients
-        </Text>
-      );
-    }
+  const renderPickerTextComponent = props => {
+    return (
+      <Text onPress={() => update_Show_State(props)} style={styles.pickerText}>
+        {renderPickerText(props)}
+      </Text>
+    );
   };
 
   const renderMultipleSearch = props => {
@@ -203,8 +213,8 @@ const CustomPicker = props => {
           </View>
         );
       });
-    } else {
-      return renderDefaultPickerText_Multiple(props);
+    } else if (!props.isInputEnabled) {
+      return renderPickerTextComponent(props);
     }
   };
 
@@ -219,13 +229,7 @@ const CustomPicker = props => {
         </TouchableWithoutFeedback>
       );
     } else {
-      return (
-        <Text
-          onPress={() => update_Show_State(props)}
-          style={styles.pickerText}>
-          {capitalize_FirstLetterOfWord(pickerText)}
-        </Text>
-      );
+      return renderPickerTextComponent(props);
     }
   };
 
@@ -261,33 +265,6 @@ const CustomPicker = props => {
     return <View style={styles.renderIcon}>{renderIconPosition(props)}</View>;
   };
 
-  const setPlaceHolder = () => {
-    if (props.placeholderText) {
-      return props.placeholderText;
-    } else {
-      return DEFAULT_DROPDOWN_TEXT;
-    }
-  };
-
-  const renderPlaceHolder = props => {
-    if (props.isMultiple) {
-      if (props.multipleSelectedItem.length == 0) {
-        return props.placeholderText
-          ? props.placeholderText
-          : 'Search / Select Multiple nutrients';
-      } else {
-        return null;
-      }
-    } else {
-      if (props.selectedItem.value == null) {
-        return props.placeholderText
-          ? props.placeholderText
-          : 'Select / Search a Nutrient';
-      } else {
-        return props.selectedItem.value;
-      }
-    }
-  };
   const handleSearch = (text, props) => {
     const fromatedQuery = text.toLowerCase();
     const newData = props.data.filter(item => {
@@ -295,7 +272,6 @@ const CustomPicker = props => {
       return itemData.indexOf(fromatedQuery) > -1;
     });
     setFilteredData(newData);
-
     setSearchQuery(fromatedQuery);
   };
   const renderInputField = props => {
@@ -305,13 +281,12 @@ const CustomPicker = props => {
         onChangeText={text => {
           handleSearch(text, props);
         }}
-        placeholder={renderPlaceHolder(props)}
+        placeholder={renderPickerText(props)}
         placeholderTextColor={props.showState ? null : 'black'}
         onPressIn={() => {
           if (!props.showState) {
             props.setShowState(true);
           }
-          setFilteredData(props.data);
         }}
       />
     );

@@ -12,25 +12,32 @@ const PickerScreen = () => {
   const [multipleSelectedItem, setMultipleSelectedItem] = useState([]);
   const [data, setData] = useState(Constants.NUTRITIONAL_VALUES_DROP_DOWN);
   const [isInputEnabled, setIsInputEnabled] = useState(true);
+
+  const capitalize_FirstLetterOfWord = pickerText => {
+    return pickerText.charAt(0).toUpperCase() + pickerText.slice(1);
+  };
+
+  const pickerText = 'hello shail select multiple item';
   return (
     <HideKeyboard setShowState={setShowState}>
       <View style={{flex: 1}}>
         <CustomPicker
           showState={showState}
           setShowState={setShowState}
-          // selectedItem={selectedItem}
-          // setSelectedItem={setSelectedItem}
-          isMultiple={isMultiple}
-          multipleSelectedItem={multipleSelectedItem}
-          setMultipleSelectedItem={setMultipleSelectedItem}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+          // isMultiple={isMultiple}
+          // multipleSelectedItem={multipleSelectedItem}
+          // setMultipleSelectedItem={setMultipleSelectedItem}
           data={data}
-          isInputEnabled={isInputEnabled}
+          // isInputEnabled={isInputEnabled}
           //tagViewStyle={styles.tagView}
           //tagIcon={<Image source={require('images/envelope.png')} />}
           //tagIconStyle={styles.tagIcon}
           //tagTextStyle={styles.tagText}
           //selectedItemStyle={styles.selectedItemView}
-          //placeholderText="Hello Shail Select an Item"
+          placeholderText={capitalize_FirstLetterOfWord('pick single')}
+          defaultSelectText={capitalize_FirstLetterOfWord(pickerText)}
         />
       </View>
     </HideKeyboard>
