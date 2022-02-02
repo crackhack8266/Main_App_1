@@ -1,12 +1,12 @@
 import React from 'react';
 import {Keyboard, TouchableWithoutFeedback} from 'react-native';
 
-const HideKeyboard = ({setShowState, children}) => {
+const HideKeyboard = ({setShowDropdown, children}) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
-        setShowState(false);
+        setShowDropdown(false);
       }}>
       {children}
     </TouchableWithoutFeedback>

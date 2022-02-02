@@ -11,134 +11,214 @@ import {
 } from 'react-native';
 import styles from './styles';
 
-const CustomPicker = props => {
-  const [filteredData, setFilteredData] = useState(props.data);
+const CustomPicker = ({
+  showState,
+  setShowState,
+  selectedItem,
+  setSelectedItem,
+  isMultiple,
+  setIsMultiple,
+  multipleSelectedItem,
+  setMultipleSelectedItem,
+  data,
+  setData,
+  isInputEnabled,
+  setIsInputEnabled,
+  tagViewStyle,
+  tagIcon,
+  tagIconStyle,
+  tagTextStyle,
+  selectedItemStyle,
+  placeholderText,
+  defaultSelectText,
+}) => {
+  const [filteredData, setFilteredData] = useState(data);
   const [searchQuery, setSearchQuery] = useState(' ');
 
   const inputRef = useRef();
 
-  const renderPickerText = props => {
-    if (
-      props.isMultiple === undefined ||
-      props.isMultiple == null ||
-      !props.isMultiple
-    ) {
-      if (props.isInputEnabled) {
-        if (props.selectedItem.value == null) {
-          return props.placeholderText || props.defaultSelectText;
+  const renderPickerText = (
+    isMultiple,
+    isInputEnabled,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    multipleSelectedItem,
+  ) => {
+    if (!isMultiple) {
+      if (isInputEnabled) {
+        if (!selectedItem.value) {
+          return placeholderText || defaultSelectText;
         } else {
-          return props.selectedItem.value;
+          return selectedItem.value;
         }
       } else {
-        return props.selectedItem.value || props.defaultSelectText;
+        return selectedItem.value || defaultSelectText;
       }
-    } else if (props.isMultiple) {
-      if (props.isInputEnabled) {
-        if (props.multipleSelectedItem.length == 0) {
-          if (props.placeholderText == undefined) {
-            return props.defaultSelectText;
+    } else if (isMultiple) {
+      if (isInputEnabled) {
+        if (!placeholderText) {
+          return defaultSelectText;
+        } else if (placeholderText) {
+          console.log(multipleSelectedItem > 0);
+          if (multipleSelectedItem.length > 0) {
+            return ' ';
           } else {
-            return props.placeholderText;
+            return 'Shail';
           }
         }
       } else {
-        return props.defaultSelectText;
+        return defaultSelectText;
       }
     }
   };
 
-  const renderSelectView = props => {
-    const pickerText = renderPickerText(props);
+  const renderSelectView = (
+    isMultiple,
+    isInputEnabled,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    multipleSelectedItem,
+    showState,
+    setShowState,
+    setMultipleSelectedItem,
+    tagViewStyle,
+    tagTextStyle,
+    tagIconStyle,
+  ) => {
+    const pickerText = renderPickerText(
+      isMultiple,
+      isInputEnabled,
+      selectedItem,
+      placeholderText,
+      defaultSelectText,
+      isMultiple,
+      multipleSelectedItem,
+    );
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          update_Show_State(props);
-          if (props.isInputEnabled) {
-            focus();
-          }
+          if (!showState) setShowState(true);
+          if (isInputEnabled) focus();
         }}>
         <View style={styles.searchView}>
-          {renderSelectionType(pickerText, props)}
-          {renderIcon(props)}
+          {renderSelectionType(
+            pickerText,
+            showState,
+            setShowState,
+            isMultiple,
+            selectedItem,
+            placeholderText,
+            defaultSelectText,
+            isInputEnabled,
+            multipleSelectedItem,
+            setMultipleSelectedItem,
+            tagViewStyle,
+            tagTextStyle,
+            tagIconStyle,
+          )}
+          {renderIcon(showState, setShowState)}
         </View>
       </TouchableWithoutFeedback>
     );
   };
 
-  const update_Show_State = props => {
-    if (!props.showState) {
-      props.setShowState(true);
+  const renderFilterList = (
+    id,
+    value,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+  ) => {
+    if (multipleSelectedItem.some(itemId => itemId.id == id)) {
+      const newListItem = multipleSelectedItem.filter(item => item.id !== id);
+      return setMultipleSelectedItem(newListItem);
     }
+    setMultipleSelectedItem([...multipleSelectedItem, {id: id, value: value}]);
   };
 
-  const renderFilterList = (id, value, props) => {
-    if (props.multipleSelectedItem.some(itemId => itemId.id == id)) {
-      const newListItem = props.multipleSelectedItem.filter(
-        item => item.id !== id,
+  const update_Selected_Item = (
+    id,
+    value,
+    isMultiple,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    selectedItem,
+    setSelectedItem,
+    setShowState,
+  ) => {
+    if (isMultiple) {
+      renderFilterList(
+        id,
+        value,
+        multipleSelectedItem,
+        setMultipleSelectedItem,
       );
-      return props.setMultipleSelectedItem(newListItem);
-    }
-    props.setMultipleSelectedItem([
-      ...props.multipleSelectedItem,
-      {id: id, value: value},
-    ]);
-  };
-
-  const update_Selected_Item = (id, value, props) => {
-    if (props.isMultiple) {
-      renderFilterList(id, value, props);
-    } else if (props.selectedItem.id == id) {
-      props.setSelectedItem({});
+    } else if (selectedItem.id == id) {
+      setSelectedItem({});
     } else {
-      props.setShowState(false);
-      props.setSelectedItem({id: id, value: value});
+      setShowState(false);
+      setSelectedItem({id: id, value: value});
     }
   };
 
-  const getSelected = (id, props) => {
-    return props.multipleSelectedItem.some(item => item.id == id);
+  const getSelected = (id, multipleSelectedItem) => {
+    return multipleSelectedItem.some(item => item.id == id);
   };
 
-  const selectedItemText = (item, props) => {
+  const selectedItemText = (item, selectedItemStyle) => {
     return (
-      <Text
-        style={
-          props.selectedItemStyle
-            ? props.selectedItemStyle
-            : styles.selectedText
-        }>
+      <Text style={selectedItemStyle ? selectedItemStyle : styles.selectedText}>
         {item.label}
       </Text>
     );
   };
 
-  const checkSelected = (props, item) => {
-    if (props.isMultiple) {
-      if (getSelected(item.id, props)) {
-        return selectedItemText(item, props);
+  const checkSelected = (isMultiple, selectedItemStyle, selectedItem, item) => {
+    if (isMultiple) {
+      if (getSelected(item.id, multipleSelectedItem)) {
+        return selectedItemText(item, selectedItemStyle);
       } else {
         return <Text>{item.label}</Text>;
       }
     }
-    if (props.selectedItem.id == item.id) {
-      return selectedItemText(item, props);
+    if (selectedItem.id == item.id) {
+      return selectedItemText(item, selectedItemStyle);
     } else {
       return <Text>{item.label}</Text>;
     }
   };
 
-  const renderOptionList = (props, item) => {
+  const renderOptionList = (
+    isInputEnabled,
+    isMultiple,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    selectedItem,
+    setSelectedItem,
+    setShowState,
+    item,
+  ) => {
     return (
       <View style={styles.dropdownItem}>
         <TouchableOpacity
           onPress={() => {
-            update_Selected_Item(item.id, item.value, props);
-            if (props.isMultiple && props.isInputEnabled) {
+            update_Selected_Item(
+              item.id,
+              item.value,
+              isMultiple,
+              multipleSelectedItem,
+              setMultipleSelectedItem,
+              selectedItem,
+              setSelectedItem,
+              setShowState,
+            );
+            if (isMultiple && isInputEnabled) {
               focus();
             }
-            setFilteredData(props.data);
+            setFilteredData(data);
           }}>
-          {checkSelected(props, item)}
+          {checkSelected(isMultiple, selectedItemStyle, selectedItem, item)}
 
           <View style={styles.divider}></View>
         </TouchableOpacity>
@@ -146,7 +226,15 @@ const CustomPicker = props => {
     );
   };
 
-  const renderDropdown = props => {
+  const renderDropdown = (
+    isInputEnabled,
+    isMultiple,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    selectedItem,
+    setSelectedItem,
+    setShowState,
+  ) => {
     return (
       <View style={styles.dropdownView}>
         <FlatList
@@ -154,37 +242,102 @@ const CustomPicker = props => {
           keyExtractor={item => {
             return item.id;
           }}
-          extraData={props.selectedItem || props.multipleSelectedItem}
+          extraData={selectedItem || multipleSelectedItem}
           ListEmptyComponent={<Text>No Items Found</Text>}
           renderItem={({item}) => {
             const id = item.id;
             const value = item.value;
-            return renderOptionList(props, item);
+            return renderOptionList(
+              isInputEnabled,
+              isMultiple,
+              multipleSelectedItem,
+              setMultipleSelectedItem,
+              selectedItem,
+              setSelectedItem,
+              setShowState,
+              item,
+            );
           }}
         />
       </View>
     );
   };
 
-  const renderPickerTextComponent = props => {
+  const renderPickerTextComponent = (
+    showState,
+    setShowState,
+    isMultiple,
+    isInputEnabled,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    multipleSelectedItem,
+  ) => {
     return (
-      <Text onPress={() => update_Show_State(props)} style={styles.pickerText}>
-        {renderPickerText(props)}
+      <Text
+        onPress={() => {
+          if (!showState) setShowState(true);
+        }}
+        style={styles.pickerText}>
+        {renderPickerText(
+          isMultiple,
+          isInputEnabled,
+          selectedItem,
+          placeholderText,
+          defaultSelectText,
+          isMultiple,
+          multipleSelectedItem,
+        )}
       </Text>
     );
   };
 
-  const renderMultipleSearch = props => {
+  const renderMultipleSearch = (
+    showState,
+    setShowState,
+    isMultiple,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    isInputEnabled,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    tagViewStyle,
+    tagTextStyle,
+    tagIconStyle,
+  ) => {
     return (
       <View style={styles.multipleSearchView}>
-        {renderTags(props)}
-        {renderInputField(props)}
+        {renderTags(
+          showState,
+          setShowState,
+          isMultiple,
+          selectedItem,
+          placeholderText,
+          defaultSelectText,
+          isInputEnabled,
+          multipleSelectedItem,
+          setMultipleSelectedItem,
+          tagViewStyle,
+          tagTextStyle,
+          tagIconStyle,
+        )}
+        {renderInputField(
+          showState,
+          setShowState,
+          isMultiple,
+          isInputEnabled,
+          selectedItem,
+          placeholderText,
+          defaultSelectText,
+          multipleSelectedItem,
+        )}
       </View>
     );
   };
-  const renderImage = props => {
-    if (props.tagIcon) {
-      return props.tagIcon;
+  const renderImage = tagIcon => {
+    if (tagIcon) {
+      return tagIcon;
     } else {
       return (
         <Image source={require('images/close.png')} style={styles.closeIcon} />
@@ -192,61 +345,154 @@ const CustomPicker = props => {
     }
   };
 
-  const renderTags = props => {
-    if (props.multipleSelectedItem.length > 0) {
-      return props.multipleSelectedItem.map(item => {
+  const renderTags = (
+    showState,
+    setShowState,
+    isMultiple,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    isInputEnabled,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    tagViewStyle,
+    tagTextStyle,
+    tagIconStyle,
+  ) => {
+    if (multipleSelectedItem.length > 0) {
+      return multipleSelectedItem.map(item => {
         return (
-          <View
-            style={props.tagViewStyle ? props.tagViewStyle : styles.tagsView}>
-            <Text
-              style={props.tagTextStyle ? props.tagTextStyle : styles.tagsText}>
+          <View style={tagViewStyle ? tagViewStyle : styles.tagsView}>
+            <Text style={tagTextStyle ? tagTextStyle : styles.tagsText}>
               {item.value}
             </Text>
             <TouchableOpacity
               onPress={() => {
-                renderFilterList(item.id, item.value, props);
+                renderFilterList(
+                  item.id,
+                  item.value,
+                  multipleSelectedItem,
+                  setMultipleSelectedItem,
+                );
               }}>
-              <View style={props.tagIconStyle || styles.closeIcon}>
-                {renderImage(props)}
+              <View style={tagIconStyle || styles.closeIcon}>
+                {renderImage(tagIcon)}
               </View>
             </TouchableOpacity>
           </View>
         );
       });
-    } else if (!props.isInputEnabled) {
-      return renderPickerTextComponent(props);
+    } else if (!isInputEnabled) {
+      return renderPickerTextComponent(
+        showState,
+        setShowState,
+        isMultiple,
+        isInputEnabled,
+        selectedItem,
+        placeholderText,
+        defaultSelectText,
+        isMultiple,
+        multipleSelectedItem,
+      );
     }
   };
 
-  const renderWith_InputDisabled = (pickerText, props) => {
-    if (props.isMultiple) {
+  const renderWith_InputDisabled = (
+    pickerText,
+    showState,
+    setShowState,
+    isMultiple,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    isInputEnabled,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    tagViewStyle,
+    tagTextStyle,
+    tagIconStyle,
+  ) => {
+    if (isMultiple) {
       return (
         <TouchableWithoutFeedback
           onPress={() => {
-            if (!props.showState) props.setShowState(true);
+            if (!showState) setShowState(true);
           }}>
-          <View style={styles.tagsWithView}>{renderTags(props)}</View>
+          <View style={styles.tagsWithView}>
+            {renderTags(
+              showState,
+              setShowState,
+              isMultiple,
+              selectedItem,
+              placeholderText,
+              defaultSelectText,
+              isInputEnabled,
+              multipleSelectedItem,
+              setMultipleSelectedItem,
+              tagViewStyle,
+              tagTextStyle,
+              tagIconStyle,
+            )}
+          </View>
         </TouchableWithoutFeedback>
       );
     } else {
-      return renderPickerTextComponent(props);
+      return renderPickerTextComponent(
+        showState,
+        setShowState,
+        isMultiple,
+        isInputEnabled,
+        selectedItem,
+        placeholderText,
+        defaultSelectText,
+        isMultiple,
+        multipleSelectedItem,
+      );
     }
   };
 
-  const renderWith_InputDisabled_View = (pickerText, props) => {
+  const renderWith_InputDisabled_View = (
+    pickerText,
+    showState,
+    setShowState,
+    isMultiple,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    isInputEnabled,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    tagViewStyle,
+    tagTextStyle,
+    tagIconStyle,
+  ) => {
     return (
       <View style={[styles.selectedItem_Text_View, {flexWrap: 'wrap'}]}>
-        {renderWith_InputDisabled(pickerText, props)}
+        {renderWith_InputDisabled(
+          pickerText,
+          showState,
+          setShowState,
+          isMultiple,
+          selectedItem,
+          placeholderText,
+          defaultSelectText,
+          isInputEnabled,
+          multipleSelectedItem,
+          setMultipleSelectedItem,
+          tagViewStyle,
+          tagTextStyle,
+          tagIconStyle,
+        )}
       </View>
     );
   };
 
-  const renderIconPosition = props => {
-    if (props.showState) {
+  const renderIconPosition = (showState, setShowState) => {
+    if (showState) {
       return (
         <TouchableOpacity
           onPress={() => {
-            props.setShowState(false);
+            setShowState(false);
             Keyboard.dismiss();
           }}>
           <Image
@@ -261,44 +507,115 @@ const CustomPicker = props => {
       );
     }
   };
-  const renderIcon = props => {
-    return <View style={styles.renderIcon}>{renderIconPosition(props)}</View>;
+  const renderIcon = (showState, setShowState) => {
+    return (
+      <View style={styles.renderIcon}>
+        {renderIconPosition(showState, setShowState)}
+      </View>
+    );
   };
 
-  const handleSearch = (text, props) => {
+  const handleSearch = (text, data) => {
     const fromatedQuery = text.toLowerCase();
-    const newData = props.data.filter(item => {
+    const newData = data.filter(item => {
       const itemData = item.value;
       return itemData.indexOf(fromatedQuery) > -1;
     });
     setFilteredData(newData);
     setSearchQuery(fromatedQuery);
   };
-  const renderInputField = props => {
+  const renderInputField = (
+    showState,
+    setShowState,
+    isMultiple,
+    isInputEnabled,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    multipleSelectedItem,
+  ) => {
     return (
       <TextInput
         ref={inputRef}
         onChangeText={text => {
-          handleSearch(text, props);
+          handleSearch(text, data);
         }}
-        placeholder={renderPickerText(props)}
-        placeholderTextColor={props.showState ? null : 'black'}
+        placeholder={renderPickerText(
+          isMultiple,
+          isInputEnabled,
+          selectedItem,
+          placeholderText,
+          defaultSelectText,
+          isMultiple,
+          multipleSelectedItem,
+        )}
+        placeholderTextColor={showState ? null : 'black'}
         onPressIn={() => {
-          if (!props.showState) {
-            props.setShowState(true);
+          if (!showState) {
+            setShowState(true);
           }
         }}
       />
     );
   };
-  const renderSelectionType = (pickerText, props) => {
-    if (props.isInputEnabled) {
-      if (props.isMultiple) {
-        return renderMultipleSearch(props);
+  const renderSelectionType = (
+    pickerText,
+    showState,
+    setShowState,
+    isMultiple,
+    selectedItem,
+    placeholderText,
+    defaultSelectText,
+    isInputEnabled,
+    multipleSelectedItem,
+    setMultipleSelectedItem,
+    tagViewStyle,
+    tagTextStyle,
+    tagIconStyle,
+  ) => {
+    if (isInputEnabled) {
+      if (isMultiple) {
+        return renderMultipleSearch(
+          showState,
+          setShowState,
+          isMultiple,
+          selectedItem,
+          placeholderText,
+          defaultSelectText,
+          isInputEnabled,
+          multipleSelectedItem,
+          setMultipleSelectedItem,
+          tagViewStyle,
+          tagTextStyle,
+          tagIconStyle,
+        );
       }
-      return renderInputField(props);
+      return renderInputField(
+        showState,
+        setShowState,
+        isMultiple,
+        isInputEnabled,
+        selectedItem,
+        placeholderText,
+        defaultSelectText,
+        multipleSelectedItem,
+      );
     } else {
-      return renderWith_InputDisabled_View(pickerText, props);
+      return renderWith_InputDisabled_View(
+        pickerText,
+        showState,
+        setShowState,
+        isMultiple,
+        selectedItem,
+        placeholderText,
+        defaultSelectText,
+        isInputEnabled,
+        multipleSelectedItem,
+        setMultipleSelectedItem,
+        tagViewStyle,
+        tagTextStyle,
+        tagIconStyle,
+      );
     }
   };
 
@@ -308,12 +625,38 @@ const CustomPicker = props => {
 
   return (
     <View>
-      {renderSelectView(props)}
-      {props.showState ? renderDropdown(props) : null}
+      {renderSelectView(
+        isMultiple,
+        isInputEnabled,
+        selectedItem,
+        placeholderText,
+        defaultSelectText,
+        multipleSelectedItem,
+        showState,
+        setShowState,
+        setMultipleSelectedItem,
+        tagViewStyle,
+        tagTextStyle,
+        tagIconStyle,
+      )}
+      {showState
+        ? renderDropdown(
+            isInputEnabled,
+            isMultiple,
+            multipleSelectedItem,
+            setMultipleSelectedItem,
+            selectedItem,
+            setSelectedItem,
+            setShowState,
+          )
+        : null}
     </View>
   );
 };
 
-export default CustomPicker;
+CustomPicker.defaultProps = {
+  isInputEnabled: false,
+  isMultiple: false,
+};
 
-// 342 lines when first review was done
+export default CustomPicker;

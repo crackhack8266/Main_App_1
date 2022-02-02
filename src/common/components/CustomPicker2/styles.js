@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 export default StyleSheet.create({
-  searchView: {
+  selectView: {
     width: Dimensions.get('window').width - 40,
     marginVertical: 10,
     height: 'auto',
@@ -14,14 +14,13 @@ export default StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'space-between',
   },
-  arrowIcon: {
-    marginRight: 20,
-  },
-  dropdownView: {
+
+  dropDown: {
     width: Dimensions.get('window').width - 40,
     backgroundColor: '#fff',
     height: 150,
   },
+
   dropdownItem: {
     marginTop: 10,
     height: 30,
@@ -29,6 +28,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+
   divider: {
     width: '99%',
     alignItems: 'center',
@@ -36,6 +36,7 @@ export default StyleSheet.create({
     backgroundColor: 'grey',
     marginTop: 9,
   },
+  selectedText: {backgroundColor: 'red'},
   tagsView: {
     alignSelf: 'flex-start',
     backgroundColor: 'grey',
@@ -45,37 +46,28 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
+    width: '30%',
   },
   tagsText: {
     color: 'red',
+  },
+  multipleSearchView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: Dimensions.get('window').width - 100,
+  },
+  iconStyle: {
+    marginHorizontal: 15,
+  },
+  arrowIconRoated: {
+    transform: [{rotate: '90deg'}],
   },
   closeIcon: {
     height: 10,
     width: 10,
     marginHorizontal: 5,
   },
-  selectedItem_Text_View: {
-    flexDirection: 'row',
-  },
-
-  pickerText: {
-    width: Dimensions.get('window').width - 100,
+  defaultText: {
     marginVertical: 10,
-  },
-  tagsWithView: {
-    flexDirection: 'row',
-    width: Dimensions.get('window').width - 100,
-    flexWrap: 'wrap',
-  },
-  renderIcon: {marginHorizontal: 15},
-  selectedText: {backgroundColor: 'red'},
-  multipleSearchView: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: Dimensions.get('window').width - 100,
-  },
-  arrowIconRoated: {
-    transform: [{rotate: '90deg'}],
-    marginRight: 20,
   },
 });
