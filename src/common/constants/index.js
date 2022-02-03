@@ -23,6 +23,12 @@ const Constants = {
   TEXT_STYLE: {
     right: 40,
   },
+  MODAL_TYPE: [
+    {id: 1, type: 'basicPopup'},
+    {id: 2, type: 'slidingPopup'},
+    {id: 3, type: 'fullScreenPopup'},
+    {id: 4, type: 'loginPopup'},
+  ],
   NUTRITIONAL_VALUES_DROP_DOWN: [
     {id: 1, label: 'Item 01', value: 'item 01'},
     {id: 2, label: 'Item 02', value: 'item 02'},

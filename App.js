@@ -13,6 +13,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import StyledComponents from 'screens/TestScreens/StyledComponents';
 import ActivityIndicatorScreen from 'screens/TestScreens/ActivityIndicator';
 import PickerScreen from 'screens/TestScreens/PickerScreen';
+import ModalScreen from 'screens/TestScreens/ModalScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -94,7 +95,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="PickerScreen"
+        initialRouteName="ModalScreen"
         screenOptions={{headerShown: false}}>
         <Stack.Screen
           name="BottomTabNavigator"
@@ -121,6 +122,11 @@ const App = () => {
         <Stack.Screen
           name="PickerScreen"
           component={PickerScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ModalScreen"
+          component={ModalScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
