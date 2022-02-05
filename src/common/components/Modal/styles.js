@@ -12,35 +12,30 @@ export default StyleSheet.create({
 
   popupView: {
     width: '60%',
-    height: 'auto',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: 'black',
+    width: '100%',
+  },
+  textInputView: {
+    marginBottom: '2%',
+    marginHorizontal: '1%',
+  },
+  textInput: {borderColor: 'black', borderWidth: 1, marginBottom: '5%'},
+  commanStyle: {
     borderRadius: 10,
     backgroundColor: '#fff',
     elevation: 5,
   },
 
   popupView2: {
-    width: '100%',
     height: 'auto',
-    paddingBottom: '20%',
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
-    backgroundColor: '#fff',
-    elevation: 5,
+    paddingBottom: '10%',
   },
 
   popupView3: {
-    width: '100%',
     height: '100%',
-    borderTopRightRadius: 15,
-    borderTopLeftRadius: 15,
-    backgroundColor: '#fff',
-    elevation: 5,
-  },
-  popupView4: {
-    height: 'auto',
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    elevation: 5,
   },
 
   popupHeaderView: {
@@ -70,6 +65,7 @@ export default StyleSheet.create({
   popupCloseButtons: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+    marginTop: '5%',
   },
   buttonTextStyle: {
     borderRightColor: '#ddd',
@@ -80,5 +76,9 @@ export default StyleSheet.create({
     textAlign: 'center',
     paddingTop: '2%',
     marginBottom: 5,
+  },
+  popupViewStyle: {
+    width: '60%',
+    height: 'auto',
   },
 });

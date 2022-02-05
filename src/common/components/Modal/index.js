@@ -7,95 +7,24 @@ import {
   Image,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Button,
+  FlatList,
 } from 'react-native';
 import styles from './styles';
 
+import Constants from 'constants/';
+
 const Modal = ({
   setShowModal,
-  credentials,
-  setCredentials,
   modalActive,
-  setModalActive,
-  informationModal,
-  listModal,
   title,
-  content,
+  justifyContent,
+  popupViewStyle,
+  basicPopupContent,
+  slidingPopupContent,
+  fullScreenPopupContent,
+  inputPopupContent,
 }) => {
-  // 1. Popup Modal
-
-  const renderPopupModal = (setShowModal, title, content) => {
-    return (
-      <View style={styles.popupView}>
-        {renderTitleAndContent(setShowModal, title, content)}
-        {renderCloseModalButtons(setShowModal)}
-      </View>
-    );
-  };
-
-  // 2. Popup Modal 2 - Comming up from bottom
-
-  const renderPopupModal2 = (setShowModal, title) => {
-    return (
-      <View style={styles.popupView2}>
-        {renderCloseModalIcon(setShowModal)}
-        <Text style={styles.popupTitle}>{title}</Text>
-        {informationModal}
-      </View>
-    );
-  };
-
-  // 3. Popup Modal 3 - Comming up from bottom (fullscreen)
-
-  const renderPopupModal3 = (setShowModal, title) => {
-    return (
-      <View style={styles.popupView3}>
-        {renderCloseModalIcon(setShowModal)}
-        <Text style={styles.popupTitle}>{title}</Text>
-        {listModal}
-      </View>
-    );
-  };
-
-  // 4. Popup Modal 4 - Login - Password
-
-  const renderPopupModal4 = (
-    setShowModal,
-    credentials,
-    setCredentials,
-    title,
-    content,
-  ) => {
-    return (
-      <KeyboardAvoidingView
-        style={{
-          width: '65%',
-        }}>
-        <View style={styles.popupView4}>
-          {renderTitleAndContent(setShowModal, title, content)}
-          <View style={{marginBottom: '10%'}}>
-            {renderInputField(setCredentials)}
-            {renderInputField(setCredentials)}
-          </View>
-
-          {renderCloseModalButtons(setShowModal)}
-        </View>
-      </KeyboardAvoidingView>
-    );
-  };
-
-  // Utilities
-  const renderInputField = setCredentials => {
-    return (
-      <View style={{marginHorizontal: 10, marginTop: 5}}>
-        <TextInput
-          onChangeText={setCredentials}
-          style={{borderColor: 'black', borderWidth: 1}}
-          placeholder="Enter Here"
-        />
-      </View>
-    );
-  };
-
   const renderCloseModalIcon = setShowModal => {
     return (
       <TouchableWithoutFeedback onPress={() => setShowModal(false)}>
@@ -108,92 +37,134 @@ const Modal = ({
       </TouchableWithoutFeedback>
     );
   };
-  const renderCloseModalButtons = setShowModal => {
+  const textOfActionButtons = (actionbuttonText, setShowModal) => {
+    return (
+      <Text style={styles.buttonTextStyle} onPress={() => setShowModal(false)}>
+        {actionbuttonText}
+      </Text>
+    );
+  };
+  const renderModalButtons = setShowModal => {
     return (
       <View style={styles.popupCloseButtons}>
-        <Text
-          style={styles.buttonTextStyle}
-          onPress={() => setShowModal(false)}>
-          Cancel
-        </Text>
-        <Text
-          style={[styles.buttonTextStyle, {borderBottomRightRadius: 8}]}
-          onPress={() => setShowModal(false)}>
-          Ok
-        </Text>
+        {textOfActionButtons('Cancel', setShowModal)}
+        {textOfActionButtons('Ok', setShowModal)}
       </View>
     );
   };
-  const renderTitleAndContent = (setShowModal, title, content) => {
-    return (
-      <>
-        {renderCloseModalIcon(setShowModal)}
-        <Text style={styles.popupTitle}>{title}</Text>
-        <Text style={styles.popupContent}>{content}</Text>
-      </>
-    );
-  };
+
   const renderSwitchCase = (
     setShowModal,
-    credentials,
-    setCredentials,
     modalActive,
-    setModalActive,
-    title,
-    content,
+    basicPopupContent,
+    slidingPopupContent,
+    inputPopupContent,
+    fullScreenPopupContent,
   ) => {
     switch (modalActive.type) {
       case 'basicPopup':
         return (
-          <View style={[styles.modalView, {justifyContent: 'center'}]}>
-            {renderPopupModal(setShowModal, title, content)}
-          </View>
+          <>
+            {basicPopupContent}
+            {renderModalButtons(setShowModal)}
+          </>
         );
-        break;
       case 'slidingPopup':
-        return (
-          <View style={[styles.modalView, {justifyContent: 'flex-end'}]}>
-            {renderPopupModal2(setShowModal, title)}
-          </View>
-        );
-        break;
+        return <>{slidingPopupContent}</>;
       case 'fullScreenPopup':
-        return (
-          <View style={styles.modalView}>
-            {renderPopupModal3(setShowModal, title)}
-          </View>
-        );
-        break;
+        return <>{fullScreenPopupContent}</>;
       case 'loginPopup':
         return (
-          <View style={[styles.modalView, {justifyContent: 'center'}]}>
-            {renderPopupModal4(
-              setShowModal,
-              credentials,
-              setCredentials,
-              title,
-              content,
-            )}
-          </View>
+          <>
+            <Text style={{marginVertical: '7%'}}>
+              Please Enter your email id and password below
+            </Text>
+            {inputPopupContent}
+            {renderModalButtons(setShowModal)}
+          </>
         );
-        break;
-
       default:
         break;
     }
   };
 
-  return renderSwitchCase(
-    setShowModal,
-    credentials,
-    setCredentials,
-    modalActive,
-    setModalActive,
-    title,
-    content,
+  return (
+    <View style={[styles.modalView, {justifyContent: justifyContent}]}>
+      <View style={[popupViewStyle, styles.commanStyle]}>
+        {renderCloseModalIcon(setShowModal)}
+        <Text style={styles.popupTitle}>{title}</Text>
+        {renderSwitchCase(
+          setShowModal,
+          modalActive,
+          basicPopupContent,
+          slidingPopupContent,
+          inputPopupContent,
+          fullScreenPopupContent,
+        )}
+      </View>
+    </View>
+  );
+};
+const defaultBasicPopup = () => {
+  return (
+    <View>
+      <Text style={{fontSize: 24}}>Modal</Text>
+      <Text>Hello sbdaihoihad aid a duada dad ad adadashh</Text>
+    </View>
+  );
+};
+const defaultSlidingPopup = () => {
+  return (
+    <View>
+      <Text>Yooo ! This is default slidingup popup</Text>
+    </View>
+  );
+};
+const defaultFullScreenPopup = () => {
+  return (
+    <View>
+      <FlatList
+        data={Constants.NUTRITIONAL_VALUES_DROP_DOWN}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          return (
+            <View>
+              <Text>{item.value}</Text>
+              <View style={styles.divider} />
+            </View>
+          );
+        }}
+      />
+    </View>
+  );
+};
+const defaultInputPopupContent = () => {
+  return (
+    <View>
+      {renderInputField('Enter Email', false)}
+      {renderInputField('Enter Password', true)}
+    </View>
   );
 };
 
-Modal.defaultProps = {};
+const renderInputField = (placeholder, secureTextEntry) => {
+  return (
+    <View style={styles.textInputView}>
+      <TextInput
+        style={styles.textInput}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+      />
+    </View>
+  );
+};
+Modal.defaultProps = {
+  justifyContent: 'flex-end',
+  secureTextEntry: false,
+  basicPopupContent: defaultBasicPopup(),
+  slidingPopupContent: defaultSlidingPopup(),
+  fullScreenPopupContent: defaultFullScreenPopup(),
+  inputPopupContent: defaultInputPopupContent(),
+};
 
 export default Modal;
