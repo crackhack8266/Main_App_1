@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect, Children} from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,15 @@ import {
   KeyboardAvoidingView,
   Button,
   FlatList,
+  Animated,
 } from 'react-native';
 import styles from './styles';
 
 import Constants from 'constants/';
-
+var globalWidth = 100;
+var globalHeight = 100;
 const Modal = ({
+  showModal,
   setShowModal,
   modalActive,
   title,
@@ -24,10 +27,19 @@ const Modal = ({
   slidingPopupContent,
   fullScreenPopupContent,
   inputPopupContent,
+  isOn,
+  setIsOn,
+  slideDirection,
 }) => {
-  const renderCloseModalIcon = setShowModal => {
+  const renderCloseModalIcon = (setShowModal, isOn, setIsOn) => {
     return (
-      <TouchableWithoutFeedback onPress={() => setShowModal(false)}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setIsOn(false),
+            setTimeout(() => {
+              setShowModal(false);
+            }, 700);
+        }}>
         <View>
           <Image
             source={require('images/close.png')}
@@ -53,55 +65,148 @@ const Modal = ({
     );
   };
 
+  const SlideDirection = ({popupViewStyle, slideDirection, children}) => {
+    if (slideDirection == 'left' || slideDirection == 'right')
+      return (
+        <Animated.View
+          onLayout={event => {
+            const {width} = event.nativeEvent.layout;
+            globalWidth = slideDirection == 'left' ? -width : width;
+          }}
+          style={[
+            popupViewStyle,
+            styles.commanStyle,
+            {transform: [{translateX: horizontalTranslation}]},
+          ]}>
+          {children}
+        </Animated.View>
+      );
+    if (slideDirection == 'top' || slideDirection == 'bottom')
+      return (
+        <Animated.View
+          onLayout={event => {
+            const {height} = event.nativeEvent.layout;
+            globalHeight = slideDirection == 'top' ? -height : height;
+          }}
+          style={[
+            popupViewStyle,
+            styles.commanStyle,
+            {transform: [{translateY: verticalTranslation}]},
+          ]}>
+          {children}
+        </Animated.View>
+      );
+  };
+
   const renderSwitchCase = (
+    isOn,
+    setIsOn,
+    popupViewStyle,
     setShowModal,
     modalActive,
     basicPopupContent,
     slidingPopupContent,
     inputPopupContent,
     fullScreenPopupContent,
+    slideDirection,
   ) => {
     switch (modalActive.type) {
       case 'basicPopup':
         return (
           <>
-            {basicPopupContent}
-            {renderModalButtons(setShowModal)}
+            <SlideDirection
+              popupViewStyle={popupViewStyle}
+              slideDirection={slideDirection}>
+              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
+              <Text style={styles.popupTitle}>{title}</Text>
+              {basicPopupContent}
+              {renderModalButtons(setShowModal)}
+            </SlideDirection>
           </>
         );
       case 'slidingPopup':
-        return <>{slidingPopupContent}</>;
+        return (
+          <>
+            <SlideDirection
+              popupViewStyle={popupViewStyle}
+              slideDirection={slideDirection}>
+              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
+              <Text style={styles.popupTitle}>{title}</Text>
+              {slidingPopupContent}
+            </SlideDirection>
+          </>
+        );
       case 'fullScreenPopup':
-        return <>{fullScreenPopupContent}</>;
+        return (
+          <>
+            <SlideDirection
+              popupViewStyle={popupViewStyle}
+              slideDirection={slideDirection}>
+              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
+              <Text style={styles.popupTitle}>{title}</Text>
+              {fullScreenPopupContent}
+            </SlideDirection>
+          </>
+        );
       case 'loginPopup':
         return (
           <>
-            <Text style={{marginVertical: '7%'}}>
-              Please Enter your email id and password below
-            </Text>
-            {inputPopupContent}
-            {renderModalButtons(setShowModal)}
+            <SlideDirection
+              popupViewStyle={popupViewStyle}
+              slideDirection={slideDirection}>
+              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
+              <Text style={styles.popupTitle}>{title}</Text>
+              <Text style={{marginVertical: '7%'}}>
+                Please Enter your email id and password below
+              </Text>
+              {inputPopupContent}
+              {renderModalButtons(setShowModal)}
+            </SlideDirection>
           </>
         );
       default:
         break;
     }
   };
+  const horizontalTranslation = useRef(
+    isOn ? new Animated.Value(globalWidth) : new Animated.Value(0),
+  ).current;
+
+  const verticalTranslation = useRef(
+    isOn
+      ? globalHeight > 0
+        ? new Animated.Value(globalHeight + 290)
+        : new Animated.Value(globalHeight - 290)
+      : new Animated.Value(0),
+  ).current;
+  Animated.timing(verticalTranslation, {
+    toValue: isOn
+      ? 0
+      : globalHeight > 0
+      ? globalHeight + 340
+      : globalHeight - 340,
+    useNativeDriver: true,
+  }).start();
+
+  Animated.timing(horizontalTranslation, {
+    toValue: isOn ? 0 : globalWidth > 0 ? globalWidth + 90 : globalWidth - 90,
+    useNativeDriver: true,
+  }).start();
 
   return (
     <View style={[styles.modalView, {justifyContent: justifyContent}]}>
-      <View style={[popupViewStyle, styles.commanStyle]}>
-        {renderCloseModalIcon(setShowModal)}
-        <Text style={styles.popupTitle}>{title}</Text>
-        {renderSwitchCase(
-          setShowModal,
-          modalActive,
-          basicPopupContent,
-          slidingPopupContent,
-          inputPopupContent,
-          fullScreenPopupContent,
-        )}
-      </View>
+      {renderSwitchCase(
+        isOn,
+        setIsOn,
+        popupViewStyle,
+        setShowModal,
+        modalActive,
+        basicPopupContent,
+        slidingPopupContent,
+        inputPopupContent,
+        fullScreenPopupContent,
+        slideDirection,
+      )}
     </View>
   );
 };

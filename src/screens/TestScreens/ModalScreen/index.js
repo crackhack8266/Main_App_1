@@ -10,6 +10,7 @@ const ModalScreen = () => {
   const [showModal, setShowModal] = useState(false);
   const [credentials, setCredentials] = useState('');
   const [modalActive, setModalActive] = useState([]);
+  const [isOn, setIsOn] = useState(true);
 
   const title = 'Modal';
 
@@ -69,6 +70,7 @@ const ModalScreen = () => {
           <TouchableOpacity
             onPress={() => {
               setShowModal(true),
+                setIsOn(true),
                 setModalActive({id: item.id, type: item.type});
             }}>
             <Text style={styles.popupText}>Show Popup</Text>
@@ -116,47 +118,63 @@ const ModalScreen = () => {
   const modalForBasicPopup = setShowModal => {
     return (
       <Modal
+        showModal={showModal}
         setShowModal={setShowModal}
         modalActive={modalActive}
         title={title}
         justifyContent={'center'}
         popupViewStyle={styles.popupViewStyle}
         basicPopupContent={basicPopupContent}
+        isOn={isOn}
+        setIsOn={setIsOn}
+        slideDirection={'bottom'}
       />
     );
   };
   const modalForSlidingPopup = setShowModal => {
     return (
       <Modal
+        showModal={showModal}
         setShowModal={setShowModal}
         modalActive={modalActive}
         title={title}
         justifyContent={'flex-end'}
         popupViewStyle={styles.slidingViewStyle}
+        isOn={isOn}
+        setIsOn={setIsOn}
+        slideDirection={'bottom'}
       />
     );
   };
   const modalForFullScreenPopup = setShowModal => {
     return (
       <Modal
+        showModal={showModal}
         setShowModal={setShowModal}
         modalActive={modalActive}
         title={title}
         justifyContent={'flex-start'}
         popupViewStyle={styles.fullScreenViewStyle}
         fullScreenPopupContent={fullScreenPopupContent}
+        isOn={isOn}
+        setIsOn={setIsOn}
+        slideDirection={'bottom'}
       />
     );
   };
   const modalForLoginPopup = setShowModal => {
     return (
       <Modal
+        showModal={showModal}
         setShowModal={setShowModal}
         modalActive={modalActive}
         title={title}
         justifyContent={'center'}
         popupViewStyle={styles.popupViewStyle}
         inputPopupContent={inputPopupContent}
+        isOn={isOn}
+        setIsOn={setIsOn}
+        slideDirection={'top'}
       />
     );
   };
