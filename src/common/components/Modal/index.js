@@ -249,6 +249,7 @@ Modal.defaultProps = {
   fullScreenPopupContent: defaultFullScreenPopup(),
   inputPopupContent: defaultInputPopupContent(),
   closable: true,
+  isFooter: true,
 };
 
 export default Modal;
