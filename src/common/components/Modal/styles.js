@@ -28,6 +28,9 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 5,
   },
+  subHeadingText: {
+    marginVertical: '7%',
+  },
 
   popupView2: {
     height: 'auto',

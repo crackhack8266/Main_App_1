@@ -14,7 +14,7 @@ import {
 import styles from './styles';
 
 import Constants from 'constants/';
-var globalWidth = 100;
+var globalWidth = -100;
 var globalHeight = 100;
 const Modal = ({
   showModal,
@@ -30,41 +30,81 @@ const Modal = ({
   isOn,
   setIsOn,
   slideDirection,
+  closable,
+  isFooter,
 }) => {
-  const renderCloseModalIcon = (setShowModal, isOn, setIsOn) => {
+  // 3 Main Functions:
+  // 1. header
+  // 2. body
+  // 3.footer
+  const renderHeader = (setShowModal, isOn, setIsOn, closable) => {
     return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          setIsOn(false),
-            setTimeout(() => {
-              setShowModal(false);
-            }, 700);
-        }}>
-        <View>
-          <Image
-            source={require('images/close.png')}
-            style={styles.closeIcon}
-          />
+      <>
+        {closable && (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              setIsOn(false),
+                setTimeout(() => {
+                  setShowModal(false);
+                }, 600);
+            }}>
+            <View>
+              <Image
+                source={require('images/close.png')}
+                style={styles.closeIcon}
+              />
+            </View>
+          </TouchableWithoutFeedback>
+        )}
+        <Text style={styles.popupTitle}>{title}</Text>
+      </>
+    );
+  };
+  const renderBody = (
+    basicPopupContent,
+    slidingPopupContent,
+    inputPopupContent,
+    fullScreenPopupContent,
+  ) => {
+    switch (modalActive.type) {
+      case 'basicPopup':
+        return <>{basicPopupContent}</>;
+      case 'slidingPopup':
+        return <>{slidingPopupContent}</>;
+      case 'fullScreenPopup':
+        return <>{fullScreenPopupContent}</>;
+      case 'loginPopup':
+        return (
+          <>
+            <Text style={styles.subHeadingText}>
+              Please Enter your email id and password below
+            </Text>
+            {inputPopupContent}
+          </>
+        );
+      default:
+        break;
+    }
+  };
+  const renderFooter = (setShowModal, isFooter) => {
+    if (isFooter)
+      return (
+        <View style={styles.popupCloseButtons}>
+          <Text
+            style={styles.buttonTextStyle}
+            onPress={() => setShowModal(false)}>
+            Cancel
+          </Text>
+          <Text
+            style={styles.buttonTextStyle}
+            onPress={() => setShowModal(false)}>
+            Ok
+          </Text>
         </View>
-      </TouchableWithoutFeedback>
-    );
-  };
-  const textOfActionButtons = (actionbuttonText, setShowModal) => {
-    return (
-      <Text style={styles.buttonTextStyle} onPress={() => setShowModal(false)}>
-        {actionbuttonText}
-      </Text>
-    );
-  };
-  const renderModalButtons = setShowModal => {
-    return (
-      <View style={styles.popupCloseButtons}>
-        {textOfActionButtons('Cancel', setShowModal)}
-        {textOfActionButtons('Ok', setShowModal)}
-      </View>
-    );
+      );
   };
 
+  // Component
   const SlideDirection = ({popupViewStyle, slideDirection, children}) => {
     if (slideDirection == 'left' || slideDirection == 'right')
       return (
@@ -98,74 +138,15 @@ const Modal = ({
       );
   };
 
-  const renderSwitchCase = (
-    isOn,
-    setIsOn,
-    popupViewStyle,
-    setShowModal,
-    modalActive,
-    basicPopupContent,
-    slidingPopupContent,
-    inputPopupContent,
-    fullScreenPopupContent,
-    slideDirection,
-  ) => {
-    switch (modalActive.type) {
-      case 'basicPopup':
-        return (
-          <>
-            <SlideDirection
-              popupViewStyle={popupViewStyle}
-              slideDirection={slideDirection}>
-              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
-              <Text style={styles.popupTitle}>{title}</Text>
-              {basicPopupContent}
-              {renderModalButtons(setShowModal)}
-            </SlideDirection>
-          </>
-        );
-      case 'slidingPopup':
-        return (
-          <>
-            <SlideDirection
-              popupViewStyle={popupViewStyle}
-              slideDirection={slideDirection}>
-              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
-              <Text style={styles.popupTitle}>{title}</Text>
-              {slidingPopupContent}
-            </SlideDirection>
-          </>
-        );
-      case 'fullScreenPopup':
-        return (
-          <>
-            <SlideDirection
-              popupViewStyle={popupViewStyle}
-              slideDirection={slideDirection}>
-              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
-              <Text style={styles.popupTitle}>{title}</Text>
-              {fullScreenPopupContent}
-            </SlideDirection>
-          </>
-        );
-      case 'loginPopup':
-        return (
-          <>
-            <SlideDirection
-              popupViewStyle={popupViewStyle}
-              slideDirection={slideDirection}>
-              {renderCloseModalIcon(setShowModal, isOn, setIsOn)}
-              <Text style={styles.popupTitle}>{title}</Text>
-              <Text style={{marginVertical: '7%'}}>
-                Please Enter your email id and password below
-              </Text>
-              {inputPopupContent}
-              {renderModalButtons(setShowModal)}
-            </SlideDirection>
-          </>
-        );
-      default:
-        break;
+  // Utilities
+  const selectToValue = dimension => {
+    if (dimension == 'height') {
+      if (globalHeight > 0) return globalHeight + 1000;
+      return globalHeight - 1000;
+    }
+    if (dimension == 'width') {
+      if (globalWidth > 0) return globalWidth + 180;
+      return globalWidth - 180;
     }
   };
   const horizontalTranslation = useRef(
@@ -173,43 +154,39 @@ const Modal = ({
   ).current;
 
   const verticalTranslation = useRef(
-    isOn
-      ? globalHeight > 0
-        ? new Animated.Value(globalHeight + 290)
-        : new Animated.Value(globalHeight - 290)
-      : new Animated.Value(0),
+    isOn ? new Animated.Value(selectToValue('height')) : new Animated.Value(0),
   ).current;
+
   Animated.timing(verticalTranslation, {
-    toValue: isOn
-      ? 0
-      : globalHeight > 0
-      ? globalHeight + 340
-      : globalHeight - 340,
+    toValue: isOn ? 0 : selectToValue('height'),
     useNativeDriver: true,
   }).start();
 
   Animated.timing(horizontalTranslation, {
-    toValue: isOn ? 0 : globalWidth > 0 ? globalWidth + 90 : globalWidth - 90,
+    toValue: isOn ? 0 : selectToValue('width'),
     useNativeDriver: true,
   }).start();
 
   return (
     <View style={[styles.modalView, {justifyContent: justifyContent}]}>
-      {renderSwitchCase(
-        isOn,
-        setIsOn,
-        popupViewStyle,
-        setShowModal,
-        modalActive,
-        basicPopupContent,
-        slidingPopupContent,
-        inputPopupContent,
-        fullScreenPopupContent,
-        slideDirection,
-      )}
+      <SlideDirection
+        popupViewStyle={popupViewStyle}
+        slideDirection={slideDirection}>
+        {renderHeader(setShowModal, isOn, setIsOn, closable)}
+        {renderBody(
+          basicPopupContent,
+          slidingPopupContent,
+          inputPopupContent,
+          fullScreenPopupContent,
+        )}
+        {console.log(isFooter)}
+        {renderFooter(setShowModal, isFooter)}
+      </SlideDirection>
     </View>
   );
 };
+
+//Default Popups.
 const defaultBasicPopup = () => {
   return (
     <View>
@@ -251,7 +228,6 @@ const defaultInputPopupContent = () => {
     </View>
   );
 };
-
 const renderInputField = (placeholder, secureTextEntry) => {
   return (
     <View style={styles.textInputView}>
@@ -263,6 +239,8 @@ const renderInputField = (placeholder, secureTextEntry) => {
     </View>
   );
 };
+
+//Default Props
 Modal.defaultProps = {
   justifyContent: 'flex-end',
   secureTextEntry: false,
@@ -270,6 +248,7 @@ Modal.defaultProps = {
   slidingPopupContent: defaultSlidingPopup(),
   fullScreenPopupContent: defaultFullScreenPopup(),
   inputPopupContent: defaultInputPopupContent(),
+  closable: true,
 };
 
 export default Modal;

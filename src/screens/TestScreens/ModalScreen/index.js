@@ -13,6 +13,7 @@ const ModalScreen = () => {
   const [isOn, setIsOn] = useState(true);
 
   const title = 'Modal';
+  const closable = false;
 
   const basicPopupContent = [
     <Text>
@@ -40,11 +41,7 @@ const ModalScreen = () => {
 
   const inputPopupContent = [
     <View>
-      <TextInput
-        onChangeText={setCredentials}
-        style={styles.textInput}
-        placeholder="Enter Your Name"
-      />
+      <TextInput style={styles.textInput} placeholder="Enter Your Name" />
     </View>,
   ];
 
@@ -127,7 +124,8 @@ const ModalScreen = () => {
         basicPopupContent={basicPopupContent}
         isOn={isOn}
         setIsOn={setIsOn}
-        slideDirection={'bottom'}
+        slideDirection={'left'}
+        isFooter={true}
       />
     );
   };
@@ -142,7 +140,8 @@ const ModalScreen = () => {
         popupViewStyle={styles.slidingViewStyle}
         isOn={isOn}
         setIsOn={setIsOn}
-        slideDirection={'bottom'}
+        slideDirection={'left'}
+        isFooter={false}
       />
     );
   };
@@ -158,7 +157,8 @@ const ModalScreen = () => {
         fullScreenPopupContent={fullScreenPopupContent}
         isOn={isOn}
         setIsOn={setIsOn}
-        slideDirection={'bottom'}
+        slideDirection={'left'}
+        isFooter={false}
       />
     );
   };
@@ -174,7 +174,8 @@ const ModalScreen = () => {
         inputPopupContent={inputPopupContent}
         isOn={isOn}
         setIsOn={setIsOn}
-        slideDirection={'top'}
+        slideDirection={'left'}
+        isFooter={true}
       />
     );
   };
