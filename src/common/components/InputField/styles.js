@@ -1,44 +1,38 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  inputPassField: {
+  inputField: {
     height: 50,
     width: 299,
-    marginLeft: 15,
-    marginRight: -30,
-    paddingTop: 16,
-    paddingRight: 19,
-    paddingBottom: 15,
+    marginLeft: 17.1,
+    marginRight: 17.7,
+    paddingTop: 19,
+    paddingBottom: 17,
+    fontSize: 14,
+    paddingRight: 55,
     paddingLeft: 20,
     backgroundColor: '#f9f8f8',
+    fontFamily: 'ProximaNova-Regular',
     alignSelf: 'center',
-    borderRadius: 50,
+    borderRadius: 25,
   },
-  inputEmailField: {
-    height: 50,
-    width: 299,
-    marginHorizontal: 15,
-    paddingTop: 16,
-    paddingRight: 19,
-    paddingBottom: 15,
-    paddingLeft: 20,
-    backgroundColor: '#f9f8f8',
-    alignSelf: 'center',
-    borderRadius: 50,
-  },
+
   titleText: {
-    marginLeft: 15,
+    marginLeft: 17,
     fontSize: 16,
+    marginTop: 21.2,
     color: '#232222',
-    marginVertical: 15,
+    marginBottom: 12.3,
     fontFamily: 'ProximaNova-Regular',
   },
   inputFieldView: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+
   icon: {
     width: 15.2,
-    height: 13,
+    height: 9.8,
+    marginLeft: -58.7,
   },
 });

@@ -1,9 +1,17 @@
 import React, {useState} from 'react';
-import {StatusBar, View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  StatusBar,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import styles from './styles';
-import {Input} from '../../common/components/InputField';
-import {CustomButton} from '../../common/components/Button';
-import Constants from '../../common/constants';
+import {Input} from 'components/InputField';
+import CustomButton from 'components/Button';
+import Constants from 'constants';
 
 const renderLoginHeader = () => {
   return (
@@ -22,22 +30,60 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
       <Text style={styles.loginHeader}>Login</Text>
       <View style={styles.horizontalDivider}></View>
       <Input
-        set={setInputEmail}
+        setChangeText={setInputEmail}
+        secureTextEntry={false}
+        source={false}
         titletext={Constants.EMAILFIELDIDENTIFICATIONSTRING}
+        circularField={true}
+        keyboardType="default"
+        value={null}
+        styleprop={null}
       />
       <Input
-        set={setInputPassword}
+        setChangeText={setInputPassword}
+        secureTextEntry={true}
+        source={true}
         titletext={Constants.PASSWORDFIELDIDENTIFICATIONSTRING}
+        circularField={true}
+        keyboardType="default"
+        value={null}
+        styleprop={null}
       />
       <TouchableOpacity onPress={null}>
         <Text style={styles.forgotPassText}>Forgot Password?</Text>
       </TouchableOpacity>
-      <CustomButton buttitle={Constants.LOGINBUTTONTEXT} />
+      <CustomButton
+        buttonTitle={Constants.LOGINBUTTONTEXT.toUpperCase()}
+        navigator={'null'}
+        route="BottomTabNavigator"
+        setState={null}
+        isNavigation={true}
+        icon={null}
+      />
       <Text style={styles.orText}> OR</Text>
-      <CustomButton buttitle={Constants.LOGINWITHFACEBOOKBUTTONTEXT} />
+
+      <CustomButton
+        buttonTitle={Constants.LOGINWITHFACEBOOKBUTTONTEXT.toUpperCase()}
+        navigator="null"
+        route="null"
+        setState={null}
+        isNavigation={true}
+        bgColor="#ffffff"
+        elevation={3}
+        color="#232222"
+        fontFamily="ProximaNova-Semibold"
+        icon={
+          <Image
+            source={require('../../common/assets/facebookicon.png')}
+            style={{height: 20.2, width: 20.2, marginHorizontal: 13}}
+          />
+        }
+        left={true}
+      />
+
       <View style={styles.registerView}>
         <Text style={styles.registerTextNormal}>Don't have an account?</Text>
-        <TouchableOpacity onPress={null}>
+        <TouchableOpacity>
           <Text style={styles.registerTextBold}>REGISTER</Text>
         </TouchableOpacity>
       </View>
@@ -46,13 +92,16 @@ const renderLoginBody = (setInputEmail, setInputPassword) => {
 };
 
 const Login = () => {
+  const screenHeight = Dimensions.get('window').height;
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   return (
     <View style={styles.parentContainer}>
       <StatusBar barStyle="light-content" backgroundColor={'#4e4e4e'} />
-      {renderLoginHeader()}
-      {renderLoginBody(setInputEmail, setInputPassword)}
+      <View style={{height: screenHeight + 85}}>
+        {renderLoginHeader()}
+        {renderLoginBody(setInputEmail, setInputPassword)}
+      </View>
     </View>
   );
 };

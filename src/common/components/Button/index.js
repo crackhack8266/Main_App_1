@@ -1,52 +1,79 @@
-import React from 'react';
-import {Image, View, Text, TouchableOpacity} from 'react-native';
-import styles from './styles';
-import Constants from '../../constants';
-
+import React, {useState} from 'react';
+import {ButtonView, ButtonText} from './styles';
+import {View, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-export const CustomButton = ({buttitle}) => {
+const CustomButton = ({
+  buttonTitle,
+  navigator,
+  route,
+  setState,
+  isNavigation,
+  height,
+  marginBottom,
+  width,
+  bgColor,
+  elevation,
+  fontSize,
+  marginVertical,
+  lineHeight,
+  letterSpacing,
+  color,
+  fontFamily,
+  icon,
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigation = useNavigation();
-
-  const renderCustomButton = (buttitle, navigation) => {
-    if (buttitle == Constants.LOGINBUTTONTEXT) {
-      return (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ProfileScreen');
-          }}>
-          <View style={styles.loginButtonView}>
-            <Text style={styles.buttonTextForLogin}>
-              {buttitle.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    } else if (buttitle == Constants.LOGINWITHFACEBOOKBUTTONTEXT) {
-      return (
-        <TouchableOpacity>
-          <View style={styles.facebookLoginButtonView}>
-            <Image
-              source={require('../../assets/facebookicon.png')}
-              style={styles.facebookIcon}
-            />
-            <Text style={styles.buttonTextForFacebookLogin}>
-              {buttitle.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <TouchableOpacity>
-          <View style={styles.viewDetailsButtonView}>
-            <Text style={styles.buttonTextForViewDetails}>View Details</Text>
-          </View>
-          <Text style={styles.underlinedText}>Don't show again</Text>
-        </TouchableOpacity>
-      );
-    }
+  const checkNavigator = (navigator, route) => {
+    if (navigator != 'null')
+      return navigation.navigate(navigator, {screen: route});
+    navigation.navigate(route);
   };
 
-  return <View>{renderCustomButton(buttitle, navigation)}</View>;
+  const checkNavigation = (isNavigation, navigator, route) => {
+    setDisabled(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      if (isNavigation) return checkNavigator(navigator, route);
+      setState(false);
+    }, 3000);
+  };
+
+  const isIcon = icon => {
+    if (icon != null) return icon;
+    return null;
+  };
+
+  const renderLoading = () => {
+    return <ActivityIndicator animating={true} color={'#fff'} size={'small'} />;
+  };
+
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={() => checkNavigation(isNavigation, navigator, route)}
+        disabled={disabled}>
+        <ButtonView
+          height={height}
+          width={width}
+          elevation={elevation}
+          marginBottom={marginBottom}
+          bgColor={bgColor}
+          disabled={disabled}>
+          {isIcon(icon)}
+          <ButtonText
+            fontSize={fontSize}
+            marginVertical={marginVertical}
+            lineHeight={lineHeight}
+            letterSpacing={letterSpacing}
+            color={color}
+            fontFamily={fontFamily}>
+            {isLoading ? renderLoading() : buttonTitle}
+          </ButtonText>
+        </ButtonView>
+      </TouchableOpacity>
+    </View>
+  );
 };
+export default CustomButton;

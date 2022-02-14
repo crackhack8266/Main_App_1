@@ -9,11 +9,15 @@ export default StyleSheet.create({
   splashImage: {
     width: 375,
     height: 311,
-    top: 145,
+    marginTop: 100,
+    marginBottom: 261,
   },
   splashText: {
     fontSize: 24,
-    top: 356,
+    marginLeft: 130,
+    textAlign: 'left',
+    marginRight: 112,
     color: '#000000',
+    fontFamily: 'ProximaNova-Regular',
   },
 });
